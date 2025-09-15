@@ -1,4 +1,4 @@
-export const route = [
+const data = [
     {
         title: "reports",
         path: "/",
@@ -6,37 +6,39 @@ export const route = [
     },
     {
         title: "products",
-        path: "products",
+        path: "/products",
         icon: "",
     },
     {
         title: "products_category",
-        path: "products_category",
+        path: "/products_category",
         icon: "",
     },
     {
         title: "clients",
-        path: "clients",
+        path: "/clients",
         icon: "",
     },
     {
         title: "employees",
-        path: "employees",
+        path: "/employees",
         icon: "",
     },
     {
         title: "contracts",
-        path: "contracts",
+        path: "/contracts",
         icon: "",
     },
     {
         title: "additional_expense",
-        path: "additional_expense",
+        path: "/additional_expense",
         icon: "",
     },
     {
         title: "settings",
-        path: "settings",
+        path: "/settings",
         icon: "",
     },
 ];
+
+export { data };
