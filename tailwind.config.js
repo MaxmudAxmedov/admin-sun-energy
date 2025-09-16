@@ -11,7 +11,6 @@ export default {
         icons: "var(--icons-colors)",
         button: "var(--button-colors)",
         background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
       },
     },
   },

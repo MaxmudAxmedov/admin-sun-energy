@@ -7,7 +7,7 @@ export default function MainLayout() {
     <div className="flex">
       <Navbar />
 
-      <div>
+      <div className="text-active">
         {/* HEADER dynamic */}
         <Outlet />
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta, facere?
