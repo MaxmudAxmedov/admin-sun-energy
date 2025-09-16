@@ -1,4 +1,11 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
 .active {
-    color: red;
-    background-color: #fff;
+  color: var(--active-text);
+  padding-right:25px ;
+  border-radius: 12px;
+ 
 }

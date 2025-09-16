@@ -6,9 +6,9 @@
   /* aside and border colors and description */
   --aside-color: #e0e5e9;
   /* text active color  */
-  --active-text: #055b65;
+  --active-text: #27272A;
   /* icons color and chegirmadagi narxlar uchun  */
-  --icons-colors: #1bd488;
+  --icons-colors: #F97316;
   /* active button or disabled button colors  */
   --active-button: #b2c9c5;
   /* button colors  */
@@ -17,6 +17,7 @@
   --black: #101010;
   /* red color  */
   --red: red;
+  --box-shadow:#F0F0F1;
 }
 
 .dark {

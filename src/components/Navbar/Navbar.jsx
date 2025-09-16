@@ -1,23 +1,42 @@
 import React from "react";
 import { data } from "./data";
-import { NavLink } from "react-router-dom";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { NavLink, useLocation } from "react-router-dom";
 
 export default function Navbar() {
-    return (
-        <ul className="p-5 bg-emerald-600">
-            {data.map((item, index) => {
-                return (
-                    <li key={index}>
-                        <NavLink to={item.path}>{item.title}</NavLink>
-                    </li>
-                );
-            })}
-            <Button variant="outline">Button</Button>
-            <Button className={'px-10 py-6'} variant="destructive" onClick={(e) => console.log(e.target)}>Button</Button>
-
-            <Input type="text" />
-        </ul>
-    );
+  const location = useLocation();
+  return (
+    <ul className="p-5 w-[400px]  h-[100vh] bg-[var(--background)] list-none">
+      {data.map((item, index) => {
+        const Icons = item.icon;
+        return (
+          <li className="mb-1" key={index}>
+            <NavLink
+              to={item.path}
+              className={({ isActive }) =>
+                `flex items-center gap-1  no-underline rounded-xl  pt-2  transition-all duration-500 ease-in-out
+                ${
+                  isActive
+                    ? "text-[var(--active-text)] shadow-md"
+                    : "text-[var(--black)]"
+                }`
+              }
+            >
+              {" "}
+              <div
+                className={`w-12 h-10  p-3  rounded-md  pt-2 m-2 transition-all duration-500 ease-in-out
+                ${
+                  location.pathname === item.path
+                    ? "bg-[var(--icons-colors)] text-[var(--background)]"
+                    : "bg-[var( --icons-colors)] text-[var(--black)]"
+                }`}
+              >
+                {Icons && <Icons />}
+              </div>{" "}
+              {item.title}
+            </NavLink>
+          </li>
+        );
+      })}
+    </ul>
+  );
 }
