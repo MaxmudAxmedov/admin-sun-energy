@@ -1,4 +1,28 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
 .active {
-    color: red;
-    background-color: #fff;
+  color: var(--active-text);
+  padding-right:25px ;
+  border-radius: 12px;
+ 
+}
+
+
+.navbar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.navbar-scroll::-webkit-scrollbar-track {
+  background: var(--background);
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.navbar-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--active-button); 
+  border-radius: 10px; 
+  border: 1px solid transparent; 
 }
