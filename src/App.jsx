@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import { route } from "./routes/route";
 import "./App.css";
-import ThemeMode from "./components/theme/theme-mode";
 export default function App() {
   return (
     <>
@@ -14,7 +13,7 @@ export default function App() {
           })}
         </Route>
       </Routes>
-      <ThemeMode />
+     
     </>
   );
 }

@@ -1,47 +1,59 @@
 import React from "react";
 import { data } from "./data";
 import { NavLink, useLocation } from "react-router-dom";
-import logo_img from "../../assets/img/logo_img.jpg"
+import logo_img from "../../assets/img/logo_img.jpg";
+import { useTranslation } from "react-i18next";
 export default function Navbar() {
   const location = useLocation();
+  const { t } = useTranslation();
   return (
-    <div className="w-[270px] h-[100vh] overflow-y-auto overflow-x-hidden navbar-scroll bg-[var(--background)]">
-        <NavLink to={"/"} className={"w-[100%]"} >
-        <img className="w-[120px] ml-3" src={logo_img} alt="" />
-        </NavLink>
-    <ul className="p-5 w-[400px]  h-[100vh] bg-[var(--background)] list-none">
-      {data.map((item, index) => {
-        const Icons = item.icon;
-        return (
-          <li className="mb-1" key={index}>
-            <NavLink
-              to={item.path}
-              className={({ isActive }) =>
-                `flex items-center gap-1  no-underline rounded-xl w-[240px] pt-2  transition-all duration-500 ease-in-out
+    <div className="w-[270px] h-[100vh] overflow-hidden bg-[var(--background)]">
+      <NavLink
+        to={"/"}
+        className={"w-[100%] flex no-underline items-center  gap-3"}
+      >
+        <img
+          className="w-[60px] ml-2 mt-[10px] rounded-md"
+          src={logo_img}
+          alt="img"
+        />
+        <h3 className="flex items-center text-[var(--black)] gap-1 mt-[10px] no-underline rounded-xl w-[200px]   transition-all duration-500 ease-in-out">
+          SUN ENERGIY
+        </h3>
+      </NavLink>
+      <ul className="p-5 w-[340px]  h-[100vh] bg-[var(--background)] list-none">
+        {data.map((item, index) => {
+          const Icons = item.icon;
+          return (
+            <li className="mb-1" key={index}>
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  `flex items-center gap-1  no-underline rounded-xl w-[200px]   transition-all duration-500 ease-in-out
                 ${
                   isActive
                     ? "text-[var(--active-text)] shadow-md"
                     : "text-[var(--black)]"
                 }`
-              }
-            >
-              {" "}
-              <div
-                className={`w-12 h-10  p-3  rounded-md  pt-2 m-2 transition-all duration-500 ease-in-out
+                }
+              >
+                {" "}
+                <div
+                  className={`w-10 h-10  p-2  rounded-md  pt-2 m-2 transition-all duration-500 ease-in-out
                 ${
                   location.pathname === item.path
                     ? "bg-[var(--icons-colors)] text-[var(--background)] shadow-md"
                     : "bg-[var( --icons-colors)] text-[var(--black)]"
                 }`}
-              >
-                {Icons && <Icons />}
-              </div>{" "}
-              {item.title}
-            </NavLink>
-          </li>
-        );
-      })}
-    </ul>
+                >
+                  {Icons && <Icons />}
+                </div>{" "}
+                {t(item.title)}
+              </NavLink>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

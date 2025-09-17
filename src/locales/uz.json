@@ -1,3 +1,10 @@
 {
-    "reports": "Reports"
+  "reports": "Hisobotlar",
+  "products": "Mahsulotlar",
+  "products_category": "Mahsulot Kategoriyalari",
+  "clients": "Mijozlar",
+  "employees": "Hodimlar",
+  "contracts": "Shartnomalar",
+  "additional_expense": "Qo‘shimcha Xarajatlar",
+  "settings": "Sozlamalar"
 }

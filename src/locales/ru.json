@@ -1,3 +1,10 @@
 {
-    "reports": "Reports"
+  "reports": "Отчёты",
+  "products": "Продукты",
+  "products_category": "Категории Продуктов",
+  "clients": "Клиенты",
+  "employees": "Сотрудники",
+  "contracts": "Контракты",
+  "additional_expense": "Дополнительные Расходы",
+  "settings": "Настройки"
 }
