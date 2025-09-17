@@ -3,21 +3,18 @@ import { Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import { route } from "./routes/route";
 import "./App.css";
+import ThemeMode from "./components/theme/theme-mode";
 export default function App() {
-    return (
-        <>
-            <Routes>
-                <Route path="/" element={<MainLayout />}>
-                    {route.map((rout) => {
-                        return (
-                            <Route
-                                path={rout.path}
-                                element={<h1>{rout.title}</h1>}
-                            />
-                        );
-                    })}
-                </Route>
-            </Routes>
-        </>
-    );
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          {route.map((rout) => {
+            return <Route path={rout.path} element={<h1>{rout.title}</h1>} />;
+          })}
+        </Route>
+      </Routes>
+      <ThemeMode />
+    </>
+  );
 }
