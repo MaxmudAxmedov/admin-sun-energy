@@ -1,19 +1,20 @@
 import React from "react";
 import Navbar from "../components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
+import { Header } from "@/components/header/header";
 
 export default function MainLayout() {
   return (
-    <div className="flex">
-      <Navbar />
-
-      <div className="text-active">
-        {/* HEADER dynamic */}
-        <Outlet />
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta, facere?
-        Aut non eligendi quae sunt laudantium numquam vel. Earum est autem nemo
-        ut accusamus tempora, repellat pariatur consequuntur in sunt.
+    <div className="flex gap-2">
+      <div className="w-[280px] ">
+        <Navbar />
       </div>
+        <div>
+          <Header/>
+          <div className="text-active mt-2">
+        <Outlet />
+      </div>
+        </div>
     </div>
   );
 }
