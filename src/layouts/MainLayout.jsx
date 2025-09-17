@@ -1,12 +1,13 @@
 import React from "react";
 import Navbar from "../components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
+import { ProdectTable } from "@/components/Product/prodect-table";
 
 export default function MainLayout() {
   return (
-    <div className="flex">
+    <div className="flex flex-col">
       <Navbar />
-
+      <ProdectTable />
       <div className="text-active">
         {/* HEADER dynamic */}
         <Outlet />
