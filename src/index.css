@@ -14,7 +14,7 @@
   /* button colors  */
   --button-colors: #45828b;
   /* text colors  */
-  --black: #101010;
+  --black: #010409;
   /* red color  */
   --red: red;
   --box-shadow: #F0F0F1;
@@ -51,5 +51,6 @@
   /* red */
   --red: #ef4444;
   /* Tailwind red-500 — dark modeda yaxshi ko‘rinadi */
+  --box-shadow: #0f0f0f;
 
 }

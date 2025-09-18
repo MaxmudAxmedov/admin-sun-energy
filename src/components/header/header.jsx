@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import ThemeMode from "../theme/theme-mode";
+import DataTable from "../table";
 export const Header = () => {
   return (
     <header className="py-7">
