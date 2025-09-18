@@ -5,16 +5,16 @@ import { Header } from "@/components/header/header";
 
 export default function MainLayout() {
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-row gap-2">
       <div className="w-[280px] ">
         <Navbar />
       </div>
-        <div>
-          <Header/>
-          <div className="text-active mt-2">
-        <Outlet />
-      </div>
+      <div>
+        <Header />
+        <div className="text-active mt-2">
+          <Outlet />
         </div>
+      </div>
     </div>
   );
 }
