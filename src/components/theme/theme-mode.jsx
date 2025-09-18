@@ -26,7 +26,7 @@ export default function ThemeMode() {
         <SelectTrigger className="w-[90px]">
           <SelectValue placeholder="Theme " />
         </SelectTrigger>
-        <SelectContent className="text-[var(--black)]"> 
+        <SelectContent> 
           <SelectItem value="light">Light</SelectItem>
           <SelectItem value="dark">Dark</SelectItem>
         </SelectContent>
