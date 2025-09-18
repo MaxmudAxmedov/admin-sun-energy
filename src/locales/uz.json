@@ -6,5 +6,9 @@
   "employees": "Hodimlar",
   "contracts": "Shartnomalar",
   "additional_expense": "Qo‘shimcha Xarajatlar",
-  "settings": "Sozlamalar"
+  "settings": "Sozlamalar",
+ "select_language": "Tilni tanlang",
+  "language_en": "Inglizcha",
+  "language_uz": "O'zbekcha",
+  "language_ru": "Ruscha"
 }

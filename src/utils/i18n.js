@@ -17,8 +17,8 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: localStorage.getItem("lang") || settings.defaultLanguage,
-
+  lng: localStorage.getItem("lang") || settings.defaultLanguage || "en",
+  fallbackLng: "en",
   keySeparator: false,
 
   interpolation: {

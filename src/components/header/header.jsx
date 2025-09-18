@@ -18,7 +18,7 @@ export const Header = () => {
   return (
     <header className="py-7 flex justify-between px-3 ">
       <div className="flex gap-8 items-center ">
-       
+       <ThemeMode/>
          <Select onValueChange={handlerChange} defaultValue={localStorage.getItem("lang") || ("uz")} >
           <SelectTrigger>
             <SelectValue placeholder=" Tilni tanlang " />

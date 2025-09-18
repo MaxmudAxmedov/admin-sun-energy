@@ -10,10 +10,9 @@ export default function MainLayout() {
         <Navbar />
       </div>
       <div className="text-active mt-2 w-[100%]">
-             <Header />
-          <Outlet />
+        <Header />
+        <Outlet />
       </div>
-      
     </div>
   );
 }

@@ -7,7 +7,7 @@ export default function Navbar() {
   const location = useLocation();
   const { t } = useTranslation();
   return (
-    <div className="w-[270px] h-[100vh] overflow-hidden bg-[var(--background)]">
+    <div className="w-[270px] h-[100vh] overflow-hidden ">
       <NavLink
         to={"/"}
         className={"w-[100%] flex no-underline items-center  gap-3"}
@@ -17,7 +17,7 @@ export default function Navbar() {
           src={logo_img}
           alt="img"
         />
-        <h3 className="flex items-center text-[var(--black)] gap-1 mt-[10px] no-underline rounded-xl w-[200px]   transition-all duration-500 ease-in-out">
+        <h3 className="flex items-center text-aside gap-1 mt-[10px] no-underline rounded-xl w-[200px]   transition-all duration-500 ease-in-out">
           SUN ENERGIY
         </h3>
       </NavLink>
@@ -48,7 +48,7 @@ export default function Navbar() {
                 >
                   {Icons && <Icons />}
                 </div>{" "}
-                {t(item.title)}
+                {t(item.title.toLowerCase())}
               </NavLink>
             </li>
           );
