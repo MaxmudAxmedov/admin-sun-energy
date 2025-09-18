@@ -1,15 +1,15 @@
 import React from "react";
 import { data } from "./data";
 import { NavLink, useLocation } from "react-router-dom";
-import logo_img from "../../assets/img/logo_img.jpg";
+import logo_img from "../../assets/img/logo_img.png";
 export default function Navbar() {
   const location = useLocation();
   return (
-    <div className="w-[270px] h-[100vh] overflow-y-auto overflow-x-hidden navbar-scroll bg-[var(--background)]">
-      <NavLink to={"/"} className={"w-[100%]"}>
-        <img className="w-[120px] ml-3" src={logo_img} alt="" />
+    <div className="w-[270px] h-[100vh] overflow-y-auto overflow-hidden navbar-scroll bg-[var(--background)]">
+      <NavLink to={"/"} className={"w-[100%] flex justify-center mt-4"}>
+        <img className="w-[100px] ml-3" src={logo_img} alt="" />
       </NavLink>
-      <ul className="p-5 w-[400px]  h-[100vh] bg-[var(--background)] list-none">
+      <ul className="p-5 w-[400px]  h-[90vh] bg-[var(--background)] list-none">
         {data.map((item, index) => {
           const Icons = item.icon;
           return (

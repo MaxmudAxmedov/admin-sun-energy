@@ -40,3 +40,40 @@ export const ProdectTable = ({ colums, data, footer }) => {
     </div>
   );
 };
+
+// import { useForm } from 'react-hook-form';
+
+// const FileUploadForm = () => {
+//   const { register, handleSubmit, watch } = useForm();
+//   const selectedFile = watch("image");
+
+//   const onSubmit = (data) => {
+//     // Handle file upload logic
+//     console.log(data.image[0]);
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit(onSubmit)}>
+//       <input
+//         type="file"
+//         {...register("image", {
+//           required: "Please select an image",
+//           validate: {
+//             fileSize: (value) => {
+//               if (!value[0]) return true;
+//               return value[0].size <= 2000000 || "File size must be less than 2MB";
+//             },
+//             fileType: (value) => {
+//               if (!value[0]) return true;
+//               return (
+//                 ["image/jpeg", "image/png", "image/gif"].includes(value[0].type) ||
+//                 "Only JPEG, PNG, and GIF files are allowed"
+//               );
+//             },
+//           },
+//         })}
+//       />
+//       <button type="submit">Upload</button>
+//     </form>
+//   );
+// };
