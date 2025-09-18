@@ -13,23 +13,22 @@ import i18n from "@/utils/i18n";
 export const Header = () => {
   const handlerChange = (lang)=>{
     i18n.changeLanguage(lang)
-  
+  localStorage.setItem("lang", lang)
   }
   return (
     <header className="py-7 flex justify-between px-3 ">
-        {/* <ThemeMode /> */}
-      <div>
-        
-        <Select onValueChange={handlerChange}>
+      <div className="flex gap-8 items-center ">
+       
+         <Select onValueChange={handlerChange} defaultValue={localStorage.getItem("lang") || ("uz")} >
           <SelectTrigger>
             <SelectValue placeholder=" Tilni tanlang " />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="uz">Uz O‘zbekcha</SelectItem>
-            <SelectItem value="ru">Ru Русский</SelectItem>
-            <SelectItem value="en">En English</SelectItem>
+          <SelectContent className="text-[var(--black)]">
+            <SelectItem value="uz" >Uz O‘zbekcha</SelectItem>
+            <SelectItem value="ru" >Ru Русский</SelectItem>
+            <SelectItem value="en" >En English</SelectItem>
           </SelectContent>
-        </Select>
+        </Select> 
       </div>
       <div className=" flex gap-2 items-center">
         <Input placeholder={"search..."} className="w-[300px]" />
