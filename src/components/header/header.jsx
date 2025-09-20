@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import ThemeMode from "../theme/theme-mode";
+<<<<<<< HEAD
 import {
   Select,
   SelectContent,
@@ -34,6 +35,21 @@ export const Header = () => {
           </SelectContent>
         </Select> 
       </div>
+=======
+export const Header = () => {
+  return (
+    <header className="py-7">
+      <div>
+        lorem
+        <Button>D</Button>
+        <Button>L</Button>
+      </div>
+      <div className=" flex gap-2 items-center">
+        <Input placeholder={"search..."} />
+        <Button>send</Button>
+      </div>
+      <ThemeMode />
+>>>>>>> f41ee9ff46934b87444fc85ca20d742cb3ed787b
     </header>
   );
 };

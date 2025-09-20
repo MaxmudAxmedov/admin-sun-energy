@@ -13,7 +13,10 @@ export default function App() {
           })}
         </Route>
       </Routes>
+<<<<<<< HEAD
      
+=======
+>>>>>>> f41ee9ff46934b87444fc85ca20d742cb3ed787b
     </>
   );
 }
