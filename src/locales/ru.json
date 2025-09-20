@@ -1,4 +1,14 @@
 {
-  "reports": "Отчёты"
- 
+  "reports": "Отчеты",
+  "products": "Товары",
+  "products_category": "Категория товаров",
+  "clients": "Клиенты",
+  "employees": "Сотрудники",
+  "contracts": "Контракты",
+  "additional_expense": "Дополнительные расходы",
+  "settings": "Настройки",
+  "selectLanguage": "Выберите язык",
+  "language_en": "Английский",
+  "language_uz": "Узбекский",
+  "language_ru": "Русский"
 }

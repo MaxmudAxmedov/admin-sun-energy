@@ -16,8 +16,12 @@ export const Header = () => {
   localStorage.setItem("lang", lang)
   }
   return (
-    <header className="py-7 flex justify-between px-3 ">
-      <div className="flex gap-8 items-center ">
+    <header className="py-7 flex justify-between px-3">
+     
+      <div className=" flex gap-2 items-center">
+        <Input placeholder={"search..."} className="w-[300px]" />
+      </div>
+       <div className="flex gap-8 items-center ">
        <ThemeMode/>
          <Select onValueChange={handlerChange} defaultValue={localStorage.getItem("lang") || ("uz")} >
           <SelectTrigger>
@@ -29,10 +33,6 @@ export const Header = () => {
             <SelectItem value="en" >En English</SelectItem>
           </SelectContent>
         </Select> 
-      </div>
-      <div className=" flex gap-2 items-center">
-        <Input placeholder={"search..."} className="w-[300px]" />
-        <Button>send</Button>
       </div>
     </header>
   );

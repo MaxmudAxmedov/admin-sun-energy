@@ -1,7 +1,7 @@
 import React from "react";
 import { data } from "./data";
 import { NavLink, useLocation } from "react-router-dom";
-import logo_img from "../../assets/img/logo_img.jpg";
+import logo_img from "../../assets/img/logo_img.png";
 import { useTranslation } from "react-i18next";
 export default function Navbar() {
   const location = useLocation();
