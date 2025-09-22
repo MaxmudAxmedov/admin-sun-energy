@@ -26,5 +26,5 @@ i18n.use(initReactI18next).init({
   },
 });
 
-export default i18n;
+// export default i18n;
 export const { t, changeLanguage, language } = i18n;
