@@ -1,3 +1,14 @@
 {
-    "reports": "Reports"
+  "reports": "Reports",
+  "products": "Products",
+  "products_category": "Products Category",
+  "clients": "Clients",
+  "employees": "Employees",
+  "contracts": "Contracts",
+  "additional_expense": "Additional Expense",
+  "settings": "Settings",
+  "selectLanguage": "Select language",
+  "language_en": "English",
+  "language_uz": "Uzbek",
+  "language_ru": "Russian"
 }

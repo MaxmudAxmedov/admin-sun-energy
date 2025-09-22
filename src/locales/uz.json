@@ -1,3 +1,14 @@
 {
-    "reports": "Reports"
+  "reports": "Hisobotlar",
+  "products": "Mahsulotlar",
+  "products_category": "Mahsulotlar kategoriyasi",
+  "clients": "Mijozlar",
+  "employees": "Xodimlar",
+  "contracts": "Shartnomalar",
+  "additional_expense": "Qo'shimcha xarajat",
+  "settings": "Sozlamalar",
+  "selectLanguage": "Tilni tanlang",
+  "language_en": "Inglizcha",
+  "language_uz": "O'zbekcha",
+  "language_ru": "Ruscha"
 }

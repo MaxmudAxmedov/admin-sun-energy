@@ -8,46 +8,22 @@ import { Reports_icons } from "@/assets/icons/respons_icons";
 import { Setings_icons } from "@/assets/icons/setings_icons";
 
 const data = [
+  { title: "Reports", path: "/", icon: Reports_icons },
+  { title: "Products", path: "/products", icon: Card_icons },
   {
-    title: "reports",
-    path: "/",
-    icon: Reports_icons,
-  },
-  {
-    title: "products",
-    path: "/products",
-    icon: Card_icons,
-  },
-  {
-    title: "products_category",
+    title: "Products Category",
     path: "/products_category",
     icon: Product_categoriya_icons,
   },
+  { title: "Clients", path: "/clients", icon: Cilents_icons },
+  { title: "Employees", path: "/employees", icon: Employs_icnos },
+  { title: "Contracts", path: "/contracts", icon: Contacts },
   {
-    title: "clients",
-    path: "/clients",
-    icon: Cilents_icons,
-  },
-  {
-    title: "employees",
-    path: "/employees",
-    icon: Employs_icnos,
-  },
-  {
-    title: "contracts",
-    path: "/contracts",
-    icon: Contacts,
-  },
-  {
-    title: "additional_expense",
+    title: "Additional Expense",
     path: "/additional_expense",
     icon: Additional_expense,
   },
-  {
-    title: "settings",
-    path: "/settings",
-    icon: Setings_icons,
-  },
+  { title: "Settings", path: "/settings", icon: Setings_icons },
 ];
 
 export { data };

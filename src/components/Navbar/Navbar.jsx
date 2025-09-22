@@ -2,14 +2,26 @@ import React from "react";
 import { data } from "./data";
 import { NavLink, useLocation } from "react-router-dom";
 import logo_img from "../../assets/img/logo_img.png";
+import { useTranslation } from "react-i18next";
 export default function Navbar() {
   const location = useLocation();
+  const { t } = useTranslation();
   return (
-    <div className="w-[270px] h-[100vh] overflow-y-auto overflow-hidden navbar-scroll bg-[var(--background)]">
-      <NavLink to={"/"} className={"w-[100%] flex justify-center mt-4"}>
-        <img className="w-[100px] ml-3" src={logo_img} alt="" />
+    <div className="w-[270px] h-[100vh] overflow-hidden ">
+      <NavLink
+        to={"/"}
+        className={"w-[100%] flex no-underline items-center  gap-3"}
+      >
+        <img
+          className="w-[60px] ml-2 mt-[10px] rounded-md"
+          src={logo_img}
+          alt="img"
+        />
+        <h3 className="flex items-center text-aside gap-1 mt-[10px] no-underline rounded-xl w-[200px]   transition-all duration-500 ease-in-out">
+          SUN ENERGIY
+        </h3>
       </NavLink>
-      <ul className="p-5 w-[400px]  h-[90vh] bg-[var(--background)] list-none">
+      <ul className="p-5 w-[340px]  h-[100vh] bg-[var(--background)] list-none">
         {data.map((item, index) => {
           const Icons = item.icon;
           return (
@@ -17,7 +29,7 @@ export default function Navbar() {
               <NavLink
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center gap-1  no-underline rounded-xl w-[240px] pt-2  transition-all duration-500 ease-in-out
+                  `flex items-center gap-1  no-underline rounded-xl w-[200px]   transition-all duration-500 ease-in-out
                 ${
                   isActive
                     ? "text-[var(--active-text)] shadow-md"
@@ -27,7 +39,7 @@ export default function Navbar() {
               >
                 {" "}
                 <div
-                  className={`w-12 h-10  p-3  rounded-md  pt-2 m-2 transition-all duration-500 ease-in-out
+                  className={`w-10 h-10  p-2  rounded-md  pt-2 m-2 transition-all duration-500 ease-in-out
                 ${
                   location.pathname === item.path
                     ? "bg-[var(--icons-colors)] text-[var(--background)] shadow-md"
@@ -36,7 +48,7 @@ export default function Navbar() {
                 >
                   {Icons && <Icons />}
                 </div>{" "}
-                {item.title}
+                {t(item.title.toLowerCase())}
               </NavLink>
             </li>
           );
