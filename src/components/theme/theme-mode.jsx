@@ -22,15 +22,12 @@ export default function ThemeMode() {
   }, [theme]);
   return (
     <div>
-      <Select  value={theme} onValueChange={(value) => setTheme(value)}>
+      <Select value={theme} onValueChange={(value) => setTheme(value)}>
         <SelectTrigger className="w-[90px]">
           <SelectValue placeholder="Theme " />
         </SelectTrigger>
-<<<<<<< HEAD
-        <SelectContent> 
-=======
-        <SelectContent className={"bg-[#fff]"}>
->>>>>>> f41ee9ff46934b87444fc85ca20d742cb3ed787b
+
+        <SelectContent>
           <SelectItem value="light">Light</SelectItem>
           <SelectItem value="dark">Dark</SelectItem>
         </SelectContent>
