@@ -7,9 +7,9 @@ const settings = {
   defaultLanguage: "en",
   staleTime: 1000 * 60 * 2,
   idleTimeout: 3000,
-//   project: {
-//     logo,
-//   },
+  //   project: {
+  //     logo,
+  //   },
   languages: [
     {
       name: "English",
