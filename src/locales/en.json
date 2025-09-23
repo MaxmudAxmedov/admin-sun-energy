@@ -1,11 +1,11 @@
 {
   "reports": "Reports",
   "products": "Products",
-  "products_category": "Products Category",
+  "pcategory": "Products Category",
   "clients": "Clients",
   "employees": "Employees",
   "contracts": "Contracts",
-  "additional_expense": "Additional Expense",
+  "aexpense": "Additional Expense",
   "settings": "Settings",
   "selectLanguage": "Select language",
   "language_en": "English",

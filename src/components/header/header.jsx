@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import ThemeMode from "../theme/theme-mode";
+import i18n from "@/utils/i18n"; 
 import {
   Select,
   SelectContent,
@@ -10,10 +11,10 @@ import {
   SelectValue,
 } from "../ui/select";
 export const Header = () => {
-  // const handlerChange = (lang)=>{
-  //   i18n.changeLanguage(lang)
-  // localStorage.setItem("lang", lang)
-  // }
+  const handlerChange = (lang)=>{
+    i18n.changeLanguage(lang)
+  localStorage.setItem("lang", lang)
+  }
   return (
     <header className="py-7 flex justify-between px-3">
      
@@ -22,7 +23,7 @@ export const Header = () => {
       </div>
        <div className="flex gap-8 items-center ">
        <ThemeMode/>
-         <Select defaultValue={localStorage.getItem("lang") || ("uz")} >
+         <Select  defaultValue={localStorage.getItem("lang") || ("en")}   onValueChange={(lang) => handlerChange(lang)} >
           <SelectTrigger>
             <SelectValue placeholder=" Tilni tanlang " />
           </SelectTrigger>
