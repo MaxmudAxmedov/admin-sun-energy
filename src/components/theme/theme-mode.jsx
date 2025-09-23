@@ -24,7 +24,7 @@ export default function ThemeMode() {
     <div>
       <Select value={theme} onValueChange={(value) => setTheme(value)}>
         <SelectTrigger className="w-[90px]">
-          <SelectValue placeholder="Theme" />
+          <SelectValue placeholder="Theme " />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="light">Light</SelectItem>

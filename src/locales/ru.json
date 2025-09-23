@@ -1,3 +1,14 @@
 {
-    "reports": "Reports"
+  "reports": "Отчеты",
+  "products": "Товары",
+  "pcategory": "Категория товаров",
+  "clients": "Клиенты",
+  "employees": "Сотрудники",
+  "contracts": "Контракты",
+  "aexpense": "Дополнительные расходы",
+  "settings": "Настройки",
+  "selectLanguage": "Выберите язык",
+  "language_en": "Английский",
+  "language_uz": "Узбекский",
+  "language_ru": "Русский"
 }
