@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "./ui/button";
 
-// Dynamic DataTable Component
 export default function DataTable({ columns, apiUrl }) {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit] = useState(5); // nechta row ko‘rsatish
+  const [limit] = useState(10);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  // Fetch data from API
   const fetchData = async () => {
     setLoading(true);
     try {
       const res = await fetch(`${apiUrl}?_page=${page}&_limit=${limit}`);
-      const totalCount = res.headers.get("X-Total-Count"); // jsonplaceholder API’da mavjud
+      const totalCount = res.headers.get("X-Total-Count");
       const result = await res.json();
       setData(result);
       setTotal(totalCount ? parseInt(totalCount) : 0);
@@ -28,7 +25,6 @@ export default function DataTable({ columns, apiUrl }) {
     fetchData();
   }, [page]);
 
-  // Pagination controls
   const totalPages = Math.ceil(total / limit);
 
   return (
