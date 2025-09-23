@@ -11,7 +11,7 @@ const data = [
   { title: "Reports", path: "/", icon: Reports_icons },
   { title: "Products", path: "/products", icon: Card_icons },
   {
-    title: "Products Category",
+    title: "pcategory",
     path: "/products_category",
     icon: Product_categoriya_icons,
   },
@@ -19,7 +19,7 @@ const data = [
   { title: "Employees", path: "/employees", icon: Employs_icnos },
   { title: "Contracts", path: "/contracts", icon: Contacts },
   {
-    title: "Additional Expense",
+    title: "aexpense",
     path: "/additional_expense",
     icon: Additional_expense,
   },
