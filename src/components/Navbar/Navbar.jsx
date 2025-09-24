@@ -2,8 +2,10 @@ import React from "react";
 import { data } from "./data";
 import { NavLink, useLocation } from "react-router-dom";
 import logo_img from "../../assets/img/logo_img.png";
+import { useTranslation } from "react-i18next";
 export default function Navbar() {
     const location = useLocation();
+     const { t } = useTranslation();
     return (
         <div className="w-[270px] h-[100vh] overflow-hidden ">
             <NavLink
@@ -45,7 +47,7 @@ export default function Navbar() {
                                 >
                                     {Icons && <Icons />}
                                 </div>{" "}
-                                {item.title}
+                                 {t(item.title.toLowerCase())}
                             </NavLink>
                         </li>
                     );
