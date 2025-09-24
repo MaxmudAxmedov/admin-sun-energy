@@ -8,8 +8,12 @@ import {
     SelectItem,
     SelectValue,
 } from "../ui/select";
+import i18n from "@/utils/i18n";
 export const Header = () => {
-
+ const handlerChange = (lang)=>{
+    i18n.changeLanguage(lang)
+  localStorage.setItem("lang", lang)
+  }
     return (
         <header className="py-7 flex justify-between px-3">
             <div className=" flex gap-2 items-center">
@@ -17,8 +21,8 @@ export const Header = () => {
             </div>
             <div className="flex gap-8 items-center ">
                 <ThemeMode />
-                <Select>
-                    <SelectTrigger>
+                <Select defaultValue={localStorage.getItem("lang") || ("en")}   onValueChange={(lang) => handlerChange(lang)}>
+                    <SelectTrigger >
                         <SelectValue placeholder=" Tilni tanlang " />
                     </SelectTrigger>
                     <SelectContent className="text-[var(--black)]">
