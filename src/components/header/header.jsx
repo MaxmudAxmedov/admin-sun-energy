@@ -15,14 +15,14 @@ export const Header = () => {
   localStorage.setItem("lang", lang)
   }
     return (
-        <header className="py-7 flex justify-between px-3">
+        <header className=" py-7 flex items-center justify-between px-3">
             <div className=" flex gap-2 items-center">
-                <Input placeholder={"search..."} className="w-[300px]" />
+                <Input placeholder={"search..."} className="w-[300px] border-none shadow-md " />
             </div>
             <div className="flex gap-8 items-center ">
-                <ThemeMode />
+                <ThemeMode/>
                 <Select defaultValue={localStorage.getItem("lang") || ("en")}   onValueChange={(lang) => handlerChange(lang)}>
-                    <SelectTrigger >
+                    <SelectTrigger className="border-none" >
                         <SelectValue placeholder=" Tilni tanlang " />
                     </SelectTrigger>
                     <SelectContent className="text-[var(--black)]">

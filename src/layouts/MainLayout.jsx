@@ -9,7 +9,7 @@ export default function MainLayout() {
       <div className="w-[280px] ">
         <Navbar />
       </div>
-      <div>
+      <div className="w-[100%]">
         <Header />
         <div className="text-active mt-2">
           <Outlet />

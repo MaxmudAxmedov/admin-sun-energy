@@ -13,15 +13,15 @@ export default function Navbar() {
                 className={"w-[100%] flex no-underline items-center  gap-3"}
             >
                 <img
-                    className="w-[60px] ml-2 mt-[10px] rounded-md"
+                    className="w-[60px]  ml-2 mt-[10px] rounded-md"
                     src={logo_img}
                     alt="img"
                 />
-                <h3 className="flex items-center text-aside gap-1 mt-[10px] no-underline rounded-xl w-[200px]   transition-all duration-500 ease-in-out">
-                    SUN ENERGIY
+                <h3 className="flex items-center text-aside gap-1 mt-[10px] no-underline rounded-xl w-[200px]   transition-all duration-500 ease-in-out text-[17px] ">
+                    {t("SUN")}
                 </h3>
             </NavLink>
-            <ul className="p-5 w-[340px]  h-[100vh] bg-[var(--background)] list-none">
+            <ul className="p-5 w-[340px]  h-[100vh] text-background list-none">
                 {data.map((item, index) => {
                     const Icons = item.icon;
                     return (
@@ -32,8 +32,8 @@ export default function Navbar() {
                                     `flex items-center gap-1  no-underline rounded-xl w-[200px]   transition-all duration-500 ease-in-out
                 ${
                     isActive
-                        ? "text-[var(--active-text)] shadow-md"
-                        : "text-[var(--black)]"
+                        ? "text-active shadow-md"
+                        : "text-black"
                 }`
                                 }
                             >
@@ -41,8 +41,8 @@ export default function Navbar() {
                                     className={`w-10 h-10  p-2  rounded-md  pt-2 m-2 transition-all duration-500 ease-in-out
                 ${
                     location.pathname === item.path
-                        ? "bg-[var(--icons-colors)] text-[var(--background)] shadow-md"
-                        : "bg-[var( --icons-colors)] text-[var(--black)]"
+                        ? "bg-icons text-background shadow-md"
+                        : "bg-white text-icons"
                 }`}
                                 >
                                     {Icons && <Icons />}
