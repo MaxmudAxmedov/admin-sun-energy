@@ -5,11 +5,11 @@ import { Header } from "@/components/header/header";
 
 export default function MainLayout() {
   return (
-    <div className="flex flex-row gap-2">
-      <div className="w-[280px] ">
+    <div className="flex justify-between">
+      <div className="w-2/12">
         <Navbar />
       </div>
-      <div>
+      <div className="w-10/12">
         <Header />
         <div className="text-active mt-2">
           <Outlet />
