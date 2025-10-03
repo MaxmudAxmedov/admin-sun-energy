@@ -7,7 +7,7 @@ export default function Navbar() {
     const location = useLocation();
      const { t } = useTranslation();
     return (
-        <div className="w-[270px] h-[100vh] overflow-hidden ">
+        <div className="w-[100%] h-[100vh] overflow-hidden ">
             <NavLink
                 to={"/"}
                 className={"w-[100%] flex no-underline items-center  gap-3"}
