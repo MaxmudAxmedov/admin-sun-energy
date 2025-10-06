@@ -5,8 +5,9 @@ import { route } from "./routes/route";
 import "./App.css";
 import { ClipLoader } from "react-spinners";
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem("token");
-  return token ? children : <Navigate to="/login" replace />;
+
+    const token = localStorage.getItem("token");
+    return !token ? children : <Navigate to="/login" replace />;
 };
 
 const loginPage = route.find((r) => r.path === "login");
