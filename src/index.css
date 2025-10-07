@@ -6,9 +6,9 @@
   /* aside and border colors and description */
   --aside-color: #e0e5e9;
   /* text active color  */
-  --active-text: #27272A;
+  --active-text: #27272a;
   /* icons color and chegirmadagi narxlar uchun  */
-  --icons-colors: #F97316;
+  --icons-colors: #f97316;
   /* active button or disabled button colors  */
   --active-button: #b2c9c5;
   /* button colors  */
@@ -17,7 +17,7 @@
   --black: #010409;
   /* red color  */
   --red: red;
-  --box-shadow: #F0F0F1;
+  --box-shadow: #f0f0f1;
 }
 
 .dark {
@@ -52,5 +52,4 @@
   --red: #ef4444;
   /* Tailwind red-500 — dark modeda yaxshi ko‘rinadi */
   --box-shadow: #0f0f0f;
-
 }
