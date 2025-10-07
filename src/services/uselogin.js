@@ -1,7 +1,10 @@
 import request from "@/config/request";
 
-export const login = (data) => {
-    return request({ method: "post", url: "verify", data });
-};
+import { useMutation } from "@tanstack/react-query"
 
 
+export const login =()=>{
+    return useMutation({
+        mutationFn:(data)=>request.post("verify", data).then((res)=>res?.data)
+    })
+}
