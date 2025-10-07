@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactApexChart from "react-apexcharts";
+ import ReactApexChart from "react-apexcharts";
 
 export default function ReportsTable() {
     const [state, setState] = useState({
