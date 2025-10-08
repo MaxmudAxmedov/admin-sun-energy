@@ -14,18 +14,38 @@ import ruFlag from "@/assets/img/rus.png";
 import uzFlag from "@/assets/img/uzb.png";
 import { Button } from "../ui/button";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Left_icons from "@/assets/icons/left_icons";
+import Right_icons from "@/assets/icons/Right_icons";
 
-export const Header = () => {
+export const Header = ({ setopen, open }) => {
+  const nav = useNavigate();
+  const clickItem = () => {
+    setopen((prev) => !prev);
+  };
+
+
   const handlerChange = (lang) => {
     i18n.changeLanguage(lang);
     localStorage.setItem("lang", lang);
   };
   const { t } = useTranslation();
   return (
-    <header className="py-7 flex justify-between px-3 w-full shadow-header shadow-bg-[var(--background)]">
+    <header
+      className={`py-7 flex px-3 justify-between shadow-header shadow-bg-[var(--background)]`}
+    >
       <div className="flex gap-2 items-center">
-        <Input placeholder={"search..."} className="w-[350px]" />
+        <Button
+          onClick={clickItem}
+          className={`transition-all duration-300  h-5 ${
+            !open ? "ml-auto" : "mr-auto"
+          } mb-2 mt-[-4px] border-none bg-transparent text-black shadow-none`}
+        >
+          {" "}
+          {!open ? <Left_icons /> : <Right_icons />}{" "}
+        </Button>
+
+        <Input placeholder={t("input")} className="max-w-[350px]" />
       </div>
       <div className="flex gap-8 items-center ">
         <ThemeMode />
@@ -48,6 +68,7 @@ export const Header = () => {
             </SelectItem>
           </SelectContent>
         </Select>
+      
       </div>
     </header>
   );

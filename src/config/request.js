@@ -8,17 +8,25 @@ const request = axios.create({
   },
 });
 
-request.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    } else {
-      delete config.headers.Authorization;
-    }
-    return config;
+
+request.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+request.interceptors.response.use(
+  (response) => {
+    return response;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    if (error?.response?.status == 403 || error?.response?.status == 401) {
+      localStorage.removeItem("token");
+      window.location.href == "/login";
+    }
+    return Promise.reject(error);
+  }
 );
 
 export default request;
