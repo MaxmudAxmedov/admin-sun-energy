@@ -21,7 +21,7 @@ request.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error?.response?.status == 403 || error?.response?.status == 402) {
+    if (error?.response?.status == 403 || error?.response?.status == 401) {
       localStorage.removeItem("token");
       window.location.href == "/login";
     }
