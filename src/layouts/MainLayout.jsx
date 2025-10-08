@@ -11,7 +11,6 @@ export default function MainLayout() {
       </div>
 
       <div className="w-10/12">
-
         <Header />
         <div className="text-active mt-2">
           <Outlet />

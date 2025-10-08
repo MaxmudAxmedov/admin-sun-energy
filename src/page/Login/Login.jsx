@@ -8,18 +8,18 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 export default function Login() {
   const { handleSubmit, reset, register } = useForm();
-  const nav = useNavigate()
-  const {mutate, isPending}=login()
+  const nav = useNavigate();
+  const { mutate, isPending } = login();
   const submit = (values) => {
-    mutate(values,{
-      onSuccess:(res)=>{
-        setStorage("token", res?.Data?.access_token)
-        setStorage("refresh_token", res?.Data?.refresh_token)
-        toast("Kirish muvaffaqiyatli bajarildi!")
-        nav("/")
-        reset()
-      }
-    })
+    mutate(values, {
+      onSuccess: (res) => {
+        setStorage("token", res?.Data?.access_token);
+        setStorage("refresh_token", res?.Data?.refresh_token);
+        toast("Kirish muvaffaqiyatli bajarildi!");
+        nav("/");
+        reset();
+      },
+    });
   };
 
   return (
@@ -46,25 +46,23 @@ export default function Login() {
             </label>
             <input
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
-              
               {...register("login")}
             />
           </div>
 
           <div className="mb-5">
             <label className="text-gray-700 text-sm font-medium mb-2 block">
-           Password
+              Password
             </label>
             <input
               type="Password"
-              
               {...register("password")}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
             />
           </div>
 
           <Button
-          disabled={isPending}
+            disabled={isPending}
             loading={isPending}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all"
           >
