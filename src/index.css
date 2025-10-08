@@ -53,3 +53,7 @@
   /* Tailwind red-500 — dark modeda yaxshi ko‘rinadi */
   --box-shadow: #0f0f0f;
 }
+
+body{
+  overflow: hidden;
+}
