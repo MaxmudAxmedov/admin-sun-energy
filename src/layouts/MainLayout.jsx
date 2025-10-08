@@ -25,7 +25,6 @@ export default function MainLayout() {
         <Header setopen={setopen} open={open} />
         <div className="text-active h-[100vh ] mt-2 overflow-y-scroll ">
           <div className="w-10/12">
-            <Header />
             <div className="text-active mt-2">
               <Outlet />
             </div>

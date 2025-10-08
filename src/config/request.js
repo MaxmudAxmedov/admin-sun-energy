@@ -8,9 +8,9 @@ const request = axios.create({
   },
 });
 
-
 request.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
+  console.log("🔑 Sending header:", config.headers.Authorization);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -21,7 +21,7 @@ request.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error?.response?.status == 403 || error?.response?.status == 401) {
+    if (error?.response?.status == 403 || error?.response?.status == 402) {
       localStorage.removeItem("token");
       window.location.href == "/login";
     }

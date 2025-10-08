@@ -5,8 +5,9 @@ import { useGetProduct } from "@/hook/useGetproducts";
 import DataTable from "@/components/table";
 
 export default function ProductsTable() {
-  const { data } = useGetProduct();
-//   console.log(data);
+  // const { data } = useGetProduct();
+  //   console.log(data);
+  //   console.log("Token:", localStorage.getItem("token"));
 
   const columns = [
     { key: "id", title: "ID" },
