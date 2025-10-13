@@ -14,12 +14,10 @@ import ruFlag from "@/assets/img/rus.png";
 import uzFlag from "@/assets/img/uzb.png";
 import { Button } from "../ui/button";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import Left_icons from "@/assets/icons/left_icons";
 import Right_icons from "@/assets/icons/Right_icons";
 
 export const Header = ({ setopen, open }) => {
-  const nav = useNavigate();
   const clickItem = () => {
     setopen((prev) => !prev);
   };
@@ -32,7 +30,7 @@ export const Header = ({ setopen, open }) => {
   const { t } = useTranslation();
   return (
     <header
-      className={`py-7 flex px-3 justify-between shadow-header shadow-bg-[var(--background)]`}
+      className={`py-7 flex px-3 justify-between  shadow-header shadow-bg-[var(--background)]`}
     >
       <div className="flex gap-2 items-center">
         <Button

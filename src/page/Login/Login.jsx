@@ -64,7 +64,7 @@ export default function Login() {
           <Button
             disabled={isPending}
             loading={isPending}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all"
+            className="w-full bg-blue-600 cursor-pointer border-none hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all"
           >
             Yuborish
           </Button>
