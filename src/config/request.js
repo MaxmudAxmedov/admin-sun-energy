@@ -1,11 +1,10 @@
 import axios from "axios";
-
-const request = axios.create({
+export const request = axios.create({
   baseURL: import.meta.env.VITE_APP_API_BASE_URL,
   headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+    Accept: "application/json, text/plain, */*",
   },
+  timeout: 10000,
 });
 
 request.interceptors.request.use((config) => {
@@ -23,9 +22,5 @@ request.interceptors.response.use(
     if (error?.response?.status == 403 || error?.response?.status == 401) {
       localStorage.removeItem("token");
       window.location.href == "/login";
-    }
-    return Promise.reject(error);
-  }
-);
-
-export default request;
+    
+    }})
