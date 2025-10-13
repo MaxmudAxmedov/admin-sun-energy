@@ -8,26 +8,20 @@ export default function MainLayout() {
   const [open, setopen] = React.useState(false);
 
   return (
-    <div className="flex  justify-between w-full">
+    <div className="flex   justify-between w-full">
       <div
-        className={` transition-all  duration-300  ${
-          open ? "w-1/12 max-w-[50px]" : "w-2/12"
+        className={` transition-all    ${
+          open ? "w-1/12 max-w-[50px]" : "w-2/12 mr-10"
         }`}
       >
         <Navbar open={open} />
       </div>
 
-      <div
-        className={` transition-all duration-300  ${
-          open ? "w-11/12" : "w-10/12"
-        }`}
-      >
+      <div className={`  w-[100%] ml-[20px]  ${open ? "w-11/12" : "w-10/12"}`}>
         <Header setopen={setopen} open={open} />
         <div className="text-active h-[100vh ] mt-2 overflow-y-scroll ">
-          <div className="w-10/12">
-            <div className="text-active mt-2">
-              <Outlet />
-            </div>
+          <div className="text-active  mt-2">
+            <Outlet />
           </div>
         </div>
       </div>

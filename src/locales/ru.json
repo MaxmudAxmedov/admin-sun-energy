@@ -13,5 +13,7 @@
   "language_ru": "Русский",
   "SUN": "Cолнечная панель",
   "input":"поиск...",
-  "create": "Создать"
+  "create": "Создать",
+  "productCategoriya": "Создано",
+  "productName":"имя"
 }

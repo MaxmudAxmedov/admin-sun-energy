@@ -55,5 +55,6 @@
 }
 
 body{
-  overflow: hidden;
+  overflow: scroll;
+  overflow-x: hidden;
 }
