@@ -1,5 +1,4 @@
-// src/components/DataTable.jsx
-import React from "react";
+// src/components/DataTable.jsx\
 
 // export default function DataTable({ columns, query }) {
 //   const { data, isLoading, isError } = query;
@@ -49,14 +48,11 @@ import React from "react";
 //   );
 // }
 
-import React from 'react'
+import React from "react";
 
 export default function table() {
-  return (
-    <div>lorem</div>
-  )
+  return <div>lorem</div>;
 }
-
 
 /*
 

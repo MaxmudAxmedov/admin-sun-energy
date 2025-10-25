@@ -4,8 +4,8 @@ import { useGetProduct } from "@/hook/useGetproducts";
 import DataTable from "@/components/table";
 
 export default function ProductsTable() {
-  const { data, isLoading, error } = useGetProduct();
-  console.log(data);
+  // const { data, isLoading, error } = useGetProduct();
+  // console.log(data);
 
   // const columns = [
   //   { key: "id", title: "ID" },
