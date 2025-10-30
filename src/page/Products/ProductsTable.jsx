@@ -1,49 +1,162 @@
-import React from "react";
-import { EyeIcon, Trash2Icon } from "lucide-react";
-import { useGetProduct } from "@/hook/useGetproducts";
-import DataTable from "@/components/table";
-
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getProductsQuery } from "@/queries";
+import DataTable from "@/components/Table/DataTable";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
+import { useDisclosure } from "@/hook/useDisclosure";
+import { forceConvertDomain } from "@/lib/forceConvertDomain";
+import defaultImg from "@/assets/img/optional-img.jpg";
 export default function ProductsTable() {
-  const { data, isLoading, error } = useGetProduct();
-  console.log(data);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [params, setParams] = useState({
+        limit: "200",
+        search: "",
+        page: "1",
+    });
+    const { data } = useQuery(getProductsQuery(params));
+    const products = data?.data?.Data?.products || [];
+    const [wiewProduct, setViewProduct] = useState({});
 
-  // const columns = [
-  //   { key: "id", title: "ID" },
-  //   {
-  //     key: "img",
-  //     title: "Image",
-  //     render: (row) => (
-  //       <img src={row.img} alt={row.name} className="w-10 h-10 rounded" />
-  //     ),
-  //   },
-  //   { key: "name", title: "Name" },
-  //   { key: "email", title: "Email" },
-  //   {
-  //     key: "actions",
-  //     title: "Actions",
-  //     render: (row) => (
-  //       <div className="flex gap-2">
-  //         <button
-  //           onClick={() => alert(`Edit product: ${row.id}`)}
-  //           className="px-2 py-1 text-xs bg-blue-500 text-white rounded-md flex items-center gap-1"
-  //         >
-  //           <EyeIcon size={14} /> Edit
-  //         </button>
-  //         <button
-  //           onClick={() => alert(`Delete product: ${row.id}`)}
-  //           className="px-2 py-1 text-xs bg-red-500 text-white rounded-md flex items-center gap-1"
-  //         >
-  //           <Trash2Icon size={14} /> Delete
-  //         </button>
-  //       </div>
-  //     ),
-  //   },
-  // ];
+    const handleView = (row) => {
+        console.log("View clicked:", row);
+        setViewProduct(row);
+        onOpen();
+    };
 
-  return (
-    <div className="p-4">
-      <h1 className="text-lg font-semibold mb-4">Prodvducts111</h1>
-      {/* <DataTable columns={columns} query={query} /> */}
-    </div>
-  );
+    const handleDelete = (id) => {
+        console.log("Delete clicked:", id);
+    };
+
+    const columns = [
+        {
+            key: "index",
+            label: "№",
+            render: (_, __, index) => index + 1,
+        },
+        {
+            key: "photo",
+            label: "Photo",
+            render: (value) => (
+                <img
+                    src={
+                        forceConvertDomain(value) ||
+                        defaultImg ||
+                        "/no-image.png"
+                    }
+                    alt="product"
+                    className="w-16 h-16 object-cover rounded"
+                />
+            ),
+        },
+        { key: "name", label: "Mahsulot nomi" },
+        { key: "category_name", label: "Toifa" },
+        { key: "price", label: "Tan Narxi" },
+        { key: "selling_price", label: "Sotuv Narxi" },
+        {
+            key: "actions",
+            label: <p className="text-center">Actions</p>,
+            render: (_, row) => (
+                <div className="flex justify-evenly gap-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleView(row)}
+                    >
+                        View
+                    </Button>
+                    <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDelete(row.id)}
+                    >
+                        Delete
+                    </Button>
+                </div>
+            ),
+        },
+    ];
+
+    const websiteProducts = products.filter((p) => p.show_on_landing === true);
+    const adminProducts = products.filter((p) => !p.show_on_landing);
+
+    return (
+        <>
+            <CustomDrawer
+                title="Mahsulot"
+                open={isOpen}
+                onOpenChange={(open) => (open ? onOpen() : onClose())}
+                onSave={() => {
+                    console.log("Mahsulot saqlandi!");
+                    onClose();
+                }}
+                side="right"
+                size="lg"
+            >
+                <div className="flex gap-10 ">
+                    <img
+                        src={wiewProduct?.photo}
+                        alt="product"
+                        className="w-52 object-cover rounded-md"
+                    />
+
+                    <div className="flex flex-col">
+                        <h2 className="text-left">{wiewProduct?.name}</h2>
+                        <p>{wiewProduct?.count_of_product} dona mavjud</p>
+                        <p>{wiewProduct?.power_system}</p>
+                    </div>
+                </div>
+
+                <div className="flex justify-between">
+                    <p>{wiewProduct?.price}</p>
+                    <p>{wiewProduct?.mark_up}%</p>
+                    <p>{wiewProduct?.selling_price}</p>
+                </div>
+            </CustomDrawer>
+            <div className="px-3">
+                <Tabs defaultValue="web-site" className="w-full">
+                    <TabsList>
+                        <TabsTrigger
+                            value="web-site"
+                            className="
+              data-[state=active]:bg-icons
+              data-[state=active]:text-background
+              data-[state=active]:shadow-md
+              bg-white text-icons transition-all
+            "
+                        >
+                            Web site
+                        </TabsTrigger>
+
+                        <TabsTrigger
+                            value="admin-panel"
+                            className="
+              data-[state=active]:bg-icons
+              data-[state=active]:text-background
+              data-[state=active]:shadow-md
+              bg-white text-icons transition-all
+            "
+                        >
+                            Admin panel
+                        </TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent
+                        value="web-site"
+                        className="h-[calc(100vh-150px)] overflow-y-auto"
+                    >
+                        <DataTable columns={columns} data={websiteProducts} />
+                    </TabsContent>
+
+                    <TabsContent
+                        value="admin-panel"
+                        className="h-[calc(100vh-150px)] overflow-y-auto"
+                    >
+                        <DataTable columns={columns} data={adminProducts} />
+                    </TabsContent>
+                </Tabs>
+            </div>
+        </>
+    );
 }
