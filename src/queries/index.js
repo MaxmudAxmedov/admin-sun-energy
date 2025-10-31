@@ -2,6 +2,21 @@ import { employeesGet } from "@/services/employees";
 import { productGet } from "../services/product";
 import { clientsBusinessGet, clientsCustomersGet } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
+import { reportsGet, tradesReportsGet } from "@/services/reports";
+
+// Reports page
+export function getReportsQuery(params) {
+    return {
+        queryKey: ["reports", params],
+        queryFn: async () => reportsGet(params),
+    };
+}
+export function getTradesReportsQuery(params) {
+    return {
+        queryKey: ["trades-reports", params],
+        queryFn: async () => tradesReportsGet(params),
+    };
+}
 
 // Products page
 export function getProductsQuery(params) {
