@@ -26,6 +26,9 @@ export function getProductsQuery(params) {
     };
 }
 
+// Category
+
+
 // Clients page
 export function getClientBusinessQuery(params) {
     return {
