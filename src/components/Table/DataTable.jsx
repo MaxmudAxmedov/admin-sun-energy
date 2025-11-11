@@ -7,6 +7,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { t } from "@/utils/i18n";
 
 /**
  * @param {Object[]} columns
@@ -57,7 +58,8 @@ export default function DataTable({ columns = [], data = [] }) {
                                 colSpan={columns.length}
                                 className="text-center py-6"
                             >
-                                Ma'lumot topilmadi
+                                {t("information_not_found")}
+                                
                             </TableCell>
                         </TableRow>
                     )}
