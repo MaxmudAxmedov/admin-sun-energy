@@ -1,56 +1,111 @@
-import React from "react";
-import { useQueriyPruuctCategoriya } from "./query/useQueriyPruuctCategoriya";
+import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import DataTable from "@/components/Table/DataTable";
 import { Button } from "@/components/ui/button";
+import { useDisclosure } from "@/hook/useDisclosure";
+import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
+import { getProductQuery } from "@/queries";
+import { useQuery } from "@tanstack/react-query";
 
 export default function CategoryTable() {
-    const { t } = useTranslation();
-    const { data, isLoading, error, isError } = useQueriyPruuctCategoriya();
-    const columns = [
-        {
-            key: "index",
-            label: "№",
-            render: (_, __, index) => index + 1,
-        },
+  const { t } = useTranslation();
+  const [params, useParams] = useState({
+    limit: "200",
+    page: "1",
+  });
+  const { data } = useQuery(getProductQuery(params));
+  const Productquery = useMemo(
+    () => data?.data?.Data?.product_categories || [],
+    [data]
+  );
+  
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [wiewProduct, setViewProduct] = useState({});
+  const [openPopoverId, setOpenPopoverId] = useState(null);
+  const handleDelete = (row) => {
+    setOpenPopoverId(false);
+    console.log(row);
+  };
+  const handleView = (row) => {
+    setViewProduct(row);
+    onOpen();
+    ChangeProduct(wiewProduct)
+  };
+  const columns = [
+    {
+      key: "index",
+      label: "№",
+      render: (_, __, index) => index + 1,
+    },
 
-        {
-            key: "name",
-            label: "Name",
-        },
-        {
-            key: "created_at",
-            label: "Created",
-        },
-        {
-            key: "actions",
-            label: <p className="text-center">Actions</p>,
-            render: (_, row) => (
-                <div className="flex justify-evenly gap-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        // onClick={() => handleView(row)}
-                    >
-                        View
-                    </Button>
-                </div>
-            ),
-        },
-    ];
-
-    if (isError) {
-        return <h1>{error.message}</h1>;
-    }
-
-    if (isLoading) {
-        return <h1>Loading...</h1>;
-    }
-
-    return (
-        <div className="p-4">
-            <h1 className="my-4 text-active">{t("pcategory")}</h1>
-            <DataTable columns={columns} data={data} />
+    {
+      key: "name",
+      label: t("name"),
+    },
+    {
+      key: "created_at",
+      label: t("created"),
+    },
+    {
+      key: "actions",
+      label: <p className="text-center">{t("actions")}</p>,
+      render: (_, row) => (
+        <div className="flex justify-evenly gap-2 ">
+          <Button
+            variant="outline"
+            className="bg-icons text-aside  border-none"
+            size="sm"
+            onClick={() => handleView(row)}
+          >
+            {t("edid")}
+          </Button>
+          <Popover open={openPopoverId == row.id} onOpenChange={(isOpen)=> setOpenPopoverId(isOpen ? row.id : null)}>
+            <PopoverTrigger asChild>
+              <Button> {t("delete")}</Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-60 bg-[#fff]">
+              <p>siz rostan ham o'chirmoqchimisiz!</p>
+              <div className="flex justify-end gap-2 mt-3">
+                <Button variant="outline" onClick={() => setOpenPopoverId(false)}>
+                  clean
+                </Button>
+                <Button variant="destructive" onClick={handleDelete}>
+                  {t("delete")}
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
-    );
+      ),
+    },
+  ];
+
+  return (
+    <>
+      <div className="w-[300px] flex gap-5 ml-auto mr-[30px]">
+        <Button className="border-none rounded-4 text-button">+ Create</Button>
+        <Form className={"w-100%"}>
+          <label id="search">
+            <img src="./" alt="" />
+            <Input
+              type={"text"}
+              id="search"
+              className={"border-none bg-none"}
+            />
+          </label>
+        </Form>
+      </div>
+
+      <div className="p-4">
+        <h1 className="my-4 text-active">{t("pcategory")}</h1>
+        <DataTable columns={columns} data={Productquery} />
+      </div>
+    </>
+  );
 }

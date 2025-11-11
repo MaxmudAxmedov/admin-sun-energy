@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import ReactApexChart from "react-apexcharts";
 import { format, parseISO } from "date-fns"; 
+import { t } from "@/utils/i18n";
 
 const aggregateReportsByDate = (reports) => {
     const dailyData = {};
@@ -98,7 +99,6 @@ export const TradesReportChart = ({ reports = [] }) => {
             },
         };
     }, [reports]);
-
     return (
         <div>
             {chartConfig.series.length > 0 ? (
@@ -116,7 +116,7 @@ export const TradesReportChart = ({ reports = [] }) => {
                         color: "#888",
                     }}
                 >
-                    Ma'lumotlar yuklanmoqda yoki mavjud emas
+                    {t("reportsnotfount")}
                 </div>
             )}
         </div>

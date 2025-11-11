@@ -8,6 +8,7 @@ import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
 import { useDisclosure } from "@/hook/useDisclosure";
 import { forceConvertDomain } from "@/lib/forceConvertDomain";
 import defaultImg from "@/assets/img/optional-img.jpg";
+import { t} from "@/utils/i18n";
 export default function ProductsTable() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [params, setParams] = useState({
@@ -50,28 +51,32 @@ export default function ProductsTable() {
                 />
             ),
         },
-        { key: "name", label: "Mahsulot nomi" },
-        { key: "category_name", label: "Toifa" },
-        { key: "price", label: "Tan Narxi" },
-        { key: "selling_price", label: "Sotuv Narxi" },
+        { key: "name", label: t("product_name") },
+        { key: "category_name", label: t("category") },
+        { key: "price", label: t("cost_price") },
+        { key: "selling_price", label: t("selling_price") },
         {
             key: "actions",
-            label: <p className="text-center">Actions</p>,
+            label: <p className="text-center">
+                {t("actions")}
+            </p>,
             render: (_, row) => (
                 <div className="flex justify-evenly gap-2">
                     <Button
                         variant="outline"
+                        className="bg-icons text-aside border-none"
                         size="sm"
                         onClick={() => handleView(row)}
                     >
-                        View
+                      {t("view")}
                     </Button>
                     <Button
+                        className="bg-red text-aside border-none hover:bg-redHover"
                         variant="destructive"
                         size="sm"
                         onClick={() => handleDelete(row.id)}
                     >
-                        Delete
+                        {t("delete")}
                     </Button>
                 </div>
             ),
@@ -80,11 +85,10 @@ export default function ProductsTable() {
 
     const websiteProducts = products.filter((p) => p.show_on_landing === true);
     const adminProducts = products.filter((p) => !p.show_on_landing);
-
     return (
         <>
             <CustomDrawer
-                title="Mahsulot"
+                title={t("product")}
                 open={isOpen}
                 onOpenChange={(open) => (open ? onOpen() : onClose())}
                 onSave={() => {
@@ -103,7 +107,7 @@ export default function ProductsTable() {
 
                     <div className="flex flex-col">
                         <h2 className="text-left">{wiewProduct?.name}</h2>
-                        <p>{wiewProduct?.count_of_product} dona mavjud</p>
+                        <p>{wiewProduct?.count_of_product} {t("stock")} </p>
                         <p>{wiewProduct?.power_system}</p>
                     </div>
                 </div>

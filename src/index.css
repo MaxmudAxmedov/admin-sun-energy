@@ -17,7 +17,9 @@
   --black: #010409;
   /* red color  */
   --red: red;
+  --red-hover:#e91919;
   --box-shadow: #f0f0f1;
+  --shadow: rgb(121, 105, 74);
 }
 
 .dark {
@@ -52,6 +54,7 @@
   --red: #ef4444;
   /* Tailwind red-500 — dark modeda yaxshi ko‘rinadi */
   --box-shadow: #0f0f0f;
+   --shadow: rgb(74, 121, 80);
 }
 
 body{

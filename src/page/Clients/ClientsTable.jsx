@@ -6,123 +6,179 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { forceConvertDomain } from "@/lib/forceConvertDomain";
 import defaultImg from "@/assets/img/optional-img.jpg";
+import { t } from "@/utils/i18n";
+import { useDisclosure } from "@/hook/useDisclosure";
+import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
 
 export default function ClientsTable() {
-    const [params, setParams] = useState({
-        limit: "200",
-        search: "",
-        page: "1",
-    });
-    const [isType, setIsType] = useState(false);
-    const { data: business } = useQuery(getClientBusinessQuery(params));
-    const { data: customers } = useQuery(getClientCustomersQuery(params));
+    const [vale,setvalue] = useState(true);
+  const [params, setParams] = useState({
+    limit: "200",
+    search: "",
+    page: "1",
+  });
+  const [isType, setIsType] = useState(false);
+  const { data: business } = useQuery(getClientBusinessQuery(params));
+  const { data: customers } = useQuery(getClientCustomersQuery(params));
 
-    const clientBusiness = useMemo(
-        () => business?.data?.Data?.businesses || [],
-        [business]
-    );
-    const clientJismoniy = useMemo(
-        () => customers?.data?.Data?.customers || [],
-        [customers]
-    );
+  const clientBusiness = useMemo(
+    () => business?.data?.Data?.businesses || [],
+    [business]
+  );
+  const clientJismoniy = useMemo(
+    () => customers?.data?.Data?.customers || [],
+    [customers]
+  );
 
-    const columns = useMemo(
-        () => [
-            {
-                key: "index",
-                label: "№",
-                render: (_, __, index) => index + 1,
-            },
-            {
-                key: "file",
-                label: "Photo",
-                render: (value) => (
-                    <img
-                        src={
-                            forceConvertDomain(value) ||
-                            defaultImg ||
-                            "/no-image.png"
-                        }
-                        alt="employees"
-                        className="w-16 h-16 object-cover rounded"
-                    />
-                ),
-            },
-            {
-                key: !isType ? "first_name" : "full_name",
-                label: !isType ? "Ismi" : "To'liq ismi",
-            },
-            {
-                key: !isType ? "last_name" : "company_name",
-                label: !isType ? "Familyasi" : "Direktor",
-            },
-            { key: "region", label: "Viloyat" },
-            { key: "district", label: "Tuman" },
-            { key: "phone", label: "Telefon" },
-            {
-                key: "actions",
-                label: <p className="text-center">Actions</p>,
-                render: (_, row) => (
-                    <div className="flex justify-evenly gap-2">
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            // onClick={() => handleView(row)}
-                        >
-                            View
-                        </Button>
-                    </div>
-                ),
-            },
-        ],
-        [isType]
-    );
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [wiewProduct, setViewProduct] = useState({});
 
-    return (
-        <div>
-            <Tabs defaultValue="jismoniy" className="w-full">
-                <TabsList>
-                    <TabsTrigger
-                        onClick={() => setIsType(false)}
-                        value="jismoniy"
-                        className="
+  const handleView = (row) =>{
+    setViewProduct(row);
+    onOpen()
+    console.log(row);
+    
+  }
+
+  const columns = useMemo(
+    () => [
+      {
+        key: "index",
+        label: "№",
+        render: (_, __, index) => index + 1,
+      },
+      {
+        key: "file",
+        label: "Photo",
+        render: (value) => (
+          <img
+            src={forceConvertDomain(value) || defaultImg || "/no-image.png"}
+            alt="employees"
+            className="w-16 h-16 object-cover rounded"
+          />
+        ),
+      },
+      {
+        key: !isType ? "first_name" : "full_name",
+        label: !isType ? t("name") : t("full_name"),
+      },
+      {
+        key: !isType ? "last_name" : "company_name",
+        label: !isType ? t("last_name") : t("director"),
+      },
+      { key: "region", label: t("region") },
+      { key: "district", label: t("district") },
+      { key: "phone", label: t("phone") },
+      {
+        key: "actions",
+        label: <p className="text-center">{t("actions")}</p>,
+        render: (_, row) => (
+          <div className="flex justify-evenly gap-2">
+            <Button
+              variant="outline"
+              className="bg-icons text-aside border-none"
+              size="sm"
+              onClick={() => handleView(row)}
+            >
+              {t("view")}
+            </Button>
+          </div>
+        ),
+      },
+    ],
+    [isType]
+  );
+
+  return (
+    <div>
+   
+      <Tabs defaultValue="jismoniy" className="w-full">
+        <TabsList>
+          <TabsTrigger
+            onClick={() => setIsType(false)}
+            value="jismoniy"
+            className="
               data-[state=active]:bg-icons
               data-[state=active]:text-background
               data-[state=active]:shadow-md
               bg-white text-icons transition-all
             "
-                    >
-                        Jismoniy shaxs
-                    </TabsTrigger>
+          >
+            {t("natural_person")}
+          </TabsTrigger>
 
-                    <TabsTrigger
-                        onClick={() => setIsType(true)}
-                        value="yuridik"
-                        className="
+          <TabsTrigger
+            onClick={() => setIsType(true)}
+            value="yuridik"
+            className="
               data-[state=active]:bg-icons
               data-[state=active]:text-background
               data-[state=active]:shadow-md
               bg-white text-icons transition-all
             "
-                    >
-                        Yuridik shaxs
-                    </TabsTrigger>
-                </TabsList>
+          >
+            {t("legal_entity")}
+          </TabsTrigger>
+        </TabsList>
 
-                <TabsContent
-                    value="jismoniy"
-                    className="h-[calc(100vh-150px)] overflow-y-auto"
-                >
-                    <DataTable columns={columns} data={clientJismoniy} />
-                </TabsContent>
+        <TabsContent
+          value="jismoniy"
+          className="h-[calc(100vh-150px)] overflow-y-auto"
+        >
+          <DataTable columns={columns} data={clientJismoniy} />
+        </TabsContent>
 
-                <TabsContent
-                    value="yuridik"
-                    className="h-[calc(100vh-150px)] overflow-y-auto"
-                >
-                    <DataTable columns={columns} data={clientBusiness} />
-                </TabsContent>
-            </Tabs>
-        </div>
-    );
+        <TabsContent
+          value="yuridik"
+          setvalue={false}
+          className="h-[calc(100vh-150px)] overflow-y-auto"
+        >
+          <DataTable columns={columns} data={clientBusiness} />
+        </TabsContent>
+      </Tabs>
+       <CustomDrawer
+    title={t("info")}
+    open={isOpen}
+    onOpenChange={(open)=> (open ? onOpen() : onClose())}
+    onSave={()=>{
+        onClose()
+    }}
+    side="right"
+    size="lg"
+    >
+<div className="flex flex-col">
+    <img src={wiewProduct.file} alt="" />
+  {!isType == true ? <div>
+        <h3 className="text-active mt-2">{t("contract_date")} : {wiewProduct.created_at}</h3>
+        <h3 className="text-active mt-2">{t("name")} : {wiewProduct.first_name} </h3>
+        <p className="text-active mt-2"> {t("last_name")} : {wiewProduct.last_name}</p>
+        <h3 className="text-active mt-2">{t("patronymic")} : {wiewProduct.patronymic}</h3>
+        <p className="text-active mt-2"> {t("passport_series")} : {wiewProduct.passport_series}</p>
+        <p className="text-active mt-2"> {t("employee_name")} : {wiewProduct.employee_name}</p>
+        <p className="text-active mt-2"> {t("region")} : {wiewProduct.region}</p>
+        <p className="text-active mt-2"> {t("district")} : {wiewProduct.district}</p>
+        <p className="text-active mt-2"> {t("quarter")} : {wiewProduct.quarter}</p>
+        <p className="text-active mt-2"> {t("street")} : {wiewProduct.street}</p>
+        <p className="text-active mt-2"> {t("phone")} : {wiewProduct.phone}</p>
+
+    </div> : <div>
+               <h3 className="text-active mt-2">{t("contract_date")} : {wiewProduct.created_at}</h3>
+        <h3 className="text-active mt-2">{t("full_name")} : {wiewProduct.full_name} </h3>
+        <p className="text-active mt-2">inn {  t("number")} : {wiewProduct.inn_number}</p>
+        <p className="text-active mt-2"> info {  t("number")} : {wiewProduct.info_number}</p>
+        <p className="text-active mt-2"> {t("employee_name")} : {wiewProduct.employee_name}</p>
+        <p className="text-active mt-2"> {t("region")} : {wiewProduct.region}</p>
+        <p className="text-active mt-2"> {t("district")} : {wiewProduct.district}</p>
+        <p className="text-active mt-2"> {t("quarter")} : {wiewProduct.quarter}</p>
+        <p className="text-active mt-2"> {t("street")} : {wiewProduct.street}</p>
+        <p className="text-active mt-2"> {t("phone")} : {wiewProduct.phone}</p>     
+
+    </div> }
+    
+</div>
+
+    </CustomDrawer>
+    </div>
+  );
 }
+

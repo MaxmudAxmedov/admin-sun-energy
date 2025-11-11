@@ -3,6 +3,7 @@ import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import DataTable from "@/components/Table/DataTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { t } from "@/utils/i18n";
 export default function Contracts() {
     const [params, setParams] = useState({
         client_id: "",
@@ -28,10 +29,10 @@ export default function Contracts() {
             },
             {
                 key: "client_name",
-                label: params?.is_company ? "Direktor" : "Ismi",
+                label: params?.is_company ? t("director") : t("name"),
             },
-            { key: "total_price", label: "Umumiy summa" },
-            { key: "created_at", label: "Shartnoma sanasi" },
+            { key: "total_price", label: t("total_amount") },
+            { key: "created_at", label: t("contract_date") },
         ],
         [params.is_company]
     );
@@ -54,7 +55,7 @@ export default function Contracts() {
               bg-white text-icons transition-all
             "
                     >
-                        Jismoniy shaxs
+                      {t("natural_person")}
                     </TabsTrigger>
 
                     <TabsTrigger
@@ -69,7 +70,7 @@ export default function Contracts() {
               bg-white text-icons transition-all
             "
                     >
-                        Yuridik shaxs
+                      {t("legal_entity")}
                     </TabsTrigger>
                 </TabsList>
 
