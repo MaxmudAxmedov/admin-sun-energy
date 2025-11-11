@@ -56,5 +56,6 @@
 "street":"ko'cha",
   "employee_name":"Xodim ishchisi",
   "patronymic":"otasini ismi",
-  "number":"Raqam"
+  "number":"Raqam",
+  "deletes":"siz rostan ham o'chirmoqchimisiz?"
 }

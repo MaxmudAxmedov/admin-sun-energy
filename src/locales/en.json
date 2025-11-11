@@ -56,5 +56,6 @@
   "street":"Street",
   "employee_name":"Employee name",
   "patronymic":"Patronymic",
-  "number":"Number"
+  "number":"Number",
+   "deletes":"Do you really want to delete it?" 
 }

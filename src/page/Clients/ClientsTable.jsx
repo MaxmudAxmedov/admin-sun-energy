@@ -144,24 +144,37 @@ export default function ClientsTable() {
         onClose()
     }}
     side="right"
-    size="lg"
+    size="xl"
     >
 <div className="flex flex-col">
-    <img src={wiewProduct.file} alt="" />
   {!isType == true ? <div>
-        <h3 className="text-active mt-2">{t("contract_date")} : {wiewProduct.created_at}</h3>
-        <h3 className="text-active mt-2">{t("name")} : {wiewProduct.first_name} </h3>
-        <p className="text-active mt-2"> {t("last_name")} : {wiewProduct.last_name}</p>
-        <h3 className="text-active mt-2">{t("patronymic")} : {wiewProduct.patronymic}</h3>
+    <div className="flex gap-7">
+    <img className="w-[240px] rounded-md h-[200px[" src={wiewProduct.file} alt="" />
+    <div>
+        <h2 className="text-active mt-2">{wiewProduct.first_name} {wiewProduct.last_name} {wiewProduct.patronymic} </h2>
+        <h2 className="text-active mt-2"> +{wiewProduct.phone}</h2>
+
+    </div>
+    </div >
+        {/* <h3 className="text-active mt-2">{t("contract_date")} : {wiewProduct.created_at}</h3> */}
+        {/* <ul className="flex justify-between items-center py-7 ">
+          <li className=" text-active py-[6px] pl-2 pr-5  border-[1px]">{wiewProduct.region}</li>
+        </ul> */}
+        <ul className="flex justify-between items-center py-7">
+  <li style={{border:"2px solid grey"}} className="text-active py-[6px] pl-2 pr-5 border-[1px] border-gray-400 rounded-md">
+    {wiewProduct.region}
+  </li>
+</ul>
+
         <p className="text-active mt-2"> {t("passport_series")} : {wiewProduct.passport_series}</p>
-        <p className="text-active mt-2"> {t("employee_name")} : {wiewProduct.employee_name}</p>
-        <p className="text-active mt-2"> {t("region")} : {wiewProduct.region}</p>
+        <p className="text-active mt-2"> {t("employee_name")} :{wiewProduct.employee_name} </p>
+        <p className="text-active mt-2"> {t("region")} : </p>
         <p className="text-active mt-2"> {t("district")} : {wiewProduct.district}</p>
         <p className="text-active mt-2"> {t("quarter")} : {wiewProduct.quarter}</p>
         <p className="text-active mt-2"> {t("street")} : {wiewProduct.street}</p>
-        <p className="text-active mt-2"> {t("phone")} : {wiewProduct.phone}</p>
 
     </div> : <div>
+    <img className="w-[240px] h-[200px[" src={wiewProduct.file} alt="" />
                <h3 className="text-active mt-2">{t("contract_date")} : {wiewProduct.created_at}</h3>
         <h3 className="text-active mt-2">{t("full_name")} : {wiewProduct.full_name} </h3>
         <p className="text-active mt-2">inn {  t("number")} : {wiewProduct.inn_number}</p>
