@@ -57,5 +57,6 @@
   "employee_name":"Xodim ishchisi",
   "patronymic":"otasini ismi",
   "number":"Raqam",
-  "deletes":"siz rostan ham o'chirmoqchimisiz?"
+  "deletes":"siz rostan ham o'chirmoqchimisiz?",
+  "gross_profit":"Sof savdo"
 }

@@ -46,7 +46,13 @@ export function getClientBusinessIdQuery(id){
   return {
     queryKey:["client-businnes-id", id],
     queryFn: async ()=> clientsBusinessIdGet(id),
-    enabled:!!id,
+     enabled: !!id,
+  }
+}
+export function getClentBusinessTRADESQuery(params){
+  return {
+    queryKey:["tredes", params],
+    queryFn: async ()=> tradesReportsGet(params)
   }
 }
 

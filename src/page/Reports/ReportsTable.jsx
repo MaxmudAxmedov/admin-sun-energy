@@ -69,7 +69,7 @@ export default function ReportsTable() {
     <>
       <div className="flex justify-between p-3">
         <p className="text-[24px]">{t("hello")}!</p>
-        <DateRangePicker value={range} onChange={handleDateChange} />
+        <DateRangePicker  value={range} onChange={handleDateChange} />
       </div>
       <div className="flex justify-between gap-3 mt-4">
         <Card className="w-[22%] text-center pt-4">
