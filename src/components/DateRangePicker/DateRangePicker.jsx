@@ -32,7 +32,7 @@ export default function DateRangePicker({ value, onChange }) {
     <div className="relative inline-block" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className="p-2 border rounded-md bg-white dark:bg-zinc-900 hover:bg-gray-100 flex items-center gap-2"
+        className="p-2 border rounded-md bg-white dark:bg-zinc-900 text-active hover:bg-gray-100 flex items-center gap-2"
       >
         <FiCalendar className="text-xl" />
         <span className="text-sm">

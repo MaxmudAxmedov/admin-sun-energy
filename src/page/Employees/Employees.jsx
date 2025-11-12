@@ -20,7 +20,6 @@ export default function Employees() {
   const handleView = (row) => {
     setViewProduct(row);
     onOpen();
-    console.log(row);
   };
   const columns = [
     {
@@ -62,8 +61,6 @@ export default function Employees() {
       ),
     },
   ];
-
-
   
 
 
@@ -74,6 +71,8 @@ export default function Employees() {
       <CustomDrawer
         title={t("info")}
         open={isOpen}
+        edit={true}
+        Delete={true}
         onOpenChange={(open) => (open ? onOpen() : onClose())}
         onSave={() => {
           onClose();
@@ -81,52 +80,32 @@ export default function Employees() {
         side="right"
         size="lg"
       >
-        <div className="flex flex-col">
-          <img src={wiewProduct.photo} alt="" />
+      
+          <div className="flex  gap-4">
+            <img className="w-[250px] h-[200px]  object-cover rounded-md" src={wiewProduct.photo} alt="" />
           <div>
-            <h3 className="text-active mt-2">
-              {t("contract_date")} : {wiewProduct.created_at}
+            
+           <h3 className="text-active mt-2">
+            {wiewProduct.last_name} {wiewProduct.first_name}  {wiewProduct.patronymic}{" "}
             </h3>
-            <h3 className="text-active mt-2">
-              {t("name")} : {wiewProduct.first_name}{" "}
+            <h3 className="text-active mt-4">
+               +{wiewProduct.phone}
             </h3>
-            <p className="text-active mt-2">
-              {" "}
-              {t("last_name")} : {wiewProduct.last_name}
-            </p>
-            <h3 className="text-active mt-2">
-              {t("patronymic")} : {wiewProduct.patronymic}
-            </h3>
-            <p className="text-active mt-2">
-              {" "}
-              {t("passport_series")} : {wiewProduct.passport_series}
-            </p>
-            <p className="text-active mt-2">
-              {" "}
-              {t("employee_name")} : {wiewProduct.employee_name}
-            </p>
-            <p className="text-active mt-2">
-              {" "}
-              {t("region")} : {wiewProduct.region}
-            </p>
-            <p className="text-active mt-2">
-              {" "}
-              {t("district")} : {wiewProduct.district}
-            </p>
-            <p className="text-active mt-2">
-              {" "}
-              {t("quarter")} : {wiewProduct.quarter}
-            </p>
-            <p className="text-active mt-2">
-              {" "}
-              {t("street")} : {wiewProduct.street}
-            </p>
-            <p className="text-active mt-2">
-              {" "}
-              {t("phone")} : {wiewProduct.phone}
-            </p>
-          </div>
+            <h3 className="text-active mt-4">{wiewProduct.position_name}</h3>
+
+        <div className="flex items-center mt-2 gap-8">
+          <h4 className="text-active mt-2">{wiewProduct.region}</h4>
+          <h4 className="text-active mt-2">{wiewProduct.district}</h4>
         </div>
+        <div className="flex items-center mt-4 gap-8">
+          <h4 className="text-active mt-2">{wiewProduct.quarter}</h4>
+          <h4 className="text-active mt-2">{wiewProduct.street}</h4>
+        </div>
+
+
+          </div>
+          </div>
+       
       </CustomDrawer>
       
 

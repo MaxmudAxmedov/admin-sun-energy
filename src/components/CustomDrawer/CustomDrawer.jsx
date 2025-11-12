@@ -24,6 +24,10 @@ export default function CustomDrawer({
   closeLabel = t("close"),
   side = "right",
   size = "md",
+  contacts = false,
+  edit = false,
+  Delete = false,
+  
 }) {
   const sizeClasses = {
     sm: "sm:max-w-[300px]",
@@ -60,10 +64,34 @@ export default function CustomDrawer({
 
         {showFooter && (
           <DialogFooter className="p-3 border-t border-border flex justify-end gap-2">
+
+             {Delete == true ?( <Button
+                variant="outline"
+                className=" border-none w-[50%] text-[#fff]  bg-[red] shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-button"
+                size="sm"
+              >
+                {t("delete")}
+              </Button>) : ""}
+             {contacts == true ?( <Button
+                variant="outline"
+                className=" border-none w-[50%] text-[#fff]  bg-button shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-button"
+                size="sm"
+              >
+                contacts
+              </Button>) : ""}
+              {edit == true ? (
+                <Button
+                variant="outline"
+                className=" w-[50%] border-none text-[#fff] shadow-sm bg-icons hover:shadow-lg transition-shadow duration-300 shadow-icons"
+                size="sm"
+              >
+                {t("edid")}
+              </Button>
+              ) : ""}
             <DialogClose asChild>
               <Button
                 variant="outline"
-                className="bg-[#F0F0F0] border-none shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-orange-300"
+                className="bg-[#F0F0F0] border-none shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-button"
                 size="sm"
               >
                 {closeLabel}
@@ -72,7 +100,7 @@ export default function CustomDrawer({
             {onSave && (
               <Button
                 onClick={onSave}
-                className="bg-[#F0F0F0] border-none shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-orange-300"
+                className="bg-[#F0F0F0] border-none shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-button"
                 size="sm"
               >
                 {saveLabel}

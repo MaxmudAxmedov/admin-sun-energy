@@ -1,5 +1,10 @@
 import React, { useMemo, useState } from "react";
-import { getClientBusinessIdQuery, getClientBusinessQuery, getClientCustomersQuery } from "@/queries";
+import {
+  getClentBusinessTRADESQuery,
+  getClientBusinessIdQuery,
+  getClientBusinessQuery,
+  getClientCustomersQuery,
+} from "@/queries";
 import { useQuery } from "@tanstack/react-query";
 import DataTable from "@/components/Table/DataTable";
 import { Button } from "@/components/ui/button";
@@ -9,15 +14,9 @@ import defaultImg from "@/assets/img/optional-img.jpg";
 import { t } from "@/utils/i18n";
 import { useDisclosure } from "@/hook/useDisclosure";
 import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
+import { formator } from "@/schemas/formator";
 
 export default function ClientsTable() {
-  const [vale, setvalue] = useState(null);
-
-  const {data:clientsId, isLoading} = useQuery(
-    getClientBusinessIdQuery(vale)
-  )
-console.log(clientsId);
-
   const [params, setParams] = useState({
     limit: "200",
     search: "",
@@ -26,6 +25,22 @@ console.log(clientsId);
   const [isType, setIsType] = useState(false);
   const { data: business } = useQuery(getClientBusinessQuery(params));
   const { data: customers } = useQuery(getClientCustomersQuery(params));
+  const [clientId, setclientId ] = useState(null);
+  const { data: trades } = useQuery(
+    getClentBusinessTRADESQuery({
+      client_id: clientId,
+      employee_id: "",
+      from_date: "",
+      to_date: "",
+      is_company: false,
+      page: 1,
+      limit: 100,
+    })
+  );
+  const TRADES = useMemo(
+    () => trades?.data.Data.client_products || [],
+    [trades]
+  );
 
   const clientBusiness = useMemo(
     () => business?.data?.Data?.businesses || [],
@@ -38,12 +53,17 @@ console.log(clientsId);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [wiewProduct, setViewProduct] = useState({});
+  // const [value, setvalue] = useState(null);
+
+  // const { data: clientsId, isLoading } = useQuery(
+  //   getClientBusinessIdQuery(value)
+  // );
 
   const handleView = (row) => {
     setViewProduct(row);
-    setvalue(row.id)
+    //setvalue(row.id);
     onOpen();
-    console.log(row.id);
+    setclientId(row.id);
   };
 
   const columns = useMemo(
@@ -95,6 +115,14 @@ console.log(clientsId);
     [isType]
   );
 
+    const filteredTRADES = useMemo(()=>{
+    if(!TRADES || !clientId) return [];
+    return TRADES.filter((item)=>item.client_id == clientId)
+  },[TRADES,clientId])
+
+  console.log(wiewProduct);
+  
+
   return (
     <div>
       <Tabs defaultValue="jismoniy" className="w-full">
@@ -144,6 +172,8 @@ console.log(clientsId);
       <CustomDrawer
         title={t("info")}
         open={isOpen}
+        contacts={true}
+        edit={true}
         onOpenChange={(open) => (open ? onOpen() : onClose())}
         onSave={() => {
           onClose();
@@ -166,6 +196,77 @@ console.log(clientsId);
                     {wiewProduct.patronymic}{" "}
                   </h2>
                   <h2 className="text-active mt-2"> +{wiewProduct.phone}</h2>
+                  
+              
+                </div>
+              </div>
+              <ul  className="flex justify-between gap-2 flex-wrap w-[600px] ml-auto mr-auto  border border-indigo-600  items-center py-7">
+                <li
+                  style={{ border: "1px solid grey" }}
+                  className="text-active py-[8px] text-[14px] pl-2 rounded-lg pr-2 "
+                >
+                  {wiewProduct.region}
+                </li>
+                <li
+                  style={{ border: "1px solid grey" }}
+                  className="text-active py-[8px] pl-2 rounded-lg text-[14px] pr-2 "
+                >
+                  {wiewProduct.district}
+                </li>
+                <li
+                  style={{ border: "1px solid grey" }}
+                  className="text-active py-[8px] pl-2 text-[14px] rounded-lg pr-2 "
+                >
+                  {wiewProduct.quarter}
+                </li> 
+                <li
+                  style={{ border: "1px solid grey" }}
+                  className="text-active py-[8px] pl-2 text-[10px] rounded-lg pr-2 "
+                >
+                  {wiewProduct.street}
+                </li>
+              </ul>
+              <div>
+              
+                <div>
+  {filteredTRADES.length ? (
+    filteredTRADES.map((trade, index) => (
+      <div className="w-[100%] text-active gap-2 flex justify-between items-center" key={index}>
+       <div  style={{ border: "1px solid grey" }} className="w-5/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center ">
+        <h3 >
+          KV
+        </h3>
+        
+         <h3>{trade.kv}</h3>
+       </div>
+        <div  style={{ border: "1px solid grey" }} className="w-7/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center ">
+        <h3>{t("gross_profit")}</h3>
+        <h3>{formator(trade.total_price)} UZS </h3>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p>No trades found</p>
+  )}
+</div>
+              </div>
+            </div>
+          ) : (
+             <div>
+              <div className="flex gap-7">
+                <img
+                  className="w-[240px] rounded-md h-[200px["
+                  src={wiewProduct.file}
+                  alt=""
+                />
+                <div>
+                  <h2 className="text-active mt-2">
+                    {wiewProduct.company_name} <br /> {wiewProduct.full_name}{" "}
+                  </h2>
+                  <h3 className="text-active mt-2"> +{wiewProduct.phone}</h3>
+                  <h3 className="text-active mt-2"> inn {wiewProduct.inn_number}</h3>
+                  
+              
                 </div>
               </div>
               <ul className="flex justify-between w-[580px] ml-auto mr-auto  border border-indigo-600  items-center py-7">
@@ -194,63 +295,35 @@ console.log(clientsId);
                   {wiewProduct.street}
                 </li>
               </ul>
-              <p className="text-active mt-2  ">
-                {" "}
-                {t("passport_series")} : {wiewProduct.passport_series}
-              </p>
-              <p className="text-active mt-2">
-                {" "}
-                {t("employee_name")} :{wiewProduct.employee_name}{" "}
-              </p>
-            </div>
-          ) : (
-            <div>
-              <img
-                className="w-[240px] h-[200px["
-                src={wiewProduct.file}
-                alt=""
-              />
-              <h3 className="text-active mt-2">
-                {t("contract_date")} : {wiewProduct.created_at}
-              </h3>
-              <h3 className="text-active mt-2">
-                {t("full_name")} : {wiewProduct.full_name}{" "}
-              </h3>
-              <p className="text-active mt-2">
-                inn {t("number")} : {wiewProduct.inn_number}
-              </p>
-              <p className="text-active mt-2">
-                {" "}
-                info {t("number")} : {wiewProduct.info_number}
-              </p>
-              <p className="text-active mt-2">
-                {" "}
-                {t("employee_name")} : {wiewProduct.employee_name}
-              </p>
-              <p className="text-active mt-2">
-                {" "}
-                {t("region")} : {wiewProduct.region}
-              </p>
-              <p className="text-active mt-2">
-                {" "}
-                {t("district")} : {wiewProduct.district}
-              </p>
-              <p className="text-active mt-2">
-                {" "}
-                {t("quarter")} : {wiewProduct.quarter}
-              </p>
-              <p className="text-active mt-2">
-                {" "}
-                {t("street")} : {wiewProduct.street}
-              </p>
-              <p className="text-active mt-2">
-                {" "}
-                {t("phone")} : {wiewProduct.phone}
-              </p>
+              <div>
+              
+                <div>
+  {filteredTRADES.length ? (
+    filteredTRADES.map((trade, index) => (
+      <div className="w-[100%] text-active gap-2 flex justify-between items-center" key={index}>
+       <div  style={{ border: "1px solid grey" }} className="w-5/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center ">
+        <h3 >
+          KV
+        </h3>
+        
+         <h3>{trade.kv}</h3>
+       </div>
+        <div  style={{ border: "1px solid grey" }} className="w-7/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center ">
+        <h3>{t("gross_profit")}</h3>
+        <h3>{trade.total_price}</h3>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p>No trades found</p>
+  )}
+</div>
+              </div>
             </div>
           )}
         </div>
       </CustomDrawer>
+      
     </div>
   );
 }
