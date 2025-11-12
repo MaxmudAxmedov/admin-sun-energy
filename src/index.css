@@ -23,7 +23,7 @@
 }
 
 .dark {
-  --background: #000000;
+  --background: #03011c;
   /* asosiy background (yumshoq qora) */
 
   /* aside, border va description */
@@ -48,11 +48,11 @@
   /* chiroyli moviy (asosiy tugmalar uchun) */
 
   /* oddiy text */
-  --black: #aaa9ba;
+  --black: #6b698b;
   /* oqga yaqin, lekin toza oq emas (ko‘zga yumshoq) */
 
   /* red */
-  --red: #ef4444;
+  --red: #ff0000;
   /* Tailwind red-500 — dark modeda yaxshi ko‘rinadi */
   --box-shadow: #000000;
    --shadow: rgb(73, 112, 78);
@@ -61,4 +61,7 @@
 body{
   overflow: scroll;
   overflow-x: hidden;
+}
+ul{
+  list-style: none;
 }

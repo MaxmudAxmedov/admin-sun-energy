@@ -7,3 +7,8 @@ export const clientsBusinessGet = (params) => {
 export const clientsCustomersGet = (params) => {
     return request({ method: "get", url: "/client-customers", params });
 };
+
+
+export const clientsBusinessIdGet = (id) =>{
+    return request({method:"get", url:`/client-customer/${id}`})
+}

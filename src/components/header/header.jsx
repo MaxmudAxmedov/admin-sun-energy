@@ -15,12 +15,8 @@ import ruFlag from "@/assets/img/rus.png";
 import uzFlag from "@/assets/img/uzb.png";
 import { Button } from "../ui/button";
 import { useTranslation } from "react-i18next";
-import Left_icons from "@/assets/icons/left_icons";
-import Right_icons from "@/assets/icons/Right_icons";
 
 export const Header = ({ setopen, open }) => {
-
-
     const handlerChange = (lang) => {
         i18n.changeLanguage(lang);
         localStorage.setItem("lang", lang);
@@ -30,15 +26,35 @@ export const Header = ({ setopen, open }) => {
         <header className={`py-[13px] flex px-3 justify-end bg-icons`}>
             <div className="flex gap-8 items-center ">
                 <ThemeMode />
-                <select
-                    onChange={(e) => handlerChange(e.target.value)}
+            
+
+                <Select
                     value={localStorage.getItem("lang") || "en"}
-                    className="border-none outline-none appearance-none rounded-md p-2 w-[70px] normal-case text-[20px] bg-icons text-background"
+                    onValueChange={(value)=> handlerChange(value)}
                 >
-                    <option value="uz">🇺🇿 </option>
-                    <option value="ru">🇷🇺</option>
-                    <option value="en">🇬🇧 </option>
-                </select>
+                    <SelectTrigger className="w-[80px] border-none bg-icons text-background">
+                        <SelectValue placeholder="Laung" />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectItem value="uz" className="flex items-center gap-2">
+                        <img src={uzFlag} alt="uz" className="w-5 h-5 rounded-full" />
+                        <span>UZ</span>
+                            </SelectItem>
+                            <SelectItem value="ru" className="flex items-center gap-2" >
+                                <img src={ruFlag} alt="ru" className="w-5 h-5 rounded-full" />
+                                <span>RU</span>
+                            </SelectItem>
+                            <SelectItem value="en" className="flex items-center gap-2" >
+                                <img src={ukFlag} alt="ru" className="w-5 h-5 rounded-full" />
+                                <span>EN</span>
+                            </SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+
+                </Select>
+
             </div>
         </header>
     );

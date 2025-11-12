@@ -4,6 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 import { route } from "./routes/route";
 import "./App.css";
 import { ClipLoader } from "react-spinners";
+import { useTranslation } from "react-i18next";
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
   return token ? children : <Navigate to="/login" replace />;
@@ -13,6 +14,8 @@ const loginPage = route.find((r) => r.path === "login");
 const notFoundPage = route.find((r) => r.path === "*");
 
 export default function App() {
+  const {i18n} = useTranslation()
+
   return (
     <Suspense
       fallback={
@@ -28,7 +31,7 @@ export default function App() {
         </div>
       }
     >
-      <Routes>
+      <Routes key={i18n.language} >
         <Route path="/login" element={<loginPage.element />} />
 
         <Route path="/" element={<MainLayout />}>
