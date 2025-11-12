@@ -28,7 +28,7 @@ export default function CustomDrawer({
   const sizeClasses = {
     sm: "sm:max-w-[300px]",
     md: "sm:max-w-[400px]",
-    lg: "sm:max-w-[600px]",
+    lg: "sm:max-w-[650px]",
     xl: "sm:max-w-[800px]",
   };
 

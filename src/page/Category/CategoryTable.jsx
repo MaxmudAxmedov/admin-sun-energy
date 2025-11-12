@@ -24,7 +24,7 @@ export default function CategoryTable() {
     () => data?.data?.Data?.product_categories || [],
     [data]
   );
-  
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [wiewProduct, setViewProduct] = useState({});
   const [openPopoverId, setOpenPopoverId] = useState(null);
@@ -35,7 +35,7 @@ export default function CategoryTable() {
   const handleView = (row) => {
     setViewProduct(row);
     onOpen();
-    ChangeProduct(wiewProduct)
+    ChangeProduct(wiewProduct);
   };
   const columns = [
     {
@@ -65,22 +65,34 @@ export default function CategoryTable() {
           >
             {t("edid")}
           </Button>
-          <Popover open={openPopoverId == row.id} onOpenChange={(isOpen)=> setOpenPopoverId(isOpen ? row.id : null)}>
-            <PopoverTrigger asChild>
-              <Button> {t("delete")}</Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-60 bg-[#fff]">
-              <p>siz rostan ham o'chirmoqchimisiz!</p>
-              <div className="flex justify-end gap-2 mt-3">
-                <Button variant="outline" onClick={() => setOpenPopoverId(false)}>
-                  clean
-                </Button>
-                <Button variant="destructive" onClick={handleDelete}>
-                  {t("delete")}
-                </Button>
-              </div>
-            </PopoverContent>
-          </Popover>
+           <Popover
+                      className="transition-all duration-300"
+                      open={openPopoverId == row.id}
+                      onOpenChange={(isOpen) => setOpenPopoverId(isOpen ? row.id : null)}
+                    >
+                      <PopoverTrigger asChild>
+                        <Button className="bg-red text-[#fff] border-none hover:bg-redHover">
+                          {t("delete")}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-30 bg-[#fff]">
+                        <p className="text-[red]">{t("deletes")}</p>
+                        <div className="flex justify-end gap-2 mt-3">
+                          <Button
+                            className="transition-all duration-300 hover:bg-blue-800 border-none hover:rounded-[10px] text-[#fff] bg-blue-600"
+                            onClick={() => setOpenPopoverId(false)}
+                          >
+                            clean
+                          </Button>
+                          <Button
+                            className="transition-all duration-300 bg-red text-[#fff] border-none hover:bg-redHover hover:rounded-[10px]"
+                            onClick={handleDelete}
+                          >
+                            {t("delete")}
+                          </Button>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
         </div>
       ),
     },

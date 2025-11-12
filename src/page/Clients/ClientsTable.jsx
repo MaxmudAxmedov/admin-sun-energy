@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { getClientBusinessQuery, getClientCustomersQuery } from "@/queries";
+import { getClientBusinessIdQuery, getClientBusinessQuery, getClientCustomersQuery } from "@/queries";
 import { useQuery } from "@tanstack/react-query";
 import DataTable from "@/components/Table/DataTable";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,13 @@ import { useDisclosure } from "@/hook/useDisclosure";
 import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
 
 export default function ClientsTable() {
-    const [vale,setvalue] = useState(true);
+  const [vale, setvalue] = useState(null);
+
+  const {data:clientsId, isLoading} = useQuery(
+    getClientBusinessIdQuery(vale)
+  )
+console.log(clientsId);
+
   const [params, setParams] = useState({
     limit: "200",
     search: "",
@@ -33,12 +39,12 @@ export default function ClientsTable() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [wiewProduct, setViewProduct] = useState({});
 
-  const handleView = (row) =>{
+  const handleView = (row) => {
     setViewProduct(row);
-    onOpen()
-    console.log(row);
-    
-  }
+    setvalue(row.id)
+    onOpen();
+    console.log(row.id);
+  };
 
   const columns = useMemo(
     () => [
@@ -91,7 +97,6 @@ export default function ClientsTable() {
 
   return (
     <div>
-   
       <Tabs defaultValue="jismoniy" className="w-full">
         <TabsList>
           <TabsTrigger
@@ -136,49 +141,116 @@ export default function ClientsTable() {
           <DataTable columns={columns} data={clientBusiness} />
         </TabsContent>
       </Tabs>
-       <CustomDrawer
-    title={t("info")}
-    open={isOpen}
-    onOpenChange={(open)=> (open ? onOpen() : onClose())}
-    onSave={()=>{
-        onClose()
-    }}
-    side="right"
-    size="lg"
-    >
-<div className="flex flex-col">
-    <img src={wiewProduct.file} alt="" />
-  {!isType == true ? <div>
-        <h3 className="text-active mt-2">{t("contract_date")} : {wiewProduct.created_at}</h3>
-        <h3 className="text-active mt-2">{t("name")} : {wiewProduct.first_name} </h3>
-        <p className="text-active mt-2"> {t("last_name")} : {wiewProduct.last_name}</p>
-        <h3 className="text-active mt-2">{t("patronymic")} : {wiewProduct.patronymic}</h3>
-        <p className="text-active mt-2"> {t("passport_series")} : {wiewProduct.passport_series}</p>
-        <p className="text-active mt-2"> {t("employee_name")} : {wiewProduct.employee_name}</p>
-        <p className="text-active mt-2"> {t("region")} : {wiewProduct.region}</p>
-        <p className="text-active mt-2"> {t("district")} : {wiewProduct.district}</p>
-        <p className="text-active mt-2"> {t("quarter")} : {wiewProduct.quarter}</p>
-        <p className="text-active mt-2"> {t("street")} : {wiewProduct.street}</p>
-        <p className="text-active mt-2"> {t("phone")} : {wiewProduct.phone}</p>
-
-    </div> : <div>
-               <h3 className="text-active mt-2">{t("contract_date")} : {wiewProduct.created_at}</h3>
-        <h3 className="text-active mt-2">{t("full_name")} : {wiewProduct.full_name} </h3>
-        <p className="text-active mt-2">inn {  t("number")} : {wiewProduct.inn_number}</p>
-        <p className="text-active mt-2"> info {  t("number")} : {wiewProduct.info_number}</p>
-        <p className="text-active mt-2"> {t("employee_name")} : {wiewProduct.employee_name}</p>
-        <p className="text-active mt-2"> {t("region")} : {wiewProduct.region}</p>
-        <p className="text-active mt-2"> {t("district")} : {wiewProduct.district}</p>
-        <p className="text-active mt-2"> {t("quarter")} : {wiewProduct.quarter}</p>
-        <p className="text-active mt-2"> {t("street")} : {wiewProduct.street}</p>
-        <p className="text-active mt-2"> {t("phone")} : {wiewProduct.phone}</p>     
-
-    </div> }
-    
-</div>
-
-    </CustomDrawer>
+      <CustomDrawer
+        title={t("info")}
+        open={isOpen}
+        onOpenChange={(open) => (open ? onOpen() : onClose())}
+        onSave={() => {
+          onClose();
+        }}
+        side="right"
+        size="lg"
+      >
+        <div className="flex flex-col">
+          {!isType == true ? (
+            <div>
+              <div className="flex gap-7">
+                <img
+                  className="w-[240px] rounded-md h-[200px["
+                  src={wiewProduct.file}
+                  alt=""
+                />
+                <div>
+                  <h2 className="text-active mt-2">
+                    {wiewProduct.first_name} {wiewProduct.last_name}{" "}
+                    {wiewProduct.patronymic}{" "}
+                  </h2>
+                  <h2 className="text-active mt-2"> +{wiewProduct.phone}</h2>
+                </div>
+              </div>
+              <ul className="flex justify-between w-[580px] ml-auto mr-auto  border border-indigo-600  items-center py-7">
+                <li
+                  style={{ border: "1px solid grey" }}
+                  className="text-active py-[8px] pl-2 rounded-lg pr-5 "
+                >
+                  {wiewProduct.region}
+                </li>
+                <li
+                  style={{ border: "1px solid grey" }}
+                  className="text-active py-[8px] pl-2 rounded-lg pr-5 "
+                >
+                  {wiewProduct.district}
+                </li>
+                <li
+                  style={{ border: "1px solid grey" }}
+                  className="text-active py-[8px] pl-2 rounded-lg pr-5 "
+                >
+                  {wiewProduct.quarter}
+                </li>
+                <li
+                  style={{ border: "1px solid grey" }}
+                  className="text-active py-[8px] pl-2 rounded-lg pr-5 "
+                >
+                  {wiewProduct.street}
+                </li>
+              </ul>
+              <p className="text-active mt-2  ">
+                {" "}
+                {t("passport_series")} : {wiewProduct.passport_series}
+              </p>
+              <p className="text-active mt-2">
+                {" "}
+                {t("employee_name")} :{wiewProduct.employee_name}{" "}
+              </p>
+            </div>
+          ) : (
+            <div>
+              <img
+                className="w-[240px] h-[200px["
+                src={wiewProduct.file}
+                alt=""
+              />
+              <h3 className="text-active mt-2">
+                {t("contract_date")} : {wiewProduct.created_at}
+              </h3>
+              <h3 className="text-active mt-2">
+                {t("full_name")} : {wiewProduct.full_name}{" "}
+              </h3>
+              <p className="text-active mt-2">
+                inn {t("number")} : {wiewProduct.inn_number}
+              </p>
+              <p className="text-active mt-2">
+                {" "}
+                info {t("number")} : {wiewProduct.info_number}
+              </p>
+              <p className="text-active mt-2">
+                {" "}
+                {t("employee_name")} : {wiewProduct.employee_name}
+              </p>
+              <p className="text-active mt-2">
+                {" "}
+                {t("region")} : {wiewProduct.region}
+              </p>
+              <p className="text-active mt-2">
+                {" "}
+                {t("district")} : {wiewProduct.district}
+              </p>
+              <p className="text-active mt-2">
+                {" "}
+                {t("quarter")} : {wiewProduct.quarter}
+              </p>
+              <p className="text-active mt-2">
+                {" "}
+                {t("street")} : {wiewProduct.street}
+              </p>
+              <p className="text-active mt-2">
+                {" "}
+                {t("phone")} : {wiewProduct.phone}
+              </p>
+            </div>
+          )}
+        </div>
+      </CustomDrawer>
     </div>
   );
 }
-

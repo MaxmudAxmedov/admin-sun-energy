@@ -23,23 +23,24 @@
 }
 
 .dark {
-  --background: #111827;
+  --background: #03011c;
   /* asosiy background (yumshoq qora) */
 
   /* aside, border va description */
-  --aside-color: #1f2937;
+  --aside-color: #ffffff;
   /* sidebar uchun biroz ochroq to‘q kulrang */
 
   /* active text */
-  --active-text: #38bdf8;
+  /* --active-text: ; */
+  --active-text: #ffffff;
   /* chiroyli ko‘k (hover + aktiv text uchun) */
 
   /* iconlar va chegirma narxlar */
-  --icons-colors: #22c55e;
+  --icons-colors: #0a961d;
   /* toza yashil */
 
   /* active button yoki disabled button */
-  --active-button: #374151;
+  --active-button: #2258af;
   /* to‘q kulrang tugma (inactive holatda) */
 
   /* button ranglari */
@@ -47,17 +48,20 @@
   /* chiroyli moviy (asosiy tugmalar uchun) */
 
   /* oddiy text */
-  --black: #f9fafb;
+  --black: #6b698b;
   /* oqga yaqin, lekin toza oq emas (ko‘zga yumshoq) */
 
   /* red */
-  --red: #ef4444;
+  --red: #ff0000;
   /* Tailwind red-500 — dark modeda yaxshi ko‘rinadi */
-  --box-shadow: #0f0f0f;
-   --shadow: rgb(74, 121, 80);
+  --box-shadow: #000000;
+   --shadow: rgb(73, 112, 78);
 }
 
 body{
   overflow: scroll;
   overflow-x: hidden;
+}
+ul{
+  list-style: none;
 }
