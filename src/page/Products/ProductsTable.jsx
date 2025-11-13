@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/popover";
 import { formator } from "@/schemas/formator";
 import Search from "@/components/Search/search";
+import { Link, useNavigate } from "react-router-dom";
 export default function ProductsTable() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [params, setParams] = useState({
@@ -105,25 +106,31 @@ export default function ProductsTable() {
       ),
     },
   ];
-
+const nav = useNavigate()
   const websiteProducts = products.filter((p) => p.show_on_landing === true);
   const adminProducts = products.filter((p) => !p.show_on_landing);
-
-  const handleSearch = (value)=>{
-  setParams((p)=>({...p, search:value}))
-  }
+ 
+  const handleSearch = (value) => {
+    setParams((p) => ({ ...p, search: value }));
+  };
   return (
     <>
-    <div className="flex justify-between items-center py-5 px-7">
-            <h1 className="my-4 text-active">{t("products")}</h1>
-            <Search url={handleSearch}/>
-            </div>
+      <div className="flex justify-between items-center py-5 px-7">
+        <h1 className="my-4 text-active">{t("products")}</h1>
+        <div className="flex gap-2 items-center">
+          
+           <Link className="p-[10px]" to={"/products/create"} >
+            + Create
+           </Link>
+         
+          <Search url={handleSearch} />
+        </div>
+      </div>
       <CustomDrawer
         title={t("product")}
         open={isOpen}
         edit={true}
         path={"products"}
-
         onOpenChange={(open) => (open ? onOpen() : onClose())}
         onSave={() => {
           onClose();
@@ -170,7 +177,10 @@ export default function ProductsTable() {
           </div>
         </div>
 
-        <div style={{borderLeft:"4px solid grey"}} className="text-active p-2 border-l-2">
+        <div
+          style={{ borderLeft: "4px solid grey" }}
+          className="text-active p-2 border-l-2"
+        >
           <p>{wiewProduct.description}</p>
         </div>
       </CustomDrawer>

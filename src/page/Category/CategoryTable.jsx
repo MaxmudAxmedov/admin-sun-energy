@@ -3,18 +3,18 @@ import { useTranslation } from "react-i18next";
 import DataTable from "@/components/Table/DataTable";
 import { Button } from "@/components/ui/button";
 import { useDisclosure } from "@/hook/useDisclosure";
-import { Input } from "@/components/ui/input";
-import { Form } from "@/components/ui/form";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
-import { getProductQuery } from "@/queries";
-import { useQuery } from "@tanstack/react-query";
+import { getProductQuery, postProductCatecoriyes } from "@/queries";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Search from "@/components/Search/search";
+import { useNavigate } from "react-router-dom";
 
 export default function CategoryTable() {
+  // const nav = useNavigate()
   const { t } = useTranslation();
   const [params, setParams] = useState({
     limit: "200",
@@ -22,14 +22,18 @@ export default function CategoryTable() {
     search: "",
   });
   const { data } = useQuery(getProductQuery(params));
+    // const {mutet}= useMutation(postProductCatecoriyes(params))
   const Productquery = useMemo(
     () => data?.data?.Data?.product_categories || [],
     [data]
   );
 
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [wiewProduct, setViewProduct] = useState({});
   const [openPopoverId, setOpenPopoverId] = useState(null);
+console.log(Productquery);
+
   const handleDelete = (row) => {
     setOpenPopoverId(false);
     console.log(row);
@@ -58,7 +62,7 @@ export default function CategoryTable() {
       key: "actions",
       label: <p className="text-center">{t("actions")}</p>,
       render: (_, row) => (
-        <div className="flex justify-evenly gap-2 ">
+        <div className="flex justify-center gap-4 ">
           <Button
             variant="outline"
             className="bg-icons text-aside  border-none"
@@ -106,13 +110,21 @@ const handleSearch = (value)=>{
   
 }
 
+// const handleCreate = () =>{
+  
+//  nav("/settings",{state:{params:mutet, page:"pcategory"}})
+// }
+
   return (
     <>
 
       <div className="p-4">
             <div className="flex justify-between items-center py-1 px-4">
                     <h1 className="my-4 text-active">{t("pcategory")}</h1>
+                    <div className="flex gap-2 items-center">
+                      <Button onClick={()=>handleCreate()} className="p-[10px]">+ Create</Button>
                     <Search url={handleSearch}/>
+                    </div>
                     </div>
         <DataTable columns={columns} data={Productquery} />
       </div>

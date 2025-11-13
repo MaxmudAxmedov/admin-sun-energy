@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import DataTable from "@/components/Table/DataTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { t } from "@/utils/i18n";
-import Search from "@/components/Search/search";
 import { Button } from "@/components/ui/button";
+
 export default function Contracts() {
     const [params, setParams] = useState({
         client_id: "",
@@ -21,7 +21,12 @@ export default function Contracts() {
         () => data?.data?.Data?.client_products || [],
         [data]
     );
-  
+
+    const [open, setopen] = useState(false)
+  const handleClick = (row) =>{
+   console.log(row.id);
+    setopen(true)
+  }
     const columns = useMemo(
         () => [
             {
@@ -35,6 +40,20 @@ export default function Contracts() {
             },
             { key: "total_price", label: t("total_amount") },
             { key: "created_at", label: t("contract_date") },
+            {
+                key:"action",
+                label: <p className="text-center">{t("actions")}</p>,
+                render:(_,row)=>(
+                    <div className="flex justify-evenly gap-2">
+                        <Button onClick={()=>handleClick(row)} className="bg-background border-none text-active hover:bg-shadows  p-3">...</Button>  
+                        <div className="relative">
+                    
+              </div>
+                       
+    </div>
+                    
+                )
+            }
         ],
         [params.is_company]
     );
@@ -97,6 +116,7 @@ export default function Contracts() {
                     <DataTable columns={columns} data={contracts} />
                 </TabsContent>
             </Tabs>
+              
         </div>
     );
 }
