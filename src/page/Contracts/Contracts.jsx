@@ -5,9 +5,9 @@ import DataTable from "@/components/Table/DataTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { t } from "@/utils/i18n";
 import Search from "@/components/Search/search";
+import { Button } from "@/components/ui/button";
 export default function Contracts() {
     const [params, setParams] = useState({
-         search: "",
         client_id: "",
         employee_id: "",
         from_date: "",
@@ -21,10 +21,7 @@ export default function Contracts() {
         () => data?.data?.Data?.client_products || [],
         [data]
     );
-      const handleSearch = (value)=>{
-        setParams((per)=>({...per, search:value}))
-    }
-
+  
     const columns = useMemo(
         () => [
             {
@@ -46,7 +43,9 @@ export default function Contracts() {
         <div>
                   <div className="flex justify-between items-center py-5 px-7">
                     <h1 className="my-4 text-active">{t("contracts")}</h1>
-                    <Search url={handleSearch} />
+                    <Button>
+                        + CREATE
+                    </Button>
                   </div>
             <Tabs defaultValue="jismoniy" className="w-full">
                 <TabsList>
