@@ -19,6 +19,7 @@ export default {
                 red: "var(--red)",
                 redHover: "var(--red-hover)",
                 shadows: "var(--shadow)",
+                bll:"var(--bl)",
             },
         },
     },

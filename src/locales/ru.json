@@ -60,5 +60,7 @@
  "deletes":"Вы уверены, что хотите удалить?",
  "gross_profit":"чистая продажа",
  "current_status":"текущее состояние",
- "cashback":"кэшбэк"
+ "cashback":"кэшбэк",
+ "price":"Цена",
+ "fixsed_percentage":"фиксированный процент"
 }

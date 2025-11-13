@@ -49,6 +49,7 @@ export function getClientBusinessIdQuery(id){
      enabled: !!id,
   }
 }
+
 export function getClentBusinessTRADESQuery(params){
   return {
     queryKey:["tredes", params],

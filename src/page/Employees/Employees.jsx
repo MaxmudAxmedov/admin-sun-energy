@@ -9,6 +9,7 @@ import { t } from "@/utils/i18n";
 import { useDisclosure } from "@/hook/useDisclosure";
 import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
 import { formator } from "@/schemas/formator";
+import Search from "@/components/Search/search";
 
 export default function Employees() {
   const [dataid, setdataid] = useState(null);
@@ -66,8 +67,15 @@ export default function Employees() {
     },
   ];
 
+  const handleSearch = (value)=>{
+  setParams((p)=>({...p, search:value}))
+}
   return (
     <div>
+                  <div className="flex justify-between items-center py-5 px-7">
+                    <h1 className="my-4 text-active">{t("employees")}</h1>
+                    <Search url={handleSearch} />
+                  </div>
       <DataTable columns={columns} data={employees} />
 
       <CustomDrawer

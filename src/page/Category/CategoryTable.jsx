@@ -12,12 +12,14 @@ import {
 } from "@/components/ui/popover";
 import { getProductQuery } from "@/queries";
 import { useQuery } from "@tanstack/react-query";
+import Search from "@/components/Search/search";
 
 export default function CategoryTable() {
   const { t } = useTranslation();
-  const [params, useParams] = useState({
+  const [params, setParams] = useState({
     limit: "200",
     page: "1",
+    search: "",
   });
   const { data } = useQuery(getProductQuery(params));
   const Productquery = useMemo(
@@ -98,24 +100,20 @@ export default function CategoryTable() {
     },
   ];
 
+const handleSearch = (value)=>{
+  console.log(value);
+  setParams((prev)=>({...prev, search:value}))
+  
+}
+
   return (
     <>
-      <div className="w-[300px] flex gap-5 ml-auto mr-[30px]">
-        <Button className="border-none rounded-4 text-button">+ Create</Button>
-        <Form className={"w-100%"}>
-          <label id="search">
-            <img src="./" alt="" />
-            <Input
-              type={"text"}
-              id="search"
-              className={"border-none bg-none"}
-            />
-          </label>
-        </Form>
-      </div>
 
       <div className="p-4">
-        <h1 className="my-4 text-active">{t("pcategory")}</h1>
+            <div className="flex justify-between items-center py-1 px-4">
+                    <h1 className="my-4 text-active">{t("pcategory")}</h1>
+                    <Search url={handleSearch}/>
+                    </div>
         <DataTable columns={columns} data={Productquery} />
       </div>
     </>

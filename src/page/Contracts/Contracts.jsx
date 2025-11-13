@@ -4,8 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import DataTable from "@/components/Table/DataTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { t } from "@/utils/i18n";
+import Search from "@/components/Search/search";
 export default function Contracts() {
     const [params, setParams] = useState({
+         search: "",
         client_id: "",
         employee_id: "",
         from_date: "",
@@ -19,6 +21,9 @@ export default function Contracts() {
         () => data?.data?.Data?.client_products || [],
         [data]
     );
+      const handleSearch = (value)=>{
+        setParams((per)=>({...per, search:value}))
+    }
 
     const columns = useMemo(
         () => [
@@ -36,8 +41,13 @@ export default function Contracts() {
         ],
         [params.is_company]
     );
+  
     return (
         <div>
+                  <div className="flex justify-between items-center py-5 px-7">
+                    <h1 className="my-4 text-active">{t("contracts")}</h1>
+                    <Search url={handleSearch} />
+                  </div>
             <Tabs defaultValue="jismoniy" className="w-full">
                 <TabsList>
                     <TabsTrigger
