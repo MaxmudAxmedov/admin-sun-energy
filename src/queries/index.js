@@ -3,7 +3,7 @@ import { productGet } from "../services/product";
 import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
 import { reportsGet, tradesReportsGet } from "@/services/reports";
-import { category } from "@/services/category";
+import { category, categorypost } from "@/services/category";
 
 // Reports page
 export function getReportsQuery(params) {
@@ -25,7 +25,9 @@ export function getProductsQuery(params) {
     queryKey: ["products-all", params],
     queryFn: async () => productGet(params),
   };
-}
+} 
+
+
 
 // Category
 export function getProductQuery(params) {
@@ -34,6 +36,13 @@ export function getProductQuery(params) {
     queryFn: async () => category(params),
   };
 }
+
+export function postProductCatecoriyes(params){
+  return{
+    queryFn:async ()=> categorypost(params)
+  }
+}
+
 
 // Clients page
 export function getClientBusinessQuery(params) {
