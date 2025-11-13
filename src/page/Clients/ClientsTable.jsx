@@ -15,6 +15,7 @@ import { t } from "@/utils/i18n";
 import { useDisclosure } from "@/hook/useDisclosure";
 import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
 import { formator } from "@/schemas/formator";
+import Search from "@/components/Search/search";
 
 export default function ClientsTable() {
   const [params, setParams] = useState({
@@ -25,7 +26,7 @@ export default function ClientsTable() {
   const [isType, setIsType] = useState(false);
   const { data: business } = useQuery(getClientBusinessQuery(params));
   const { data: customers } = useQuery(getClientCustomersQuery(params));
-  const [clientId, setclientId ] = useState(null);
+  const [clientId, setclientId] = useState(null);
   const { data: trades } = useQuery(
     getClentBusinessTRADESQuery({
       client_id: clientId,
@@ -115,16 +116,23 @@ export default function ClientsTable() {
     [isType]
   );
 
-    const filteredTRADES = useMemo(()=>{
-    if(!TRADES || !clientId) return [];
-    return TRADES.filter((item)=>item.client_id == clientId)
-  },[TRADES,clientId])
+  const filteredTRADES = useMemo(() => {
+    if (!TRADES || !clientId) return [];
+    return TRADES.filter((item) => item.client_id == clientId);
+  }, [TRADES, clientId]);
 
   console.log(wiewProduct);
-  
+
+  const handleSearch = (value) => {
+    setParams((p) => ({ ...p, search: value }));
+  };
 
   return (
     <div>
+      <div className="flex justify-between items-center py-5 px-7">
+        <h1 className="my-4 text-active">{t("clients")}</h1>
+        <Search url={handleSearch} />
+      </div>
       <Tabs defaultValue="jismoniy" className="w-full">
         <TabsList>
           <TabsTrigger
@@ -196,11 +204,9 @@ export default function ClientsTable() {
                     {wiewProduct.patronymic}{" "}
                   </h2>
                   <h2 className="text-active mt-2"> +{wiewProduct.phone}</h2>
-                  
-              
                 </div>
               </div>
-              <ul  className="flex justify-between gap-2 flex-wrap w-[600px] ml-auto mr-auto  border border-indigo-600  items-center py-7">
+              <ul className="flex justify-between gap-2 flex-wrap w-[600px] ml-auto mr-auto  border border-indigo-600  items-center py-7">
                 <li
                   style={{ border: "1px solid grey" }}
                   className="text-active py-[8px] text-[14px] pl-2 rounded-lg pr-2 "
@@ -218,7 +224,7 @@ export default function ClientsTable() {
                   className="text-active py-[8px] pl-2 text-[14px] rounded-lg pr-2 "
                 >
                   {wiewProduct.quarter}
-                </li> 
+                </li>
                 <li
                   style={{ border: "1px solid grey" }}
                   className="text-active py-[8px] pl-2 text-[10px] rounded-lg pr-2 "
@@ -227,32 +233,38 @@ export default function ClientsTable() {
                 </li>
               </ul>
               <div>
-              
                 <div>
-  {filteredTRADES.length ? (
-    filteredTRADES.map((trade, index) => (
-      <div className="w-[100%] text-active gap-2 flex justify-between items-center" key={index}>
-       <div  style={{ border: "1px solid grey" }} className="w-5/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center ">
-        <h3 >
-          KV
-        </h3>
-        
-         <h3>{trade.kv}</h3>
-       </div>
-        <div  style={{ border: "1px solid grey" }} className="w-7/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center ">
-        <h3>{t("gross_profit")}</h3>
-        <h3>{formator(trade.total_price)} UZS </h3>
-        </div>
-      </div>
-    ))
-  ) : (
-    <p>No trades found</p>
-  )}
-</div>
+                  {filteredTRADES.length ? (
+                    filteredTRADES.map((trade, index) => (
+                      <div
+                        className="w-[100%] text-active gap-2 flex justify-between items-center"
+                        key={index}
+                      >
+                        <div
+                          style={{ border: "1px solid grey" }}
+                          className="w-5/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center "
+                        >
+                          <h3>KV</h3>
+
+                          <h3>{trade.kv}</h3>
+                        </div>
+                        <div
+                          style={{ border: "1px solid grey" }}
+                          className="w-7/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center "
+                        >
+                          <h3>{t("gross_profit")}</h3>
+                          <h3>{formator(trade.total_price)} UZS </h3>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No trades found</p>
+                  )}
+                </div>
               </div>
             </div>
           ) : (
-             <div>
+            <div>
               <div className="flex gap-7">
                 <img
                   className="w-[240px] rounded-md h-[200px["
@@ -264,9 +276,10 @@ export default function ClientsTable() {
                     {wiewProduct.company_name} <br /> {wiewProduct.full_name}{" "}
                   </h2>
                   <h3 className="text-active mt-2"> +{wiewProduct.phone}</h3>
-                  <h3 className="text-active mt-2"> inn {wiewProduct.inn_number}</h3>
-                  
-              
+                  <h3 className="text-active mt-2">
+                    {" "}
+                    inn {wiewProduct.inn_number}
+                  </h3>
                 </div>
               </div>
               <ul className="flex justify-between w-[580px] ml-auto mr-auto  border border-indigo-600  items-center py-7">
@@ -296,34 +309,39 @@ export default function ClientsTable() {
                 </li>
               </ul>
               <div>
-              
                 <div>
-  {filteredTRADES.length ? (
-    filteredTRADES.map((trade, index) => (
-      <div className="w-[100%] text-active gap-2 flex justify-between items-center" key={index}>
-       <div  style={{ border: "1px solid grey" }} className="w-5/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center ">
-        <h3 >
-          KV
-        </h3>
-        
-         <h3>{trade.kv}</h3>
-       </div>
-        <div  style={{ border: "1px solid grey" }} className="w-7/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center ">
-        <h3>{t("gross_profit")}</h3>
-        <h3>{trade.total_price}</h3>
-        </div>
-      </div>
-    ))
-  ) : (
-    <p>No trades found</p>
-  )}
-</div>
+                  {filteredTRADES.length ? (
+                    filteredTRADES.map((trade, index) => (
+                      <div
+                        className="w-[100%] text-active gap-2 flex justify-between items-center"
+                        key={index}
+                      >
+                        <div
+                          style={{ border: "1px solid grey" }}
+                          className="w-5/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center "
+                        >
+                          <h3>KV</h3>
+
+                          <h3>{trade.kv}</h3>
+                        </div>
+                        <div
+                          style={{ border: "1px solid grey" }}
+                          className="w-7/12 border-spacing-10 h-[22px] py-7 px-5 rounded-md flex justify-between items-center "
+                        >
+                          <h3>{t("gross_profit")}</h3>
+                          <h3>{trade.total_price}</h3>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No trades found</p>
+                  )}
+                </div>
               </div>
             </div>
           )}
         </div>
       </CustomDrawer>
-      
     </div>
   );
 }

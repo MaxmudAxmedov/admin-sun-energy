@@ -58,5 +58,9 @@
   "patronymic":"otasini ismi",
   "number":"Raqam",
   "deletes":"siz rostan ham o'chirmoqchimisiz?",
-  "gross_profit":"Sof savdo"
+  "gross_profit":"Sof savdo",
+  "current_status":"hozirgi vaziyat",
+  "cashback":"Cashback",
+  "price":"Narx",
+  "fixsed_percentage":"o‘zgarmas foiz"
 }

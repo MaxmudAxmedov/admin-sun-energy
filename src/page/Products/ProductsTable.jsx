@@ -14,6 +14,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { formator } from "@/schemas/formator";
+import Search from "@/components/Search/search";
 export default function ProductsTable() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [params, setParams] = useState({
@@ -25,6 +27,7 @@ export default function ProductsTable() {
   const products = data?.data?.Data?.products || [];
   const [wiewProduct, setViewProduct] = useState({});
   const [OpenPopoverId, setOpenPopoverId] = useState(null);
+  console.log(wiewProduct);
 
   const handleView = (row) => {
     console.log("View clicked:", row);
@@ -98,7 +101,6 @@ export default function ProductsTable() {
               </div>
             </PopoverContent>
           </Popover>
-      
         </div>
       ),
     },
@@ -106,39 +108,70 @@ export default function ProductsTable() {
 
   const websiteProducts = products.filter((p) => p.show_on_landing === true);
   const adminProducts = products.filter((p) => !p.show_on_landing);
+
+  const handleSearch = (value)=>{
+  setParams((p)=>({...p, search:value}))
+  }
   return (
     <>
+    <div className="flex justify-between items-center py-5 px-7">
+            <h1 className="my-4 text-active">{t("products")}</h1>
+            <Search url={handleSearch}/>
+            </div>
       <CustomDrawer
         title={t("product")}
         open={isOpen}
+        edit={true}
+        path={"products"}
+
         onOpenChange={(open) => (open ? onOpen() : onClose())}
         onSave={() => {
-          console.log("Mahsulot saqlandi!");
           onClose();
         }}
         side="right"
         size="lg"
       >
-        <div className="flex gap-10 ">
+        <div className="flex gap-10 items-center ">
           <img
             src={wiewProduct?.photo}
             alt="product"
             className="w-52 object-cover rounded-md"
           />
 
-          <div className="flex flex-col">
+          <div className="flex flex-col text-active">
             <h2 className="text-left">{wiewProduct?.name}</h2>
-            <p>
-              {wiewProduct?.count_of_product} {t("stock")}{" "}
-            </p>
-            <p>{wiewProduct?.power_system}</p>
+            <h3 className="mt-4">{wiewProduct?.count_of_product}</h3>
+            <h3 className="mt-4">{wiewProduct?.power_system}</h3>
+            <h3 className="mt-4">{wiewProduct?.category_name}</h3>
           </div>
         </div>
 
-        <div className="flex justify-between">
-          <p>{wiewProduct?.price}</p>
-          <p>{wiewProduct?.mark_up}%</p>
-          <p>{wiewProduct?.selling_price}</p>
+        <div className="flex justify-between text-active gap-2 py-10">
+          <div
+            style={{ border: "1px solid grey" }}
+            className=" px-4 py-3 w-[44%] h-[70px] rounded-md"
+          >
+            <p className="text-[12px] h-[4vh]">{t("price")} </p>{" "}
+            {formator(wiewProduct?.price)} UZS
+          </div>
+          <div
+            style={{ border: "1px solid grey" }}
+            className=" px-4 py-3 w-[44%] rounded-md h-[70px]"
+          >
+            <p className="text-[12px] h-[1vh] ">{t("fixsed_percentage")} </p>
+            <br /> {wiewProduct?.mark_up}%
+          </div>
+          <div
+            style={{ border: "1px solid grey" }}
+            className=" px-4 py-3 w-[44%] rounded-md h-[70px]"
+          >
+            <p className="text-[12px] h-[4vh]"> {t("selling_price")}</p>{" "}
+            {formator(wiewProduct?.selling_price)} UZS
+          </div>
+        </div>
+
+        <div style={{borderLeft:"4px solid grey"}} className="text-active p-2 border-l-2">
+          <p>{wiewProduct.description}</p>
         </div>
       </CustomDrawer>
       <div className="px-3">

@@ -1,4 +1,4 @@
-import { employeesGet } from "@/services/employees";
+import { employeeIDGet, employeesGet } from "@/services/employees";
 import { productGet } from "../services/product";
 import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
@@ -49,16 +49,13 @@ export function getClientBusinessIdQuery(id){
      enabled: !!id,
   }
 }
+
 export function getClentBusinessTRADESQuery(params){
   return {
     queryKey:["tredes", params],
     queryFn: async ()=> tradesReportsGet(params)
   }
 }
-
-
-
-
 
 export function getClientCustomersQuery(params) {
   return {
@@ -73,6 +70,14 @@ export function getEmployeesQuery(params) {
     queryKey: ["employees-all", params],
     queryFn: async () => employeesGet(params),
   };
+}
+
+export function getEmployeeIDQuery(dataid){
+  return{
+    queryKey:["employeeID",dataid],
+    queryFn : async ()=> employeeIDGet(dataid),
+    enabled: !!dataid,
+  }
 }
 
 // Contracts

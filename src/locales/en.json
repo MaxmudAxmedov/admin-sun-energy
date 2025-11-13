@@ -58,5 +58,9 @@
   "patronymic":"Patronymic",
   "number":"Number",
    "deletes":"Do you really want to delete it?",
-    "gross_profit":"Gross Profit"
+    "gross_profit":"Gross Profit",
+    "current_status":"Current status",
+    "cashback":"Cashback",
+    "price":"Price",
+    "fixsed_percentage":"Fixsed percentage"
 }

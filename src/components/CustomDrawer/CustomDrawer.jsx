@@ -27,6 +27,7 @@ export default function CustomDrawer({
   contacts = false,
   edit = false,
   Delete = false,
+  path="",
   
 }) {
   const sizeClasses = {
@@ -81,6 +82,7 @@ export default function CustomDrawer({
               </Button>) : ""}
               {edit == true ? (
                 <Button
+                path={path}
                 variant="outline"
                 className=" w-[50%] border-none text-[#fff] shadow-sm bg-icons hover:shadow-lg transition-shadow duration-300 shadow-icons"
                 size="sm"
