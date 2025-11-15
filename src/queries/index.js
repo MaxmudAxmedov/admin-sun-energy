@@ -37,13 +37,14 @@ export function getProductQuery(params) {
     queryFn: async () => category(params),
   };
 }
+/// category getby id
 export function getProductIdQeriy(id){
   return{
     queryKey:["product-id", id],
-    queryFn : ()=> async ()=> ProductcategoryID(id)
+    queryFn :  async ()=> ProductcategoryID(id)
   }
 }
-
+/// category Post
 export function postProductCatecoriyes(params){
   return{
     queryFn:async ()=> categorypost(params)
