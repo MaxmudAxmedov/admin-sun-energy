@@ -1,19 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { getProductIdQeriy } from "@/queries";
+import { getProductIdQeriy, postProductCatecoriyes } from "@/queries";
 import { t } from "@/utils/i18n";
 import { Label } from "@radix-ui/react-label";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function CategoriyCrud() {
   const {id} = useParams();
 
-  const {data} = useQuery(getProductIdQeriy(id))
-  const Product = useMemo(()=> data || [], [data])
-console.log(Product);
+  const {data , isLoading} = useQuery(
+    getProductIdQeriy(id))
+  const ProductC = useMemo(()=> data?.data?.name, [data])
+  // const {mutet} = useMutation(postProductCatecoriyes())
+
+
+  
+  
+  
+  console.log(ProductC);
+  
+
 
   const nav = useNavigate();
   const clean = () => {
@@ -22,11 +31,12 @@ console.log(Product);
   return (
     <div className="text-active py-5 px-10">
       <h1 className="pb-2">Create Product Category</h1>
-      <Form>
+      <Form >
         <div className="pl-3 w-[500px]">
           <Label htmlFor="id">
             Product category name*
             <Input
+            defaultValue={ProductC}
               className="input shadow-lg w-56 transition-all focus:w-64 outline-none"
               type="text"
             />

@@ -32,16 +32,13 @@ export default function CategoryTable() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [wiewProduct, setViewProduct] = useState({});
   const [openPopoverId, setOpenPopoverId] = useState(null);
-console.log(Productquery);
 
   const handleDelete = (row) => {
     setOpenPopoverId(false);
-    console.log(row);
   };
   const handleView = (row) => {
     setViewProduct(row);
     onOpen();
-    ChangeProduct(wiewProduct);
   };
   const columns = [
     {
