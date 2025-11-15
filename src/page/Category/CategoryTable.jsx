@@ -11,7 +11,7 @@ import {
 import { getProductQuery, postProductCatecoriyes } from "@/queries";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Search from "@/components/Search/search";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CategoryTable() {
   // const nav = useNavigate()
@@ -63,21 +63,23 @@ console.log(Productquery);
       label: <p className="text-center">{t("actions")}</p>,
       render: (_, row) => (
         <div className="flex justify-center gap-4 ">
+          <Link to={`/products_category/edit/${row.id}`}>
           <Button
             variant="outline"
-            className="bg-icons text-aside  border-none"
+            className="bg-icons text-aside cursor-pointer  border-none"
             size="sm"
             onClick={() => handleView(row)}
           >
             {t("edid")}
           </Button>
+            </Link>
            <Popover
                       className="transition-all duration-300"
                       open={openPopoverId == row.id}
                       onOpenChange={(isOpen) => setOpenPopoverId(isOpen ? row.id : null)}
                     >
                       <PopoverTrigger asChild>
-                        <Button className="bg-red text-[#fff] border-none hover:bg-redHover">
+                        <Button className="bg-red cursor-pointer text-[#fff] border-none hover:bg-redHover">
                           {t("delete")}
                         </Button>
                       </PopoverTrigger>
@@ -85,13 +87,13 @@ console.log(Productquery);
                         <p className="text-[red]">{t("deletes")}</p>
                         <div className="flex justify-end gap-2 mt-3">
                           <Button
-                            className="transition-all duration-300 hover:bg-blue-800 border-none hover:rounded-[10px] text-[#fff] bg-blue-600"
+                            className="transition-all cursor-pointer duration-300 hover:bg-blue-800 border-none hover:rounded-[10px] text-[#fff] bg-blue-600"
                             onClick={() => setOpenPopoverId(false)}
                           >
                             clean
                           </Button>
                           <Button
-                            className="transition-all duration-300 bg-red text-[#fff] border-none hover:bg-redHover hover:rounded-[10px]"
+                            className="transition-all cursor-pointer duration-300 bg-red text-[#fff] border-none hover:bg-redHover hover:rounded-[10px]"
                             onClick={handleDelete}
                           >
                             {t("delete")}
@@ -119,13 +121,15 @@ const handleSearch = (value)=>{
     <>
 
       <div className="p-4">
-            <div className="flex justify-between items-center py-1 px-4">
-                    <h1 className="my-4 text-active">{t("pcategory")}</h1>
-                    <div className="flex gap-2 items-center">
-                      <Button onClick={()=>handleCreate()} className="p-[10px]">+ Create</Button>
-                    <Search url={handleSearch}/>
-                    </div>
-                    </div>
+            <div className="flex justify-between items-center py-5 px-7">
+          <Search url={handleSearch} />
+          
+            <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products_category/create"} >
+                      
+                  + Create
+                     </Link>
+         
+      </div>
         <DataTable columns={columns} data={Productquery} />
       </div>
     </>

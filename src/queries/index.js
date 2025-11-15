@@ -4,6 +4,7 @@ import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet } from "@
 import { contractsGet } from "@/services/contract";
 import { reportsGet, tradesReportsGet } from "@/services/reports";
 import { category, categorypost } from "@/services/category";
+import { ProductcategoryID } from "@/services/ProductcategoryID";
 
 // Reports page
 export function getReportsQuery(params) {
@@ -35,6 +36,12 @@ export function getProductQuery(params) {
     queryKey: ["product-categories", params],
     queryFn: async () => category(params),
   };
+}
+export function getProductIdQeriy(id){
+  return{
+    queryKey:["product-id", id],
+    queryFn : ()=> async ()=> ProductcategoryID(id)
+  }
 }
 
 export function postProductCatecoriyes(params){

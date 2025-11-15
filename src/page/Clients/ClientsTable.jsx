@@ -16,6 +16,7 @@ import { useDisclosure } from "@/hook/useDisclosure";
 import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
 import { formator } from "@/schemas/formator";
 import Search from "@/components/Search/search";
+import { Link } from "react-router-dom";
 
 export default function ClientsTable() {
   const [params, setParams] = useState({
@@ -129,9 +130,14 @@ export default function ClientsTable() {
 
   return (
     <div>
-      <div className="flex justify-between items-center py-5 px-7">
-        <h1 className="my-4 text-active">{t("clients")}</h1>
-        <Search url={handleSearch} />
+      <div className="flex justify-between items-center py-5 px-2">
+          <Search url={handleSearch} />
+          
+         <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
+                   
+               + Create
+                  </Link>
+         
       </div>
       <Tabs defaultValue="jismoniy" className="w-full">
         <TabsList>

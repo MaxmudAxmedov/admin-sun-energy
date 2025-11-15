@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { data } from "./data";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo_img from "../../assets/img/logo_img.png";
 import { useTranslation } from "react-i18next";
 import Login_out_icons from "@/assets/icons/login_out_icons";
@@ -10,6 +10,7 @@ import Right_icons from "@/assets/icons/Right_icons";
 
 export default function Navbar({ open, setopen }) {
     const location = useLocation();
+    const [ot, setot] = useState(false)
     const { t } = useTranslation();
     const nav = useNavigate();
     const LoginItem = () => {
@@ -19,6 +20,7 @@ export default function Navbar({ open, setopen }) {
     };
     const clickItem = () => {
         setopen((prev) => !prev);
+        setot((p)=>!p);
     };
     return (
         <div
@@ -28,7 +30,7 @@ export default function Navbar({ open, setopen }) {
         >
             <div
                 className={`"flex justify-between items-center bg-icons " ${
-                    open ? "py-[10px]" : "py-[9px]"
+                    open ? "py-[10px]" : "py-[9.5px]"
                 }`}
             >
                 <NavLink
@@ -36,14 +38,14 @@ export default function Navbar({ open, setopen }) {
                     className={"w-[100%] flex no-underline items-center gap-3"}
                 >
                     <img
-                        className={`w-[60px] ml-2 mt-[10px] rounded-md ${
+                        className={`w-[60px] ml-2 mt-[7px] rounded-md ${
                             open ? "hidden" : "block"
                         } `}
                         src={logo_img}
                         alt="img"
                     />
                     <h3
-                        className={`text-white mt-3 ${
+                        className={`text-white mt-2 ${
                             open ? "hidden" : "block"
                         } `}
                     >
@@ -51,12 +53,19 @@ export default function Navbar({ open, setopen }) {
                     </h3>
 
                     <div className="flex gap-2 items-center z-10">
-                        <Button
+                        <div
                             onClick={clickItem}
-                            className={`transition-all duration-300 mt-2 border-none shadow-none bg-icons text-white`}
+                            className={`transition-all ml-2 duration-300 mt-2 border-none shadow-none   bg-icons text-white`}
                         >
-                            <Left_icons />
-                        </Button>
+                            {ot == false ?  <>
+                                <Left_icons />
+                            </> 
+                            : <div className="pl-3">
+                                <Right_icons/>
+                            </div>
+                            
+                        }
+                        </div>
                     </div>
                 </NavLink>
             </div>

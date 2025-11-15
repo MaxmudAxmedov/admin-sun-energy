@@ -29,24 +29,25 @@ export const Header = ({ setopen, open }) => {
             
 
                 <Select
+                className=""
                     value={localStorage.getItem("lang") || "en"}
                     onValueChange={(value)=> handlerChange(value)}
                 >
-                    <SelectTrigger className="w-[80px] border-none bg-icons text-background">
+                    <SelectTrigger className="w-[80px] border-none bg-icons  text-background">
                         <SelectValue placeholder="Laung" />
                     </SelectTrigger>
 
                     <SelectContent>
                         <SelectGroup>
-                            <SelectItem value="uz" className="flex items-center gap-2">
+                            <SelectItem value="uz" className="flex items-center justify-center gap-2">
                         <img src={uzFlag} alt="uz" className="w-5 h-5 rounded-full" />
                         <span>UZ</span>
                             </SelectItem>
-                            <SelectItem value="ru" className="flex items-center gap-2" >
+                            <SelectItem value="ru" className="flex items-center justify-center gap-2" >
                                 <img src={ruFlag} alt="ru" className="w-5 h-5 rounded-full" />
                                 <span>RU</span>
                             </SelectItem>
-                            <SelectItem value="en" className="flex items-center gap-2" >
+                            <SelectItem value="en" className="flex items-center justify-center" >
                                 <img src={ukFlag} alt="ru" className="w-5 h-5 rounded-full" />
                                 <span>EN</span>
                             </SelectItem>

@@ -5,6 +5,7 @@ import DataTable from "@/components/Table/DataTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { t } from "@/utils/i18n";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export default function Contracts() {
     const [params, setParams] = useState({
@@ -62,9 +63,10 @@ export default function Contracts() {
         <div>
                   <div className="flex justify-between items-center py-5 px-7">
                     <h1 className="my-4 text-active">{t("contracts")}</h1>
-                    <Button>
-                        + CREATE
-                    </Button>
+                    <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
+                              
+                          + Create
+                             </Link>
                   </div>
             <Tabs defaultValue="jismoniy" className="w-full">
                 <TabsList>
