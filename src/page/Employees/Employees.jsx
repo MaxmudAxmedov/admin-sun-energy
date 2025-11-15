@@ -10,6 +10,7 @@ import { useDisclosure } from "@/hook/useDisclosure";
 import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
 import { formator } from "@/schemas/formator";
 import Search from "@/components/Search/search";
+import { Link } from "react-router-dom";
 
 export default function Employees() {
   const [dataid, setdataid] = useState(null);
@@ -67,15 +68,19 @@ export default function Employees() {
     },
   ];
 
-  const handleSearch = (value)=>{
-  setParams((p)=>({...p, search:value}))
-}
+  const handleSearch = (value) => {
+    setParams((p) => ({ ...p, search: value }));
+  };
   return (
     <div>
-                  <div className="flex justify-between items-center py-5 px-7">
-                    <h1 className="my-4 text-active">{t("employees")}</h1>
-                    <Search url={handleSearch} />
-                  </div>
+      <div className="flex justify-between items-center py-5 px-7">
+        <Search url={handleSearch} />
+
+          <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
+                    
+                + Create
+                   </Link>
+      </div>
       <DataTable columns={columns} data={employees} />
 
       <CustomDrawer
@@ -119,19 +124,22 @@ export default function Employees() {
             style={{ border: "1px solid grey" }}
             className="p-5 border flex justify-between items-center w-[49%]  rounded-md"
           >
-            <h3>{t("cashback")}</h3> <h3>{formator(employee.total_cashback)} UZS</h3>
+            <h3>{t("cashback")}</h3>{" "}
+            <h3>{formator(employee.total_cashback)} UZS</h3>
           </li>
           <li
             style={{ border: "1px solid grey" }}
             className="p-5 border flex justify-between items-center w-[49%]  rounded-md"
           >
-            <h3>{t("current_status")}</h3> <h3>{formator(employee.balance_due)} UZS</h3>
+            <h3>{t("current_status")}</h3>{" "}
+            <h3>{formator(employee.balance_due)} UZS</h3>
           </li>{" "}
           <li
             style={{ border: "1px solid grey" }}
             className="p-5 border flex justify-between mt-3 items-center w-[100%]  rounded-md"
           >
-            <h3>{t("gross_profit")}</h3> <h3>{formator(employee.total_salary)} UZS</h3>
+            <h3>{t("gross_profit")}</h3>{" "}
+            <h3>{formator(employee.total_salary)} UZS</h3>
           </li>
         </ul>
       </CustomDrawer>

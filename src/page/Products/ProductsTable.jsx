@@ -28,12 +28,14 @@ export default function ProductsTable() {
   const products = data?.data?.Data?.products || [];
   const [wiewProduct, setViewProduct] = useState({});
   const [OpenPopoverId, setOpenPopoverId] = useState(null);
+  const [editid, seteditid] = useState(null)
   console.log(wiewProduct);
 
   const handleView = (row) => {
     console.log("View clicked:", row);
     setViewProduct(row);
     onOpen();
+    seteditid(row.id)
   };
 
   const handleDelete = (id) => {
@@ -116,21 +118,20 @@ const nav = useNavigate()
   return (
     <>
       <div className="flex justify-between items-center py-5 px-7">
-        <h1 className="my-4 text-active">{t("products")}</h1>
-        <div className="flex gap-2 items-center">
+          <Search url={handleSearch} />
           
-           <Link className="p-[10px]" to={"/products/create"} >
-            + Create
+           <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
+            
+        + Create
            </Link>
          
-          <Search url={handleSearch} />
-        </div>
       </div>
       <CustomDrawer
         title={t("product")}
+        id={editid}
         open={isOpen}
         edit={true}
-        path={"products"}
+        path={`/products/edit/${editid}`}
         onOpenChange={(open) => (open ? onOpen() : onClose())}
         onSave={() => {
           onClose();
@@ -181,7 +182,7 @@ const nav = useNavigate()
           style={{ borderLeft: "4px solid grey" }}
           className="text-active p-2 border-l-2"
         >
-          <p>{wiewProduct.description}</p>
+          <p className="text-justify" >{wiewProduct.description}</p>
         </div>
       </CustomDrawer>
       <div className="px-3">

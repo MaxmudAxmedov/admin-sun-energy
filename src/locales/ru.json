@@ -62,5 +62,16 @@
  "current_status":"текущее состояние",
  "cashback":"кэшбэк",
  "price":"Цена",
- "fixsed_percentage":"фиксированный процент"
+ "fixsed_percentage":"фиксированный процент",
+ "Count_of_product":"Количество товара",
+ "Enter_Product_name":"Введите название товара...",
+ "quantity_of_product":"Количество товара",
+ "enter_count_of_product":"Введите количество товара",
+  "enter_product_category":"Введите категорию товара",
+  "watt":"ватт",
+  "mark_up":"наценка",
+  "power_system":"энергетическая система",
+   "description":"описание",
+   "create_product":"Добавить продукт"
+ 
 }

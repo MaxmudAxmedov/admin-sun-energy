@@ -62,5 +62,16 @@
   "current_status":"hozirgi vaziyat",
   "cashback":"Cashback",
   "price":"Narx",
-  "fixsed_percentage":"o‘zgarmas foiz"
+  "fixsed_percentage":"o‘zgarmas foiz",
+  "Count_of_product":"Mahsulot soni",
+  "Enter_Product_name":"Maxsulot nomini kiriting",
+  "quantity_of_product":"Mahsulot soni",
+  "enter_count_of_product":"Mahsulot sonini kiriting",
+   "enter_product_category":"",
+   "watt":"quvvat",
+   "mark_up":"narxni oshirish",
+   "power_system":"elektr ta’minoti tizimi",
+  "description":"izoh",
+  "create_product":"Maxsulot Qo'shish"
+
 }

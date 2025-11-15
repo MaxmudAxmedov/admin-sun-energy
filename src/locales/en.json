@@ -62,5 +62,15 @@
     "current_status":"Current status",
     "cashback":"Cashback",
     "price":"Price",
-    "fixsed_percentage":"Fixsed percentage"
+    "fixsed_percentage":"Fixsed percentage",
+    "Count_of_product":"Count of product",
+    "Enter_Product_name":"Enter Product name",
+    "quantity_of_product":"Quantity of product",
+    "enter_count_of_product":"Enter Count of product",
+    "enter_product_category":"Enter Product Category",
+    "watt":"Watt",
+    "mark_up":"Mark up",
+    "power_system":"Power system",
+    "description":"Description",
+    "create_product":"Create product"
 }

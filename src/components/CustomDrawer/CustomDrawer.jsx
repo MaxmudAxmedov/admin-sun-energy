@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { t } from "@/utils/i18n";
+import { Link } from "react-router-dom";
 
 export default function CustomDrawer({
   title = "Ma’lumot",
@@ -20,14 +21,13 @@ export default function CustomDrawer({
   onOpenChange,
   showFooter = true,
   onSave,
-  saveLabel = t("save"),
-  closeLabel = t("close"),
   side = "right",
   size = "md",
   contacts = false,
   edit = false,
   Delete = false,
   path="",
+  id=""
   
 }) {
   const sizeClasses = {
@@ -66,9 +66,11 @@ export default function CustomDrawer({
         {showFooter && (
           <DialogFooter className="p-3 border-t border-border flex justify-end gap-2">
 
+            
+
              {Delete == true ?( <Button
                 variant="outline"
-                className=" border-none w-[50%] text-[#fff]  bg-[red] shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-button"
+                className=" border-none w-[50%] text-[#fff]  bg-[red] shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-[red]"
                 size="sm"
               >
                 {t("delete")}
@@ -81,34 +83,20 @@ export default function CustomDrawer({
                 contacts
               </Button>) : ""}
               {edit == true ? (
-                <Button
-                path={path}
+               
+              <Link className=" w-[50%] border-none text-[#fff] shadow-sm bg-icons hover:shadow-lg transition-shadow duration-300 shadow-icons decoration-none text-center rounded-md" to={path} >
+              <Button  
+              className=" w-[50%] border-none text-[#fff] shadow-sm bg-icons hover:shadow-lg transition-shadow duration-300 shadow-icons decoration-none "
                 variant="outline"
-                className=" w-[50%] border-none text-[#fff] shadow-sm bg-icons hover:shadow-lg transition-shadow duration-300 shadow-icons"
                 size="sm"
               >
                 {t("edid")}
               </Button>
+              </Link>
               ) : ""}
-            <DialogClose asChild>
-              <Button
-                variant="outline"
-                className="bg-[#F0F0F0] border-none shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-button"
-                size="sm"
-              >
-                {closeLabel}
-              </Button>
-            </DialogClose>
-            {onSave && (
-              <Button
-                onClick={onSave}
-                className="bg-[#F0F0F0] border-none shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-button"
-                size="sm"
-              >
-                {saveLabel}
-              </Button>
-            )}
           </DialogFooter>
+
+
         )}
       </DialogContent>
     </Dialog>

@@ -23,7 +23,7 @@ export default function MainLayout() {
             >
                 <Header />
                 <div className="text-active h-[100vh ] mt-2 overflow-y-scroll ">
-                    <div className="text-active mt-2">
+                    <div className="text-active mt-2 pl-5">
                         <Outlet />
                     </div>
                 </div>
