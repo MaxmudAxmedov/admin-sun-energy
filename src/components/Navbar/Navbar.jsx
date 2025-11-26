@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { data } from "./data";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import logo_img from "../../assets/img/logo_img.png";
+import logo_img from "../../assets/img/login_img.jpg";
 import { useTranslation } from "react-i18next";
 import Login_out_icons from "@/assets/icons/login_out_icons";
 import { Button } from "../ui/button";
@@ -41,6 +41,7 @@ export default function Navbar({ open, setopen }) {
                         className={`w-[60px] ml-2 mt-[7px] rounded-md ${
                             open ? "hidden" : "block"
                         } `}
+                        ///    nav img bu yerda 
                         src={logo_img}
                         alt="img"
                     />
