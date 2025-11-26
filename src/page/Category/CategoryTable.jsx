@@ -8,10 +8,12 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
-import { getProductQuery, postProductCatecoriyes } from "@/queries";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { deleteproductCategoryDelete, getProductQuery } from "@/queries";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Search from "@/components/Search/search";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { LoaderIcon } from "lucide-react";
+import { toast } from "react-toastify";
 
 export default function CategoryTable() {
   // const nav = useNavigate()
@@ -21,25 +23,39 @@ export default function CategoryTable() {
     page: "1",
     search: "",
   });
-  const { data } = useQuery(getProductQuery(params));
-    // const {mutet}= useMutation(postProductCatecoriyes(params))
+  const { data, isLoading } = useQuery(getProductQuery(params));
   const Productquery = useMemo(
     () => data?.data?.Data?.product_categories || [],
     [data]
   );
 
+  const queryClient = useQueryClient()
+
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [wiewProduct, setViewProduct] = useState({});
+  const [wiewProduct, setViewProduct] = useState();
   const [openPopoverId, setOpenPopoverId] = useState(null);
+  
 
-  const handleDelete = (row) => {
-    setOpenPopoverId(false);
-  };
-  const handleView = (row) => {
-    setViewProduct(row);
-    onOpen();
-  };
+
+ const mutation = useMutation({mutationFn: (id)=>deleteproductCategoryDelete(id), 
+  onSuccess:()=>{
+     queryClient.invalidateQueries({ queryKey: ["product-categories"] });
+    toast.success(t("delete success"))
+    setOpenPopoverId(null);
+  },
+  onError: (error) => {
+    toast.error(error.message)
+  },
+  });
+  const handleClick = ()=>{
+     setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000); 
+  }
+
+
   const columns = [
     {
       key: "index",
@@ -60,73 +76,80 @@ export default function CategoryTable() {
       label: <p className="text-center">{t("actions")}</p>,
       render: (_, row) => (
         <div className="flex justify-center gap-4 ">
-          <Link to={`/products_category/edit/${row.id}`}>
-          <Button
-            variant="outline"
-            className="bg-icons text-aside cursor-pointer  border-none"
-            size="sm"
-            onClick={() => handleView(row)}
+          <Link onClick={handleClick} to={`/products_category/edit/${row.id}`}>
+            <Button
+              variant="outline"
+              className="bg-icons text-aside cursor-pointer  border-none"
+              size="sm"
+
+            >
+              {t("edid")}
+            </Button>
+          </Link>
+          <Popover
+            className="transition-all duration-300"
+            open={openPopoverId == row.id}
+            onOpenChange={(isOpen) => setOpenPopoverId(isOpen ? row.id : null)}
           >
-            {t("edid")}
-          </Button>
-            </Link>
-           <Popover
-                      className="transition-all duration-300"
-                      open={openPopoverId == row.id}
-                      onOpenChange={(isOpen) => setOpenPopoverId(isOpen ? row.id : null)}
-                    >
-                      <PopoverTrigger asChild>
-                        <Button className="bg-red cursor-pointer text-[#fff] border-none hover:bg-redHover">
-                          {t("delete")}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-30 bg-[#fff]">
-                        <p className="text-[red]">{t("deletes")}</p>
-                        <div className="flex justify-end gap-2 mt-3">
-                          <Button
-                            className="transition-all cursor-pointer duration-300 hover:bg-blue-800 border-none hover:rounded-[10px] text-[#fff] bg-blue-600"
-                            onClick={() => setOpenPopoverId(false)}
-                          >
-                            clean
-                          </Button>
-                          <Button
-                            className="transition-all cursor-pointer duration-300 bg-red text-[#fff] border-none hover:bg-redHover hover:rounded-[10px]"
-                            onClick={handleDelete}
-                          >
-                            {t("delete")}
-                          </Button>
-                        </div>
-                      </PopoverContent>
-                    </Popover>
+            <PopoverTrigger asChild>
+              <Button onClick={() => setViewProduct(row.id)} className="bg-red cursor-pointer text-[#fff] border-none hover:bg-redHover">
+                {t("delete")}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-30 bg-[#fff]">
+              <p className="text-[red]">{t("deletes")}</p>
+              <div className="flex justify-end gap-2 mt-3">
+                <Button
+                  className="transition-all cursor-pointer duration-300 hover:bg-blue-800 border-none hover:rounded-[10px] text-[#fff] bg-blue-600"
+                  onClick={() => setOpenPopoverId(false)}
+                >
+                  clean
+                </Button>
+                <Button
+                  className="transition-all cursor-pointer duration-300 bg-red text-[#fff] border-none hover:bg-redHover hover:rounded-[10px]"
+                  onClick={()=> mutation.mutate(row.id)}
+                >
+                  {t("delete")}
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
       ),
     },
   ];
 
-const handleSearch = (value)=>{
-  console.log(value);
-  setParams((prev)=>({...prev, search:value}))
-  
+  const handleSearch = (value) => {
+    console.log(value);
+    setParams((prev) => ({ ...prev, search: value }))
+
+  }
+
+  // const handleCreate = () =>{
+
+  //  nav("/settings",{state:{params:mutet, page:"pcategory"}})
+  // }
+
+  if (isLoading  || mutation.isPending) {
+  return (
+    <div className="flex justify-center items-center h-screen"> 
+      <LoaderIcon className="animate-spin h-10 w-10 text-gray-500" />
+    </div>
+  )
 }
-
-// const handleCreate = () =>{
-  
-//  nav("/settings",{state:{params:mutet, page:"pcategory"}})
-// }
-
   return (
     <>
 
       <div className="p-4">
-            <div className="flex justify-between items-center py-5 px-7">
+        <div className="flex justify-between items-center py-5 px-7">
           <Search url={handleSearch} />
-          
-            <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products_category/create"} >
-                      
-                  + Create
-                     </Link>
-         
-      </div>
+
+          <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products_category/create"} >
+
+            + Create
+          </Link>
+
+        </div>
         <DataTable columns={columns} data={Productquery} />
       </div>
     </>

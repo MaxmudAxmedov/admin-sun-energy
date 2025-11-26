@@ -1,9 +1,9 @@
 import { employeeIDGet, employeesGet } from "@/services/employees";
-import { productGet } from "../services/product";
+import { postproductmutation, productGet } from "../services/product";
 import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
 import { reportsGet, tradesReportsGet } from "@/services/reports";
-import { category, categorypost } from "@/services/category";
+import { category, categorydelete, categorypost, categoryput } from "@/services/category";
 import { ProductcategoryID } from "@/services/ProductcategoryID";
 
 // Reports page
@@ -27,6 +27,12 @@ export function getProductsQuery(params) {
     queryFn: async () => productGet(params),
   };
 } 
+export function postProductsMutation(data){
+  return {
+    queryKey:["products-post", data],
+    queryFn: async ()=> postproductmutation(data),
+  }
+}
 
 
 
@@ -41,15 +47,24 @@ export function getProductQuery(params) {
 export function getProductIdQeriy(id){
   return{
     queryKey:["product-id", id],
-    queryFn :  async ()=> ProductcategoryID(id)
+    queryFn :  async ()=> ProductcategoryID(id),
+    enabled: !!id,
   }
 }
 /// category Post
-export function postProductCatecoriyes(params){
-  return{
-    queryFn:async ()=> categorypost(params)
-  }
+export const postProductCatecoriyPost =  async (params) =>{
+  return categorypost(params);
 }
+////  category edit 
+export const editProductcategoryePut = async (params)=>{
+  return categoryput(params);
+}
+/// category Delete
+export const deleteproductCategoryDelete = async (id) =>{
+  return  categorydelete(id);
+}
+
+
 
 
 // Clients page

@@ -9,6 +9,7 @@ import Left_icons from "@/assets/icons/left_icons";
 import Right_icons from "@/assets/icons/Right_icons";
 
 export default function Navbar({ open, setopen }) {
+    
     const location = useLocation();
     const [ot, setot] = useState(false)
     const { t } = useTranslation();
@@ -34,7 +35,7 @@ export default function Navbar({ open, setopen }) {
                 }`}
             >
                 <NavLink
-                    to={"/"}
+                    to={location.pathname}
                     className={"w-[100%] flex no-underline items-center gap-3"}
                 >
                     <img

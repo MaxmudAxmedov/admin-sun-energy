@@ -3,7 +3,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const Input = React.forwardRef(
-  ({ className, type, label, defaultValue, placeholder }, ref) => {
+  ({ className, type, label, defaultValue, placeholder, ...props }, ref) => {
     return (
       <div>
         {label}
@@ -16,6 +16,7 @@ const Input = React.forwardRef(
           ref={ref}
           defaultValue={defaultValue}
           placeholder={placeholder}
+          {...props}
         />
       </div>
     );
