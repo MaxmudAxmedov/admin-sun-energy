@@ -72,5 +72,9 @@
     "mark_up":"Mark up",
     "power_system":"Power system",
     "description":"Description",
-    "create_product":"Create product"
+    "create_product":"Create product",
+    "secondy_name":"Secondy name",
+    "position_name":"Position Name",
+    "province":"Province"
+ 
 }

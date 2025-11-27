@@ -20,6 +20,9 @@ export default function Employees() {
   const employees = useMemo(() => data?.data?.Data?.employees || [], [data]);
   const employee = useMemo(() => emplyData?.data?.payments || [], [emplyData]);
 
+  console.log(employees);
+  
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [wiewProduct, setViewProduct] = useState({});
   const handleView = (row) => {

@@ -730,6 +730,18 @@
   resolved "https://registry.npmjs.org/@svgdotjs/svg.select.js/-/svg.select.js-4.0.3.tgz"
   integrity sha512-qkMgso1sd2hXKd1FZ1weO7ANq12sNmQJeGDjs46QwDVsxSRcHmvWKL2NDF7Yimpwf3sl5esOLkPqtV2bQ3v/Jg==
 
+"@tabler/icons-react@^3.35.0":
+  version "3.35.0"
+  resolved "https://registry.npmjs.org/@tabler/icons-react/-/icons-react-3.35.0.tgz"
+  integrity sha512-XG7t2DYf3DyHT5jxFNp5xyLVbL4hMJYJhiSdHADzAjLRYfL7AnjlRfiHDHeXxkb2N103rEIvTsBRazxXtAUz2g==
+  dependencies:
+    "@tabler/icons" "3.35.0"
+
+"@tabler/icons@3.35.0":
+  version "3.35.0"
+  resolved "https://registry.npmjs.org/@tabler/icons/-/icons-3.35.0.tgz"
+  integrity sha512-yYXe+gJ56xlZFiXwV9zVoe3FWCGuZ/D7/G4ZIlDtGxSx5CGQK110wrnT29gUj52kEZoxqF7oURTk97GQxELOFQ==
+
 "@tanstack/query-core@5.89.0":
   version "5.89.0"
   resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.89.0.tgz"
@@ -2180,7 +2192,7 @@ react-toastify@^11.0.5:
   dependencies:
     clsx "^2.1.1"
 
-react@*, "react@^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^0.14 || ^15.0.0-rc || >=15.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc", "react@^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc", "react@^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc", "react@^16.8.0 || ^17 || ^18 || ^19", "react@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc", "react@^18 || ^19", "react@^18.0.0 || ^19.0.0", react@^19.1.1, "react@>= 16.8.0", react@>=0.13, react@>=16.8.0, react@>=18, "react@0.14 || 15 - 19":
+react@*, "react@^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^0.14 || ^15.0.0-rc || >=15.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc", "react@^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc", "react@^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc", "react@^16.8.0 || ^17 || ^18 || ^19", "react@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc", "react@^18 || ^19", "react@^18.0.0 || ^19.0.0", react@^19.1.1, "react@>= 16", "react@>= 16.8.0", react@>=0.13, react@>=16.8.0, react@>=18, "react@0.14 || 15 - 19":
   version "19.1.1"
   resolved "https://registry.npmjs.org/react/-/react-19.1.1.tgz"
   integrity sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==

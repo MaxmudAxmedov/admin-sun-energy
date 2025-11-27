@@ -1,4 +1,4 @@
-import { employeeIDGet, employeesGet } from "@/services/employees";
+import { employeeIDGet, employeePost, employeesGet } from "@/services/employees";
 import { postproductmutation, productGet } from "../services/product";
 import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
@@ -111,6 +111,13 @@ export function getEmployeeIDQuery(dataid){
     enabled: !!dataid,
   }
 }
+export const postemployeeMutation  = (params)=>{
+  return {
+    mutationFn:  ()=>  employeePost(params)
+  }
+}
+
+
 
 // Contracts
 export function getContractsQuery(params) {

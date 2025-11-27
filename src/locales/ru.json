@@ -72,6 +72,9 @@
   "mark_up":"наценка",
   "power_system":"энергетическая система",
    "description":"описание",
-   "create_product":"Добавить продукт"
+   "create_product":"Добавить продукт",
+   "secondy_name":"второе имя",
+    "position_name":"Название должности",
+    "province":"Провинция"
  
 }
