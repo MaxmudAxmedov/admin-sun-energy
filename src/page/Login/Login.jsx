@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { useForm } from "react-hook-form";
-import login_img from "../../assets/img/login_img.jpg";
+import login_img from "@/assets/img/login_img.jpg";
 import { login } from "@/services/uselogin";
 import { setStorage } from "@/storage/local-store";
 import { toast } from "react-toastify";
@@ -70,7 +70,7 @@ export default function Login() {
                     </Button>
                 </div>
             </form>
-            <div className="flex-1 flex items-center justify-center">
+            <div className="flex-1 flex items-center  justify-center">
                 <img
                     src={login_img}
                     alt="Login illustration"

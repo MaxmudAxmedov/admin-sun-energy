@@ -72,6 +72,9 @@
    "mark_up":"narxni oshirish",
    "power_system":"elektr ta’minoti tizimi",
   "description":"izoh",
-  "create_product":"Maxsulot Qo'shish"
+  "create_product":"Maxsulot Qo'shish",
+  "secondy_name":"Otasining ismi",
+  "position_name":"Lavozim nomi",
+  "province":"Viloyat"
 
 }

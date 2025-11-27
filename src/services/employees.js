@@ -7,3 +7,6 @@ export const employeesGet = (params) => {
 export const employeeIDGet = (dataid) =>{
     return request({method:"get", url:`/employee/${dataid}`})
 }
+export const employeePost = (params) => {
+    return request({ method: "post", url: "/employee", data: params });
+}

@@ -20,6 +20,9 @@ export default function Employees() {
   const employees = useMemo(() => data?.data?.Data?.employees || [], [data]);
   const employee = useMemo(() => emplyData?.data?.payments || [], [emplyData]);
 
+  console.log(employees);
+  
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [wiewProduct, setViewProduct] = useState({});
   const handleView = (row) => {
@@ -76,10 +79,10 @@ export default function Employees() {
       <div className="flex justify-between items-center py-5 px-7">
         <Search url={handleSearch} />
 
-          <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
-                    
-                + Create
-                   </Link>
+        <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/employees/create"} >
+
+          + Create
+        </Link>
       </div>
       <DataTable columns={columns} data={employees} />
 

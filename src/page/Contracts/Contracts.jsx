@@ -63,7 +63,7 @@ export default function Contracts() {
         <div>
                   <div className="flex justify-between items-center py-5 px-7">
                     <h1 className="my-4 text-active">{t("contracts")}</h1>
-                    <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
+                    <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/contracts"} >
                               
                           + Create
                              </Link>

@@ -133,7 +133,7 @@ export default function ClientsTable() {
       <div className="flex justify-between items-center py-5 px-2">
           <Search url={handleSearch} />
           
-         <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
+         <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/clients"} >
                    
                + Create
                   </Link>
@@ -177,7 +177,6 @@ export default function ClientsTable() {
 
         <TabsContent
           value="yuridik"
-          setvalue={false}
           className="h-[calc(100vh-150px)] overflow-y-auto"
         >
           <DataTable columns={columns} data={clientBusiness} />

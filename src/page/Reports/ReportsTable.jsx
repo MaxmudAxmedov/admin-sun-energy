@@ -83,7 +83,7 @@ export default function ReportsTable() {
           <CardTitle className="mb-2">{t("accessories")}</CardTitle>
           <CardContent className="text-[22px]">
             {Number(item?.total_accessory)?.toLocaleString() || 0}{" "}
-            <smal className="text-[16px]">{t("sum")}</smal>
+            <small className="text-[16px]">{t("sum")}</small>
           </CardContent>
         </Card>
 
@@ -91,14 +91,14 @@ export default function ReportsTable() {
           <CardTitle className="mb-2">{t("profit")}</CardTitle>
           <CardContent className="text-[22px]">
             {Number(item?.profit)?.toLocaleString() || 0}{" "}
-            <smal className="text-[16px]">{t("sum")}</smal>
+            <small className="text-[16px]">{t("sum")}</small>
           </CardContent>
         </Card>
         <Card className="w-[22%] text-center pt-4">
           <CardTitle className="mb-2">{t("additional_expenses")}</CardTitle>
           <CardContent className="text-[22px]">
             {Number(item?.total_extra_expenses)?.toLocaleString() || 0}{" "}
-            <smal className="text-[16px]">{t("sum")}</smal>
+            <small className="text-[16px]">{t("sum")}</small>
           </CardContent>
         </Card>
         <Card className="w-[22%] text-center pt-4">
@@ -107,7 +107,7 @@ export default function ReportsTable() {
           </CardTitle>
           <CardContent className="text-[22px]">
             {Number(item?.total_cost)?.toLocaleString() || 0}{" "}
-            <smal className="text-[16px]">{t("sum")}</smal>
+            <small className="text-[16px]">{t("sum")}</small>
           </CardContent>
         </Card>
         <Card className="w-[22%] text-center pt-4">
@@ -116,7 +116,7 @@ export default function ReportsTable() {
           </CardTitle>
           <CardContent className="text-[22px]">
             {Number(item?.total_selling)?.toLocaleString() || 0}{" "}
-            <smal className="text-[16px]">{t("sum")}</smal>
+            <small className="text-[16px]">{t("sum")}</small>
           </CardContent>
         </Card>
       </div>

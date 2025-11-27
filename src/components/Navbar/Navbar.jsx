@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { data } from "./data";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import logo_img from "../../assets/img/logo_img.png";
+import logo_img from "../../assets/img/navbar_img.svg";
 import { useTranslation } from "react-i18next";
 import Login_out_icons from "@/assets/icons/login_out_icons";
 import { Button } from "../ui/button";
@@ -9,6 +9,7 @@ import Left_icons from "@/assets/icons/left_icons";
 import Right_icons from "@/assets/icons/Right_icons";
 
 export default function Navbar({ open, setopen }) {
+    
     const location = useLocation();
     const [ot, setot] = useState(false)
     const { t } = useTranslation();
@@ -34,13 +35,14 @@ export default function Navbar({ open, setopen }) {
                 }`}
             >
                 <NavLink
-                    to={"/"}
+                    to={location.pathname}
                     className={"w-[100%] flex no-underline items-center gap-3"}
                 >
                     <img
-                        className={`w-[60px] ml-2 mt-[7px] rounded-md ${
+                        className={`w-[43px] ml-2  rounded-md ${
                             open ? "hidden" : "block"
                         } `}
+                        ///    nav img bu yerda 
                         src={logo_img}
                         alt="img"
                     />

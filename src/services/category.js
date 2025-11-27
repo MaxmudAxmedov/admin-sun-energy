@@ -5,5 +5,11 @@ export const category = (params) => {
 };
 
 export const categorypost = (params) =>{
-    return request({method:"post", url:"/product-categories", params})
+    return request({method:"post", url: "/product-category", data:params})
+}
+export const categoryput = (params)=>{
+    return request({method:"put", url:`/product-category`, data:params })
+}
+export const categorydelete = (id)=>{
+    return request({method:"delete", url:`/product-category/${id}`})
 }
