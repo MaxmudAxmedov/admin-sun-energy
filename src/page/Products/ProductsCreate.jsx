@@ -10,25 +10,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function ProductsCreate() {
-const [params, setstatedata] = React.useState(null)
-const {mutate} = useMutation(postProductsMutation(params))
-const [form, setForm] = React.useState({
+  const [params, setstatedata] = React.useState(null)
+  const { mutate } = useMutation(postProductsMutation(params))
+  const [form, setForm] = React.useState({
     name: "",
     count_of_product: "",
-    category: "",  
+    category: "",
     watt: "",
     price: "",
-    mark_up: "",  
+    mark_up: "",
     power_system: "",
     description: "",
     img: null,
-})
-const handalesend = () => {
+  })
+  const handalesend = () => {
     const FormDAta = new FormData();
-    Object.keys(form).forEach(key=>{
+    Object.keys(form).forEach(key => {
       FormDAta.append(key, form[key])
     });
-}
+  }
 
   return (
     <div className="py-2">
@@ -44,7 +44,7 @@ const handalesend = () => {
             {" "}
             {t("product_name")}*
             <Input
-            onChange={(e)=>setForm({...form, name:e.target.value})}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("Enter_Product_name")}
             />
@@ -53,7 +53,7 @@ const handalesend = () => {
             {" "}
             {t("Count_of_product")}*
             <Input
-            onChange={(e)=>setForm({...form, count_of_product:e.target.value})}
+              onChange={(e) => setForm({ ...form, count_of_product: e.target.value })}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("enter_count_of_product")}
             />
@@ -62,7 +62,7 @@ const handalesend = () => {
             {" "}
             {t("pcategory")}*
             <Input
-            onChange={(e)=>setForm({...form, category:e.target.value})}
+              onChange={(e) => setForm({ ...form, category: e.target.value })}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("pcategory")}
             />
@@ -73,7 +73,7 @@ const handalesend = () => {
             {" "}
             {t("watt")}
             <Input
-            onChange={(e)=>setForm({...form, watt:e.target.value})}
+              onChange={(e) => setForm({ ...form, watt: e.target.value })}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("watt")}
             />
@@ -82,7 +82,7 @@ const handalesend = () => {
             {" "}
             {t("price")}*
             <Input
-            onChange={(e)=>setForm({...form, price:e.target.value})}
+              onChange={(e) => setForm({ ...form, price: e.target.value })}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("price")}
             />
@@ -91,7 +91,7 @@ const handalesend = () => {
             {" "}
             {t("mark_up")}
             <Input
-            onChange={(e)=>setForm({...form, mark_up:e.target.value})}
+              onChange={(e) => setForm({ ...form, mark_up: e.target.value })}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("mark_up")}
             />
@@ -102,7 +102,7 @@ const handalesend = () => {
             {" "}
             {t("power_system")}
             <Input
-            onChange={(e)=>setForm({...form, power_system:e.target.value})}
+              onChange={(e) => setForm({ ...form, power_system: e.target.value })}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("power_system")}
             />
@@ -112,7 +112,7 @@ const handalesend = () => {
               {t("description")}
             </Label>
             <Textarea
-            onChange={(e)=>setForm({...form, description:e.target.value})}
+              onChange={(e) => setForm({ ...form, description: e.target.value })}
               className="w-[400px] h-[100px] text-active resize-none"
               id="message"
               placeholder={t("description")}
@@ -120,10 +120,10 @@ const handalesend = () => {
           </div>
         </div>
         <div className="flex px-5 py-4 max-w-[800px] justify-between items-start gap-4 flex-wrap">
-          <Input type="file" onChange={(e)=>setForm({...form, img:e.target.files[0]})} />
+          <Input type="file" onChange={(e) => setForm({ ...form, img: e.target.files[0] })} />
           <img
-             src={FormData}
-             alt="uploaded"
+            src={FormData}
+            alt="uploaded"
             className="w-full h-[200px] object-cover rounded-md"
           />
         </div>

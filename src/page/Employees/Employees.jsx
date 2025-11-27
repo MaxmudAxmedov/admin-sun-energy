@@ -76,10 +76,10 @@ export default function Employees() {
       <div className="flex justify-between items-center py-5 px-7">
         <Search url={handleSearch} />
 
-          <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
-                    
-                + Create
-                   </Link>
+        <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/employees/create"} >
+
+          + Create
+        </Link>
       </div>
       <DataTable columns={columns} data={employees} />
 

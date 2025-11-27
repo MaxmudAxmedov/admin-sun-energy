@@ -35,7 +35,9 @@ export const route = [
         title: "employees",
         path: "employees",
         icon: "",
-        element: lazy(() => import("@/page/Employees/Employees")),
+        element: lazy(() => import("@/page/employees/Employees")),
+        create: lazy(() => import("@/page/employees/EmployeesCrud")),
+        edit: lazy(() => import("@/page/employees/EmployeesCrud")),
     },
     {
         title: "contracts",
