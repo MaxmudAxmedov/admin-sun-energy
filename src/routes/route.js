@@ -19,9 +19,9 @@ export const route = [
         title: "products_category",
         path: "products_category",
         icon: "",
-        element: lazy(() => import("@/page/category/categoryTable")),
-        create: lazy(() => import("@/page/category/categoriyCrud")),
-        edit: lazy(() => import("@/page/category/categoriyCrud")),
+        element: lazy(() => import("@/page/category/CategoryTable")),
+        create: lazy(() => import("@/page/category/CategoriyCrud")),
+        edit: lazy(() => import("@/page/category/CategoriyCrud")),
     },
     {
         title: "clients",
