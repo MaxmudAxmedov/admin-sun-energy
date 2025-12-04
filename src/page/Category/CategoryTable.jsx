@@ -120,7 +120,6 @@ export default function CategoryTable() {
   ];
 
   const handleSearch = (value) => {
-    console.log(value);
     setParams((prev) => ({ ...prev, search: value }))
 
   }
@@ -130,7 +129,7 @@ export default function CategoryTable() {
   //  nav("/settings",{state:{params:mutet, page:"pcategory"}})
   // }
 
-  if (isLoading  || mutation.isPending) {
+  if ( mutation.isPending) {
   return (
     <div className="flex justify-center items-center h-screen"> 
       <LoaderIcon className="animate-spin h-10 w-10 text-gray-500" />

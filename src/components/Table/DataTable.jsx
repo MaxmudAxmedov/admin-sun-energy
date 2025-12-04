@@ -17,14 +17,17 @@ export default function DataTable({ columns = [], data = [] }) {
     if (!columns.length) return <p>Columns aniqlanmagan.</p>;
 
     return (
-        <div className="max-h-[calc(100vh-200px)] overflow-y-auto border rounded-md">
+        <div  style={{
+    scrollbarWidth: "none",
+    msOverflowStyle: "none",
+  }} className="max-h-[calc(100vh-200px)] overflow-y-auto border rounded-md">
             <Table className="w-full border-collapse">
-                <TableHeader className="sticky top-0 z-10 bg-background shadow-sm">
-                    <TableRow>
+                <TableHeader className="sticky top-0 z-10 bg-background shadow-sm  ">
+                    <TableRow >
                         {columns.map((col) => (
                             <TableHead
                                 key={col.key}
-                                className="capitalize font-semibold text-sm border-b"
+                                className=" capitalize font-semibold text-sm border-b"
                             >
                                 {col.label}
                             </TableHead>
@@ -32,14 +35,14 @@ export default function DataTable({ columns = [], data = [] }) {
                     </TableRow>
                 </TableHeader>
 
-                <TableBody>
+                <TableBody >
                     {data.length ? (
                         data.map((row, index) => (
-                            <TableRow key={row.id || index}>
+                            <TableRow className="hover:bg-shadows" key={row.id || index}>
                                 {columns.map((col, colIndex) => (
                                     <TableCell
                                         key={col.key || colIndex}
-                                        className="text-sm"
+                                        className="text-sm "
                                     >
                                         {col.render
                                             ? col.render(
@@ -56,7 +59,7 @@ export default function DataTable({ columns = [], data = [] }) {
                         <TableRow>
                             <TableCell
                                 colSpan={columns.length}
-                                className="text-center py-6"
+                                className="text-center py-6 "
                             >
                                 {t("information_not_found")}
                                 

@@ -37,6 +37,11 @@ export default function CustomDrawer({
     xl: "sm:max-w-[800px]",
   };
 
+
+  if(path == "clients"){
+    path = "/clients/create"
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogOverlay className="fixed inset-0 bg-black/40 z-40" />

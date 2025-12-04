@@ -28,8 +28,7 @@ export default function ProductsTable() {
   const products = data?.data?.Data?.products || [];
   const [wiewProduct, setViewProduct] = useState({});
   const [OpenPopoverId, setOpenPopoverId] = useState(null);
-  const [editid, seteditid] = useState(null)
-  console.log(wiewProduct);
+  const [editid, seteditid] = useState(null)  
 
   const handleView = (row) => {
     console.log("View clicked:", row);

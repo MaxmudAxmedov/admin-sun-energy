@@ -28,7 +28,7 @@ export const route = [
         path: "clients",
         icon: "",
         element: lazy(() => import("@/page/Clients/ClientsTable")),
-        create:lazy(()=> import("@/page/Clients/CreateClients")),
+        create:lazy(()=> import( "@/page/Clients/CreateClients")),
         edit:lazy(()=> import("@/page/Clients/CreateClients")),
     },
     {

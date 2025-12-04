@@ -39,7 +39,7 @@ export function postProductsMutation(data){
 // Category
 export function getProductQuery(params) {
   return {
-    queryKey: ["product-categories", params],
+    queryKey: ["product-categories", {...params}],
     queryFn: async () => category(params),
   };
 }
@@ -111,10 +111,8 @@ export function getEmployeeIDQuery(dataid){
     enabled: !!dataid,
   }
 }
-export const postemployeeMutation  = (params)=>{
-  return {
-    mutationFn:  ()=>  employeePost(params)
-  }
+export const postemployeeMutation  = async (params) => {
+  return  employeePost(params)
 }
 
 
