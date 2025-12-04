@@ -12,7 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function CategoriyCrud() {
-  const queryClient  = useQueryClient()
+  const queryClient = useQueryClient()
   const { handleSubmit, reset, register } = useForm()
   const { id } = useParams();
 
@@ -26,28 +26,28 @@ export default function CategoriyCrud() {
 
   const handelSubmit = (data) => {
     if (id) {
-mut.mutate({id, ...data}, {
-  onSuccess:()=>{
-       queryClient.invalidateQueries({ queryKey: ["product-categories", id] });
-    console.log(data);
-    
-    reset();
-      nav("/products_category");
-       toast.success("Product category updated successfully")
-  },
-     onError: (error) => {
+      mut.mutate({ id, ...data }, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["product-categories", id] });
+          console.log(data);
+
+          reset();
+          nav("/products_category");
+          toast.success("Product category updated successfully")
+        },
+        onError: (error) => {
           toast.error(error.message)
         }
-})
+      })
     } else {
       mutation.mutate(data, {
         onSuccess: () => {
           reset()
           nav("/products_category");
-         toast.success("Product category created successfully")
+          toast.success("Product category created successfully")
         },
         onError: (error) => {
-      toast.error(error.message)
+          toast.error(error.message)
         }
       })
 
@@ -63,23 +63,23 @@ mut.mutate({id, ...data}, {
 
 
   if (isLoading || mut.isPending || mutation.isPending) {
-  return (
-    <div className="flex justify-center items-center h-screen"> 
-      <LoaderIcon className="animate-spin h-10 w-10 text-gray-500" />
-    </div>
-  )
-}
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LoaderIcon className="animate-spin h-10 w-10 text-gray-500" />
+      </div>
+    )
+  }
   return (
     <div className="text-active py-5 px-10">
       <h1 className="pb-2">Create Product Category</h1>
-      
-      <form   onSubmit={handleSubmit(handelSubmit)}>
+
+      <form onSubmit={handleSubmit(handelSubmit)}>
         <div className="pl-3 w-[500px]">
           <Label htmlFor="id">
             Product category name*
             <Input
-            
-              defaultValue={ Defaultvalue}
+
+              defaultValue={Defaultvalue}
               {...register("name")}
               className="input shadow-lg w-56 transition-all focus:w-64 outline-none"
               type="text"

@@ -19,7 +19,7 @@
   --red: red;
   --red-hover:#e91919;
   --box-shadow: #f0f0f1;
-  --shadow: rgb(121, 105, 74);
+  --shadow: rgb(191, 187, 172);
   --bl:#000;
 }
 
@@ -56,7 +56,7 @@
   --red: #ff0000;
   /* Tailwind red-500 — dark modeda yaxshi ko‘rinadi */
   --box-shadow: #000000;
-   --shadow: rgb(73, 112, 78);
+   --shadow: rgba(60, 82, 63, 0.156);
    --bl:#fff;
 }
 

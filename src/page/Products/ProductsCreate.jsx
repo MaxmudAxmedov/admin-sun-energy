@@ -1,33 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import ImageUploadForm from "@/components/ui/imgupload";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { postProductsMutation } from "@/queries";
 import { t } from "@/utils/i18n";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 export default function ProductsCreate() {
-  const [params, setstatedata] = React.useState(null)
-  const { mutate } = useMutation(postProductsMutation(params))
-  const [form, setForm] = React.useState({
-    name: "",
-    count_of_product: "",
-    category: "",
-    watt: "",
-    price: "",
-    mark_up: "",
-    power_system: "",
-    description: "",
-    img: null,
-  })
-  const handalesend = () => {
-    const FormDAta = new FormData();
-    Object.keys(form).forEach(key => {
-      FormDAta.append(key, form[key])
-    });
+  const [params, setparams] = useState(null)
+  // const { mutate } = useMutation(postProductsMutation(params))
+
+  const {handleSubmit, register, reset} = useForm()
+
+
+  const Submit = (data) => {
+console.log(data)
   }
 
   return (
@@ -38,13 +30,13 @@ export default function ProductsCreate() {
           back
         </Link>
       </div>
-      <Form>
+      <Form onSubmit={handleSubmit(Submit)}>
         <div className="flex px-5 py-4 max-w-[800px] justify-between items-center gap-4 flex-wrap">
           <label className="text-active" htmlFor="name">
             {" "}
             {t("product_name")}*
             <Input
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
+             {...register("name")}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("Enter_Product_name")}
             />
@@ -53,7 +45,7 @@ export default function ProductsCreate() {
             {" "}
             {t("Count_of_product")}*
             <Input
-              onChange={(e) => setForm({ ...form, count_of_product: e.target.value })}
+             {...register("count_of_product")}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("enter_count_of_product")}
             />
@@ -62,7 +54,7 @@ export default function ProductsCreate() {
             {" "}
             {t("pcategory")}*
             <Input
-              onChange={(e) => setForm({ ...form, category: e.target.value })}
+             {...register("pcategory")}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("pcategory")}
             />
@@ -73,7 +65,7 @@ export default function ProductsCreate() {
             {" "}
             {t("watt")}
             <Input
-              onChange={(e) => setForm({ ...form, watt: e.target.value })}
+             {...register("watt")}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("watt")}
             />
@@ -82,7 +74,7 @@ export default function ProductsCreate() {
             {" "}
             {t("price")}*
             <Input
-              onChange={(e) => setForm({ ...form, price: e.target.value })}
+             {...register("price")}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("price")}
             />
@@ -91,7 +83,7 @@ export default function ProductsCreate() {
             {" "}
             {t("mark_up")}
             <Input
-              onChange={(e) => setForm({ ...form, mark_up: e.target.value })}
+             {...register("mark_up")}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("mark_up")}
             />
@@ -102,33 +94,29 @@ export default function ProductsCreate() {
             {" "}
             {t("power_system")}
             <Input
-              onChange={(e) => setForm({ ...form, power_system: e.target.value })}
+            {...register("power_system")}
               className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("power_system")}
             />
           </label>
-          <div className="grid w-[400px] gap-2">
+        </div>
+          <div className="grid px-5 w-[400px] gap-2">
             <Label className="text-active" htmlFor="message">
               {t("description")}
             </Label>
             <Textarea
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+            {...register("description")}
               className="w-[400px] h-[100px] text-active resize-none"
               id="message"
               placeholder={t("description")}
             />
           </div>
-        </div>
         <div className="flex px-5 py-4 max-w-[800px] justify-between items-start gap-4 flex-wrap">
-          <Input type="file" onChange={(e) => setForm({ ...form, img: e.target.files[0] })} />
-          <img
-            src={FormData}
-            alt="uploaded"
-            className="w-full h-[200px] object-cover rounded-md"
-          />
+         <ImageUploadForm register={register} name={"photo"}/>
         </div>
-        <Button className={""} onClick={handalesend}> send</Button>
+        <Button type="submit"> send</Button>
       </Form>
     </div>
+  
   );
 }

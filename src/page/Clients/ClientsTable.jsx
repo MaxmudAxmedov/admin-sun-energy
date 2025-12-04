@@ -130,10 +130,10 @@ export default function ClientsTable() {
 
   return (
     <div>
-      <div className="flex justify-between items-center py-5 px-2">
-          <Search url={handleSearch} />
+      <div  className="flex justify-between items-center py-5 px-2">
+       <Search url={handleSearch} />
           
-         <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/clients"} >
+         <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/clients/create"} >
                    
                + Create
                   </Link>
@@ -183,6 +183,7 @@ export default function ClientsTable() {
         </TabsContent>
       </Tabs>
       <CustomDrawer
+      path="clients"
         title={t("info")}
         open={isOpen}
         contacts={true}

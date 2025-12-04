@@ -31,10 +31,10 @@ export default function App() {
         </div>
       }
     >
-      <Routes key={i18n.language} >
+      <Routes  key={i18n.language} >
         <Route path="/login" element={<loginPage.element />} />
 
-        <Route path="/" element={<MainLayout />}>
+        <Route  path="/" element={<MainLayout />}>
           {route.map((rout, index) => {
             if (rout.path === "login" || rout.path === "*") {
               return null;

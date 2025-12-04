@@ -27,17 +27,6 @@ export default function ThemeMode() {
   };
     return (
         <div>
-            {/* <Select value={theme} onValueChange={(value) => setTheme(value)}>
-                <SelectTrigger className="w-[90px] text-background border-none">
-                    <SelectValue placeholder="Theme" />
-                </SelectTrigger>
-
-                <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                </SelectContent>
-            </Select> */}
-          
     <div className="flex items-center">
       <Button
         variant="outline"
