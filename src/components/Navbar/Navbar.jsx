@@ -4,12 +4,11 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo_img from "../../assets/img/logo_img.png";
 import { useTranslation } from "react-i18next";
 import Login_out_icons from "@/assets/icons/login_out_icons";
-import { Button } from "../ui/button";
 import Left_icons from "@/assets/icons/left_icons";
 import Right_icons from "@/assets/icons/Right_icons";
 
 export default function Navbar({ open, setopen }) {
-    
+
     const location = useLocation();
     const [ot, setot] = useState(false)
     const { t } = useTranslation();
@@ -21,35 +20,31 @@ export default function Navbar({ open, setopen }) {
     };
     const clickItem = () => {
         setopen((prev) => !prev);
-        setot((p)=>!p);
+        setot((p) => !p);
     };
     return (
         <div
-            className={`h-[100vh] flex flex-col justify-center transition-all duration-300  ${
-                open ? "w-[110px]" : "w-[220px]"
-            }  `}
+            className={`h-[100vh] flex flex-col justify-center  transition-all duration-300  ${open ? "w-[110px]" : "w-[220px]"
+                }  `}
         >
             <div
-                className={`"flex justify-between items-center bg-icons " ${
-                    open ? "py-[8px]" : "py-[14px]"
-                }`}
+                className={`"flex justify-between items-center  bg-icons " ${open ? "py-[8px] pb-[12px]" : "py-[14px] pb-[18px]"
+                    }`}
             >
                 <NavLink
                     to={location.pathname}
                     className={"w-[100%] flex no-underline items-center gap-3"}
                 >
                     <img
-                        className={`w-[43px] ml-2   rounded-md ${
-                            open ? "hidden" : "block"
-                        } `}
+                        className={`w-[43px] ml-2   rounded-md ${open ? "hidden" : "block"
+                            } `}
                         ///    nav img bu yerda 
                         src={logo_img}
                         alt="img"
                     />
                     <h3
-                        className={`text-white mt-2 ${
-                            open ? "hidden" : "block"
-                        } `}
+                        className={`text-white mt-2 ${open ? "hidden" : "block"
+                            } `}
                     >
                         BRAVO
                     </h3>
@@ -59,14 +54,14 @@ export default function Navbar({ open, setopen }) {
                             onClick={clickItem}
                             className={`transition-all ml-2 mt-3 duration-300  border-none shadow-none   bg-icons text-white`}
                         >
-                            {ot == false ?  <>
+                            {ot == false ? <>
                                 <Left_icons />
-                            </> 
-                            : <div className="pl-3">
-                                <Right_icons/>
-                            </div>
-                            
-                        }
+                            </>
+                                : <div className="pl-3">
+                                    <Right_icons />
+                                </div>
+
+                            }
                         </div>
                     </div>
                 </NavLink>
@@ -81,19 +76,17 @@ export default function Navbar({ open, setopen }) {
                             <NavLink
                                 to={item.path}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-1  no-underline rounded-xl ${
-                                        open ? "w-[55px]" : "w-[200px]"
+                                    `flex items-center gap-1  no-underline rounded-xl ${open ? "w-[55px]" : "w-[200px]"
                                     } transition-all duration-500 ease-in-out
                 ${isActive ? "text-active shadow-md" : "text-black"}`
                                 }
                             >
                                 <div
                                     className={`w-10 h-10  p-2  rounded-md  pt-2 m-2 transition-all duration-500 ease-in-out
-                ${
-                    location.pathname === item.path
-                        ? "bg-icons text-background shadow-md"
-                        : "bg-white text-icons"
-                }`}
+                ${location.pathname === item.path
+                                            ? "bg-icons text-background shadow-md"
+                                            : "bg-white text-icons"
+                                        }`}
                                 >
                                     {Icons && <Icons />}
                                 </div>{" "}

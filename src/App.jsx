@@ -15,6 +15,7 @@ const notFoundPage = route.find((r) => r.path === "*");
 
 export default function App() {
   const {i18n} = useTranslation()
+  // localStorage.clear();
 
   return (
     <Suspense

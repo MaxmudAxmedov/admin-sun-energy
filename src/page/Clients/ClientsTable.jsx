@@ -130,14 +130,14 @@ export default function ClientsTable() {
 
   return (
     <div>
-      <div  className="flex justify-between items-center py-5 px-2">
-       <Search url={handleSearch} />
-          
-         <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/clients/create"} >
-                   
-               + Create
-                  </Link>
-         
+      <div className="flex justify-between items-center py-5 px-2">
+        <Search url={handleSearch} />
+
+        <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/clients/create"} >
+
+          + Create
+        </Link>
+
       </div>
       <Tabs defaultValue="jismoniy" className="w-full">
         <TabsList>
@@ -167,7 +167,6 @@ export default function ClientsTable() {
             {t("legal_entity")}
           </TabsTrigger>
         </TabsList>
-
         <TabsContent
           value="jismoniy"
           className="h-[calc(100vh-150px)] overflow-y-auto"
@@ -183,7 +182,7 @@ export default function ClientsTable() {
         </TabsContent>
       </Tabs>
       <CustomDrawer
-      path="clients"
+        path="clients"
         title={t("info")}
         open={isOpen}
         contacts={true}

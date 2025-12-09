@@ -37,7 +37,6 @@ console.log(data)
             {t("product_name")}*
             <Input
              {...register("name")}
-              className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("Enter_Product_name")}
             />
           </label>
@@ -46,7 +45,6 @@ console.log(data)
             {t("Count_of_product")}*
             <Input
              {...register("count_of_product")}
-              className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("enter_count_of_product")}
             />
           </label>
@@ -55,7 +53,6 @@ console.log(data)
             {t("pcategory")}*
             <Input
              {...register("pcategory")}
-              className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("pcategory")}
             />
           </label>
@@ -66,7 +63,6 @@ console.log(data)
             {t("watt")}
             <Input
              {...register("watt")}
-              className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("watt")}
             />
           </label>
@@ -75,7 +71,6 @@ console.log(data)
             {t("price")}*
             <Input
              {...register("price")}
-              className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("price")}
             />
           </label>
@@ -84,7 +79,6 @@ console.log(data)
             {t("mark_up")}
             <Input
              {...register("mark_up")}
-              className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("mark_up")}
             />
           </label>
@@ -95,7 +89,6 @@ console.log(data)
             {t("power_system")}
             <Input
             {...register("power_system")}
-              className="max-w-[400px] transition-all focus:w-64 outline-none text-active"
               placeholder={t("power_system")}
             />
           </label>
