@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Input } from "../ui/input";
 
 export default function Search({ url }) {
   const [search, setsearch] = useState("");
@@ -12,11 +13,10 @@ export default function Search({ url }) {
       <div className=" bg-white">
         <label htmlFor="">
 
-        <input
+        <Input
             onChange={handleChange}
           value={search}
           placeholder="Search..."
-           className="input shadow-lg  focus:border-2 border-none px-5 py-3 rounded-xl w-56 transition-all focus:w-64 outline-none"
           name="search"
           type="search"
           />

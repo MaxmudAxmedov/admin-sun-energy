@@ -76,12 +76,11 @@ export default function CategoriyCrud() {
       <form onSubmit={handleSubmit(handelSubmit)}>
         <div className="pl-3 w-[500px]">
           <Label htmlFor="id">
-            Product category name*
+          {t("product_category_name")}
             <Input
 
               defaultValue={Defaultvalue}
               {...register("name")}
-              className="input shadow-lg w-56 transition-all focus:w-64 outline-none"
               type="text"
             />
           </Label>

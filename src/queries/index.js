@@ -1,4 +1,4 @@
-import { employeeIDGet, employeePost, employeesGet } from "@/services/employees";
+import { employeeIDGet, employeePost, employeesGet, empPositionsGet } from "@/services/employees";
 import { postproductmutation, productGet } from "../services/product";
 import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
@@ -26,11 +26,11 @@ export function getProductsQuery(params) {
     queryKey: ["products-all", params],
     queryFn: async () => productGet(params),
   };
-} 
-export function postProductsMutation(data){
+}
+export function postProductsMutation(data) {
   return {
-    queryKey:["products-post", data],
-    queryFn: async ()=> postproductmutation(data),
+    queryKey: ["products-post", data],
+    queryFn: async () => postproductmutation(data),
   }
 }
 
@@ -39,29 +39,29 @@ export function postProductsMutation(data){
 // Category
 export function getProductQuery(params) {
   return {
-    queryKey: ["product-categories", {...params}],
+    queryKey: ["product-categories", { ...params }],
     queryFn: async () => category(params),
   };
 }
 /// category getby id
-export function getProductIdQeriy(id){
-  return{
-    queryKey:["product-id", id],
-    queryFn :  async ()=> ProductcategoryID(id),
+export function getProductIdQeriy(id) {
+  return {
+    queryKey: ["product-id", id],
+    queryFn: async () => ProductcategoryID(id),
     enabled: !!id,
   }
 }
 /// category Post
-export const postProductCatecoriyPost =  async (params) =>{
+export const postProductCatecoriyPost = async (params) => {
   return categorypost(params);
 }
 ////  category edit 
-export const editProductcategoryePut = async (params)=>{
+export const editProductcategoryePut = async (params) => {
   return categoryput(params);
 }
 /// category Delete
-export const deleteproductCategoryDelete = async (id) =>{
-  return  categorydelete(id);
+export const deleteproductCategoryDelete = async (id) => {
+  return categorydelete(id);
 }
 
 
@@ -74,18 +74,18 @@ export function getClientBusinessQuery(params) {
     queryFn: async () => clientsBusinessGet(params),
   };
 }
-export function getClientBusinessIdQuery(id){
+export function getClientBusinessIdQuery(id) {
   return {
-    queryKey:["client-businnes-id", id],
-    queryFn: async ()=> clientsBusinessIdGet(id),
-     enabled: !!id,
+    queryKey: ["client-businnes-id", id],
+    queryFn: async () => clientsBusinessIdGet(id),
+    enabled: !!id,
   }
 }
 
-export function getClentBusinessTRADESQuery(params){
+export function getClentBusinessTRADESQuery(params) {
   return {
-    queryKey:["tredes", params],
-    queryFn: async ()=> tradesReportsGet(params)
+    queryKey: ["tredes", params],
+    queryFn: async () => tradesReportsGet(params)
   }
 }
 
@@ -104,16 +104,22 @@ export function getEmployeesQuery(params) {
   };
 }
 
-export function getEmployeeIDQuery(dataid){
-  return{
-    queryKey:["employeeID",dataid],
-    queryFn : async ()=> employeeIDGet(dataid),
+export function getEmployeeIDQuery(dataid) {
+  return {
+    queryKey: ["employeeID", dataid],
+    queryFn: async () => employeeIDGet(dataid),
     enabled: !!dataid,
   }
 }
-export const postemployeeMutation  = async (params) => {
-  return  employeePost(params)
+export const postemployeeMutation = async (params) => {
+  return employeePost(params)
 }
+
+// positions 
+export const getPositionsQuery = (params) => ({
+  queryKey: ["positions", params],
+  queryFn: () => empPositionsGet(params)
+});
 
 
 

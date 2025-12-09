@@ -1,45 +1,67 @@
 import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
+import { Trash2, UploadCloud } from "lucide-react";
 import { t } from "@/utils/i18n";
-import { Trash2 } from "lucide-react";
-export default function ImageUploadForm({ register, name }) {
+
+export default function ImageUploadForm({ register, name, setValue }) {
   const [file, setFile] = useState(null);
 
-
   return (
-    <div className="flex flex-col gap-4 w-[200px]">
+    <div className="flex flex-col gap-3 w-[180px]">
       <Label>{t("Img")}</Label>
-      <label className="flex items-center justify-center w-full h-12 px-4 border-2 border-dashed border-gray-400 rounded-md cursor-pointer hover:border-gray-600">
-        <span className="text-gray-500">📁 Choose image</span>
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          {...register(name, {
-            onChange: (e) => {
-              setFile(e.target.files[0]);
+
+      {!file ? (
+        <label className="flex flex-col items-center justify-center gap-2
+          w-full h-[170px] border-2 border-dashed border-gray-500
+          rounded-xl cursor-pointer bg-bacground
+           transition text-gray-400">
+
+          <UploadCloud size={36} />
+          <p className="text-sm">Drag and Drop</p>
+          <span className="text-xs text-gray-500">or</span>
+
+          <div className="px-4 py-1 bg-gray-600 text-white text-xs rounded-md">
+            Browse file
+          </div>
+
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => {
+              const selectedFile = e.target.files[0];
+              if (selectedFile) {
+                setFile(selectedFile);
+                setValue(name, selectedFile, { shouldValidate: true });
+              }
+            }}
+          />
+        </label>
+      ) : (
+        <div className="relative w-full h-[170px] rounded-xl overflow-hidden group border">
+
+          <img
+            src={URL.createObjectURL(file)}
+            className="w-full h-full object-cover"
+            alt="preview"
+          />
+
+
+          <button
+            type="button"
+
+            onClick={() => {
+              setFile(null),
+                setValue(name, null)
             }
-          })}
-        />
-      </label>
-    {file && (
-  <div className="relative w-32 h-32 group ">
-    <img
-      src={URL.createObjectURL(file)}
-      className="w-full h-full object-cover rounded-md"
-      alt="preview"
-    />
-
-    <button
-      onClick={() => setFile(null)}
-      className="absolute bg-[red] top-1 right-1 opacity-0 group-hover:opacity-100 transition
+            }
+            className="absolute bg-[red] top-1 right-1 opacity-0 group-hover:opacity-100 transition
          bg-red-500 text-white px-2 py-1 text-xs rounded-md border-none"
-    >
-      <Trash2 className="h-4 w-4 text-[#fff]" />
-    </button>
-  </div>
-)}
-
+          >
+            <Trash2 className="h-4 w-4 text-[#fff]" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
