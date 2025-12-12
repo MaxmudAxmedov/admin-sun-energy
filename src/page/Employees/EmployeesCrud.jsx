@@ -98,7 +98,7 @@ console.log(data?.data?.Data.positions);
               <Controller
                 name="position_id"
                 defaultValue=""
-                // control={control}
+                control={control}
                 render={({ field }) => (
                   <Select
                     value={field.value}
