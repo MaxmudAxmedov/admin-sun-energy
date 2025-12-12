@@ -1,6 +1,6 @@
-import { employeeIDGet, employeePost, employeesGet, empPositionsGet } from "@/services/employees";
+import { deleteEmployes, editEmployesMutation, employeeIDGet, employeePost, employeesGet, empPositionsGet } from "@/services/employees";
 import { postproductmutation, productGet } from "../services/product";
-import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet, clientsCustomersIDGet, deletecustumersMutation, postcostumerMutations, putcustumersmutation, tradesssquery } from "@/services/clients";
+import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet, clientsCustomersIDGet, deketebussinmutation, deletecustumersMutation, editBussinesmutations, postbusinesMutation, postcostumerMutations, putcustumersmutation, tradesssquery } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
 import { reportsGet, tradesReportsGet } from "@/services/reports";
 import { category, categorydelete, categorypost, categoryput } from "@/services/category";
@@ -65,21 +65,30 @@ export const deleteproductCategoryDelete = async (id) => {
 }
 
 
-
-
 // Clients page
 export function getClientBusinessQuery(params) {
   return {
     queryKey: ["client-business", params],
     queryFn: async () => clientsBusinessGet(params),
+
   };
 }
+
 export function getClientBusinessIdQuery(id) {
   return {
     queryKey: ["client-businnes-id", id],
     queryFn: async () => clientsBusinessIdGet(id),
     enabled: !!id,
+    retry: false,
   }
+}
+//edit
+export function editBussinesmutation(params) {
+  return editBussinesmutations(params);
+}
+
+export function postBusinessMutation(params) {
+  return postbusinesMutation(params)
 }
 
 export function getClentBusinessTRADESQuery(params) {
@@ -88,7 +97,13 @@ export function getClentBusinessTRADESQuery(params) {
     queryFn: async () => tradesReportsGet(params)
   }
 }
-/// get
+// bussines delete 
+export async function   deletebussinessMutation (id) {
+  return deketebussinmutation(id);
+}
+
+
+/// get custumer
 export function getClientCustomersQuery(params) {
   return {
     queryKey: ["client-customers", params],
@@ -104,6 +119,7 @@ export function getcustomerIdQuery(id) {
   return {
     queryKey: ["custumer-id", id],
     queryFn: async () => clientsCustomersIDGet(id),
+    retry: false,
     enabled: !!id,
   }
 }
@@ -140,9 +156,22 @@ export function getEmployeeIDQuery(dataid) {
     enabled: !!dataid,
   }
 }
+
+// post
 export const postemployeeMutation = async (params) => {
   return employeePost(params)
 }
+
+//employe edit 
+export const editempMutation = async (params) =>{
+  return editEmployesMutation(params)
+}
+
+// employerss delete
+  export const deleteEmployess = async (id) =>{
+    return deleteEmployes(id)
+  }
+
 
 // positions 
 export const getPositionsQuery = (params) => ({

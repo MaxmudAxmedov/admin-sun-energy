@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getEmployeeIDQuery, getEmployeesQuery } from "@/queries";
+import { deleteEmployess, getEmployeeIDQuery, getEmployeesQuery } from "@/queries";
 import { Button } from "@/components/ui/button";
 import DataTable from "@/components/Table/DataTable";
 import { forceConvertDomain } from "@/lib/forceConvertDomain";
@@ -20,8 +20,6 @@ export default function Employees() {
   const employees = useMemo(() => data?.data?.Data?.employees || [], [data]);
   const employee = useMemo(() => emplyData?.data?.payments || [], [emplyData]);
 
-  console.log(employees);
-  
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [wiewProduct, setViewProduct] = useState({});
@@ -87,10 +85,13 @@ export default function Employees() {
       <DataTable columns={columns} data={employees} />
 
       <CustomDrawer
+       Delete={dataid}
+        mutation={deleteEmployess}
+        keys={"employees-all"}
         title={t("info")}
         open={isOpen}
-        edit={true}
-        Delete={true}
+        path={`/employees/edit/${dataid}`}
+        edit={`/employees/edit/${dataid}`}
         onOpenChange={(open) => (open ? onOpen() : onClose())}
         onSave={() => {
           onClose();

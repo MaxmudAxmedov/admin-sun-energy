@@ -1,13 +1,12 @@
 import React, { useMemo, useState } from "react";
 import {
+  deletebussinessMutation,
   deletecustumerMutation,
   getClentBusinessTRADESQuery,
-  getClientBusinessIdQuery,
   getClientBusinessQuery,
   getClientCustomersQuery,
-  tradesquery,
 } from "@/queries";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import DataTable from "@/components/Table/DataTable";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -19,12 +18,6 @@ import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
 import { formator } from "@/schemas/formator";
 import Search from "@/components/Search/search";
 import { Link } from "react-router-dom";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@/components/ui/popover";
-import { setStorage } from "@/storage/local-store";
 export default function ClientsTable() {
 
   const [params, setParams] = useState({
@@ -118,7 +111,7 @@ export default function ClientsTable() {
     ],
     [isType]
   );
-const [opn, setopn]= useState(null)
+  const [opn, setopn] = useState(null)
 
   const filteredTRADES = useMemo(() => {
     if (!TRADES || !clientId) return [];
@@ -186,9 +179,9 @@ const [opn, setopn]= useState(null)
       <CustomDrawer
         Delete={clientId}
         path={`/clients/edit/${ids}`}
-        mutation={deletecustumerMutation}
-         lorem={setopn}
-        keys={"client-customers"}
+        mutation={isType == false ? deletecustumerMutation : deletebussinessMutation}
+        lorem={setopn}
+        keys={isType == false ? "client-customers" : "client-business"}
         title={t("info")}
         open={isOpen}
         contacts={true}
@@ -196,7 +189,7 @@ const [opn, setopn]= useState(null)
         onOpenChange={(open) => {
           if (open !== isOpen) {
             open ? onOpen() : onClose()
-          }else if (opn == false){
+          } else if (opn == false) {
             onClose()
           }
         }}
@@ -351,7 +344,9 @@ const [opn, setopn]= useState(null)
                       </div>
                     ))
                   ) : (
-                    <p>No trades found</p>
+                    <div className="text-active">
+                      <p>No trades found</p>
+                    </div>
                   )}
                 </div>
               </div>
