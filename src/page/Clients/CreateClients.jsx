@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import ImageUploadForm from '@/components/ui/imgupload'
 import { Input } from '@/components/ui/input'
-import { getcustomerIdQuery, postcostumermutaion, putcustumermMtation } from '@/queries'
+import { editBussinesmutation, getClientBusinessIdQuery, getcustomerIdQuery, postBusinessMutation, postcostumermutaion, putcustumermMtation } from '@/queries'
 import { t } from '@/utils/i18n'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import React, { useMemo } from 'react'
@@ -21,6 +21,7 @@ export default function CreateClients() {
   const mutation = useMutation({ mutationFn: (params) => postcostumermutaion(params) })
 
   React.useEffect(() => {
+    setstate(1)
     if (DD) reset(DD)
   }, [DD, reset])
   const imgs = data?.data?.file
@@ -49,7 +50,7 @@ export default function CreateClients() {
         onSuccess: () => {
           reset();
           nav("/clients");
-          toast.success("lorem");
+          toast.success("ok create");
         },
         onError: (error) => {
           toast.error(error.message)
@@ -70,18 +71,75 @@ export default function CreateClients() {
     }
   }
 
-  
+  const { handleSubmit: handleSubmitsecond, register: registersecond, reset: resetsecond, setValue: setvaluesecond } = useForm()
 
 
-  const { handleSubmit:handleSubmitsecond, register:registersecond, reset:resetsecond, setValue:setvaluesecond } = useForm()
-const business = (res)=>{
-  console.log(res);
-  
-}
+  const { data: results, isLoading: load } = useQuery(getClientBusinessIdQuery(id));
+
+  const result = useMemo(() => results?.data || null, [results])
+
+  React.useEffect(() => {
+    setstate(2)
+    if (results?.data) resetsecond(results?.data)
+  }, [results, resetsecond])
+  const imgdata = results?.data?.file;
+
+
+
+  const businessmutations = useMutation({ mutationFn: (params) => postBusinessMutation(params) });
+  const businessMutation = useMutation({ mutationFn: (params) => editBussinesmutation(params) })
+
+
+  const business = (res) => {
+
+
+    const Businessformdata = new FormData();
+    const { full_name, phone, company_name, account_number, inn_number, info_number, region, district, street, quarter } = res;
+    Businessformdata.append("full_name", full_name),
+      Businessformdata.append("phone", phone),
+      Businessformdata.append("company_name", company_name,),
+      Businessformdata.append("account_number", Number(account_number),),
+      Businessformdata.append("inn_number", Number(inn_number)),
+      Businessformdata.append("info_number", Number(info_number)),
+      Businessformdata.append("region", region),
+      Businessformdata.append("district", district),
+      Businessformdata.append("street", street),
+      Businessformdata.append("quarter", quarter),
+      Businessformdata.append("file", res.file)
+
+    if (!id) {
+      businessmutations.mutate(Businessformdata, {
+        onSuccess: () => {
+          resetsecond()
+          nav("/clients"),
+            toast.success("ok create")
+        },
+        onError: (error) => {
+          toast.error(error.message)
+        }
+      })
+    } else if (id) {
+      Businessformdata.append("id", id),
+        businessMutation.mutate(Businessformdata, {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["client-business",] })
+            nav("/clients");
+            toast.success("ok edit");
+          },
+          onError: (error) => {
+            toast.error(error.message)
+          }
+        })
+    }
+
+
+
+
+  }
 
   return (
     <div>
-      {isLoading ? <div>LOADING...</div> : <div>
+      {isLoading || load ? <div>LOADING...</div> : <div>
         <div className='flex justify-between items-center py-5 px-7'>
           <h1>
             Edit client
@@ -115,7 +173,7 @@ const business = (res)=>{
           </div>
           <Button className="mt-5" type="submit">{mutateedit.isPending || mutation.isPending ? <div>Loding...</div> : "Send"}</Button>
         </form>}
-        {state == 2 && <form onSubmit={handleSubmitsecond(business)}>
+        {state == 2 && <form onSubmit={handleSubmitsecond(business)} defaultValue={result} >
           <div className='flex justify-between items-center gap-2 max-w-[800px] '>
             <Input type="text" label={t("full_name")} {...registersecond("full_name")} placeholder={t("full_name")} />
             <Input type="text" label={t("phone")} {...registersecond("phone")} placeholder={t("phone")} />
@@ -133,9 +191,9 @@ const business = (res)=>{
           </div>
           <Input type="text" label={t("quarter")} {...registersecond("quarter")} className="max-w-[800px] my-10" placeholder={t("quarter")} />
           <div>
-            <ImageUploadForm register={registersecond} setValue={setValue} name={"file"} />
+            <ImageUploadForm imgs={imgdata} register={registersecond} setValue={setvaluesecond} name={"file"} />
           </div>
-          <Button className="mt-5" type="submit">send</Button>
+          <Button className="mt-5" type="submit">{businessmutations.isPending || businessMutation.isPending ? "loading..." : "send" }</Button>
         </form>
         }
       </div>}

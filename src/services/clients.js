@@ -1,17 +1,34 @@
 import { request } from "@/config/request";
-
+// get business
 export const clientsBusinessGet = (params) => {
     return request({ method: "get", url: "/client-businesses", params });
+
 };
+// bussiness id
+export const clientsBusinessIdGet = (id) => {
+    return request({ method: "get", url: `/client-business/${id}`, })
+}
+
+//edits
+export const editBussinesmutations = (params) => {
+    return request({ method: "put", url: "/client-business", data: params })
+}
+
+export const postbusinesMutation = (params) => {
+    return request({ method: "post", url: "client-business", data: params })
+}
+
+
 
 export const clientsCustomersGet = (params) => {
     return request({ method: "get", url: "/client-customers", params });
 };
 
-// bussiness id
-export const clientsBusinessIdGet = (id) => {
-    return request({ method: "get", url: `/client-customer/${id}` })
+//delete
+export const deketebussinmutation = (id) => {
+    return request({ method: "delete", url: `/client-business/${id}` })
 }
+
 
 // post costumer
 

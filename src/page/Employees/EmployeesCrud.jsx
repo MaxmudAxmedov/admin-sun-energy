@@ -1,60 +1,72 @@
 import { Button } from '@/components/ui/button'
-import { Form } from '@/components/ui/form'
 import ImageUploadForm from '@/components/ui/imgupload'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
-import { getPositionsQuery, postemployeeMutation } from '@/queries'
+import { editempMutation, getEmployeeIDQuery, getPositionsQuery, postemployeeMutation } from '@/queries'
 import { t } from '@/utils/i18n'
-import { SelectGroup, SelectLabel, SelectValue } from '@radix-ui/react-select'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import React, { useState } from 'react'
+import { SelectValue } from '@radix-ui/react-select'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import React, { useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 export default function EmployeesCrud() {
+  const queryClient = useQueryClient()
   const nav = useNavigate()
-  const { data, isLoading } = useQuery(getPositionsQuery({ limit: "200" }))
+  const { id } = useParams()
+  const { data: res, isLoading } = useQuery(getEmployeeIDQuery(id))
+  const DD = useMemo(() => res?.data || res)
+  const { data } = useQuery(getPositionsQuery({ limit: "200" }))
   const { handleSubmit, register, reset, control, setValue } = useForm()
   const mutations = useMutation({ mutationFn: (params) => postemployeeMutation(params) });
+  const mut = useMutation({ mutationFn: (params) => editempMutation(params) })
+  React.useEffect(() => {
+    if (DD) reset(DD)
+  }, [DD, reset])
+  const imgs = res?.data?.photo;
 
-console.log(data?.data?.Data.positions);
 
 
-  // Position ID mapping
   const Submit = (data) => {
 
     const Formdata = new FormData();
-    Formdata.append("first_name", String( data.first_name));
+    Formdata.append("first_name", String(data.first_name));
     Formdata.append("last_name", String(data.last_name));
     Formdata.append("patronymic", String(data.patronymic));
     Formdata.append("phone", String(data.phone));
     Formdata.append("passport_series", String(data.passport_series));
-    Formdata.append("position_id",  String(data.position_id));
+    Formdata.append("position_id", String(data.position_id));
     Formdata.append("region", String(data.region));
     Formdata.append("district", (String(data.district)));
     Formdata.append("quarter", String(data.quarter));
     Formdata.append("street", String(data.street));
+    Formdata.append("photo", data.photo);
 
-    if (data.photo) {
-      Formdata.append("photo", data.photo);
-    }
-
-
-    mutations.mutate(Formdata, {
-      onSuccess: () => {
-        toast.success("Employee created successfully")
-        reset();
-        nav("/employees")
-      },
-      onError: error => {
-        if (error.response?.status === 409) {
-          toast.error("Employee already exists!");
-        } else {
-          toast.error(error.message);
+    if (id) {
+      Formdata.append("id", id)
+      mut.mutate(Formdata, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["employees-all"] })
+          nav("/employees");
+          toast.success("ok edit")
+        },
+        onError:(error)=>{
+          toast.error(error.message)
         }
-      }
-    })
+      })
+    } else {
+      mutations.mutate(Formdata, {
+        onSuccess: () => {
+          toast.success("Employee created successfully")
+          reset();
+          nav("/employees")
+        },
+        onError: (error) => {
+          toast.error(error.message)
+        }
+      })
+    }
 
   }
 
@@ -67,7 +79,7 @@ console.log(data?.data?.Data.positions);
           back
         </Link>
       </div>
-      <form onSubmit={handleSubmit(Submit)}>
+      <form onSubmit={handleSubmit(Submit)} defaultValue={DD}>
         <div className="flex px-5 py-4 max-w-[800px] justify-between items-center gap-4 flex-wrap">
           <label className="text-active" htmlFor="name">
             {t("name")}
@@ -137,7 +149,7 @@ console.log(data?.data?.Data.positions);
           </label>
         </div>
         <div className="ml-5">
-          <ImageUploadForm register={register} setValue={setValue} name={"photo"} />
+          <ImageUploadForm imgs={imgs} register={register} setValue={setValue} name={"photo"} />
         </div>
         <Button type="submit"> send</Button>
       </form>
