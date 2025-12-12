@@ -17,7 +17,7 @@ const Input = React.forwardRef(
     return (
       <div className="w-full space-y-1">
         {label && (
-          <label className="text-sm font-medium text-active">
+          <label className="text-sm font-medium text-active block">
             {label}
           </label>
         )}

@@ -20,6 +20,7 @@ export default function CategoriyCrud() {
   const ProductC = useMemo(() => data || [data])
   const mut = useMutation({ mutationFn: (params) => editProductcategoryePut(params) })
   const mutation = useMutation({ mutationFn: (params) => postProductCatecoriyPost(params) })
+  
 
   const Defaultvalue = ProductC?.data?.name || "";
 
@@ -76,7 +77,7 @@ export default function CategoriyCrud() {
       <form onSubmit={handleSubmit(handelSubmit)}>
         <div className="pl-3 w-[500px]">
           <Label htmlFor="id">
-          {t("product_category_name")}
+            {t("product_category_name")}
             <Input
 
               defaultValue={Defaultvalue}

@@ -16,14 +16,13 @@ import { LoaderIcon } from "lucide-react";
 import { toast } from "react-toastify";
 
 export default function CategoryTable() {
-  // const nav = useNavigate()
   const { t } = useTranslation();
   const [params, setParams] = useState({
     limit: "200",
     page: "1",
     search: "",
   });
-  const { data, isLoading } = useQuery(getProductQuery(params));
+  const { data } = useQuery(getProductQuery(params));
   const Productquery = useMemo(
     () => data?.data?.Data?.product_categories || [],
     [data]
@@ -32,8 +31,6 @@ export default function CategoryTable() {
   const queryClient = useQueryClient()
 
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [wiewProduct, setViewProduct] = useState();
   const [openPopoverId, setOpenPopoverId] = useState(null);
   
 
@@ -92,7 +89,7 @@ export default function CategoryTable() {
             onOpenChange={(isOpen) => setOpenPopoverId(isOpen ? row.id : null)}
           >
             <PopoverTrigger asChild>
-              <Button onClick={() => setViewProduct(row.id)} className="bg-red cursor-pointer text-[#fff] border-none hover:bg-redHover">
+              <Button onClick={() => setOpenPopoverId(row.id)} className="bg-red cursor-pointer text-[#fff] border-none hover:bg-redHover" size="sm">
                 {t("delete")}
               </Button>
             </PopoverTrigger>
