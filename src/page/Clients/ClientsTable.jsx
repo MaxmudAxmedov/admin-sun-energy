@@ -1,11 +1,13 @@
 import React, { useMemo, useState } from "react";
 import {
+  deletecustumerMutation,
   getClentBusinessTRADESQuery,
   getClientBusinessIdQuery,
   getClientBusinessQuery,
   getClientCustomersQuery,
+  tradesquery,
 } from "@/queries";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import DataTable from "@/components/Table/DataTable";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -17,8 +19,14 @@ import CustomDrawer from "@/components/CustomDrawer/CustomDrawer";
 import { formator } from "@/schemas/formator";
 import Search from "@/components/Search/search";
 import { Link } from "react-router-dom";
-
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
+import { setStorage } from "@/storage/local-store";
 export default function ClientsTable() {
+
   const [params, setParams] = useState({
     limit: "200",
     search: "",
@@ -37,8 +45,7 @@ export default function ClientsTable() {
       is_company: false,
       page: 1,
       limit: 100,
-    })
-  );
+    }));
   const TRADES = useMemo(
     () => trades?.data.Data.client_products || [],
     [trades]
@@ -55,17 +62,12 @@ export default function ClientsTable() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [wiewProduct, setViewProduct] = useState({});
-  // const [value, setvalue] = useState(null);
-
-  // const { data: clientsId, isLoading } = useQuery(
-  //   getClientBusinessIdQuery(value)
-  // );
-
+  const [ids, setids] = useState(null);
   const handleView = (row) => {
     setViewProduct(row);
-    //setvalue(row.id);
     onOpen();
     setclientId(row.id);
+    setids(row.id);
   };
 
   const columns = useMemo(
@@ -104,7 +106,7 @@ export default function ClientsTable() {
           <div className="flex justify-evenly gap-2">
             <Button
               variant="outline"
-              className="bg-icons text-aside border-none"
+              className="bg-icons text-aside cursor-pointer border-none"
               size="sm"
               onClick={() => handleView(row)}
             >
@@ -116,13 +118,13 @@ export default function ClientsTable() {
     ],
     [isType]
   );
+const [opn, setopn]= useState(null)
 
   const filteredTRADES = useMemo(() => {
     if (!TRADES || !clientId) return [];
     return TRADES.filter((item) => item.client_id == clientId);
   }, [TRADES, clientId]);
 
-  console.log(wiewProduct);
 
   const handleSearch = (value) => {
     setParams((p) => ({ ...p, search: value }));
@@ -145,11 +147,11 @@ export default function ClientsTable() {
             onClick={() => setIsType(false)}
             value="jismoniy"
             className="
-              data-[state=active]:bg-icons
-              data-[state=active]:text-background
-              data-[state=active]:shadow-md
-              bg-white text-icons transition-all
-            "
+                data-[state=active]:bg-icons
+                data-[state=active]:text-background
+                data-[state=active]:shadow-md
+                bg-white text-icons transition-all
+              "
           >
             {t("natural_person")}
           </TabsTrigger>
@@ -158,11 +160,11 @@ export default function ClientsTable() {
             onClick={() => setIsType(true)}
             value="yuridik"
             className="
-              data-[state=active]:bg-icons
-              data-[state=active]:text-background
-              data-[state=active]:shadow-md
-              bg-white text-icons transition-all
-            "
+                data-[state=active]:bg-icons
+                data-[state=active]:text-background
+                data-[state=active]:shadow-md
+                bg-white text-icons transition-all
+              "
           >
             {t("legal_entity")}
           </TabsTrigger>
@@ -182,12 +184,22 @@ export default function ClientsTable() {
         </TabsContent>
       </Tabs>
       <CustomDrawer
-        path="clients"
+        Delete={clientId}
+        path={`/clients/edit/${ids}`}
+        mutation={deletecustumerMutation}
+         lorem={setopn}
+        keys={"client-customers"}
         title={t("info")}
         open={isOpen}
         contacts={true}
-        edit={true}
-        onOpenChange={(open) => (open ? onOpen() : onClose())}
+        edit={`/clients/edit/${ids}`}
+        onOpenChange={(open) => {
+          if (open !== isOpen) {
+            open ? onOpen() : onClose()
+          }else if (opn == false){
+            onClose()
+          }
+        }}
         onSave={() => {
           onClose();
         }}

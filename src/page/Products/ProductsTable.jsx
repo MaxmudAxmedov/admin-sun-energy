@@ -81,7 +81,9 @@ export default function ProductsTable() {
             onOpenChange={(isOpen) => setOpenPopoverId(isOpen ? row.id : null)}
           >
             <PopoverTrigger asChild>
-              <Button className="bg-red text-[#fff] border-none hover:bg-redHover">
+              <Button className="bg-red text-[#fff] border-none hover:bg-redHover  text-[10px] m-0 p-[18px]"  
+              size="sm"
+               >
                 {t("delete")}
               </Button>
             </PopoverTrigger>
@@ -95,7 +97,7 @@ export default function ProductsTable() {
                   clean
                 </Button>
                 <Button
-                  className="transition-all duration-300 bg-red text-[#fff] border-none hover:bg-redHover hover:rounded-[10px]"
+                  className="transition-all duration-300 w-[20px] bg-red text-[#fff] border-none hover:bg-redHover hover:rounded-[10px] px-10 py-5"size="sm"
                   onClick={handleDelete}
                 >
                   {t("delete")}

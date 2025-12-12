@@ -1,6 +1,6 @@
 import { employeeIDGet, employeePost, employeesGet, empPositionsGet } from "@/services/employees";
 import { postproductmutation, productGet } from "../services/product";
-import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet } from "@/services/clients";
+import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet, clientsCustomersIDGet, deletecustumersMutation, postcostumerMutations, putcustumersmutation, tradesssquery } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
 import { reportsGet, tradesReportsGet } from "@/services/reports";
 import { category, categorydelete, categorypost, categoryput } from "@/services/category";
@@ -88,13 +88,42 @@ export function getClentBusinessTRADESQuery(params) {
     queryFn: async () => tradesReportsGet(params)
   }
 }
-
+/// get
 export function getClientCustomersQuery(params) {
   return {
     queryKey: ["client-customers", params],
     queryFn: async () => clientsCustomersGet(params),
   };
 }
+// costumer post
+export const postcostumermutaion = async (params) => {
+  return postcostumerMutations(params)
+}
+// costumer by id 
+export function getcustomerIdQuery(id) {
+  return {
+    queryKey: ["custumer-id", id],
+    queryFn: async () => clientsCustomersIDGet(id),
+    enabled: !!id,
+  }
+}
+// costumer edit
+export const putcustumermMtation = async (formData) => {
+  return putcustumersmutation(formData)
+}
+//custumer delete 
+export const deletecustumerMutation = async (id) => {
+  return deletecustumersMutation(id)
+}
+
+//trades get 
+export const tradesquery = async (params) => {
+  return {
+    queryKey: ["trades", params],
+    queryFn: async () => tradesssquery(params)
+  }
+}
+
 
 // Employees page
 export function getEmployeesQuery(params) {
@@ -130,3 +159,4 @@ export function getContractsQuery(params) {
     queryFn: async () => contractsGet(params),
   };
 }
+
