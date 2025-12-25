@@ -131,22 +131,16 @@ export default function CreateClients() {
           }
         })
     }
-
-
-
-
   }
 
   return (
     <div>
       {isLoading || load ? <div>LOADING...</div> : <div>
-        <div className='flex justify-between items-center py-5 px-7'>
-          <h1>
+        <div className='py-2 px-7'>
+          <h2>
             Edit client
-          </h1>
-          <Link to={"/clients"} className=' py-[7px] px-5 bg-button  text-aside rounded-md'>
-            back
-          </Link>
+          </h2>
+
         </div>
         <div className='w-[500px] flex py-2 px-4  bg-shadows justify-between gap-2 rounded-md mb-5'>
           <button onClick={() => setstate(1)} className={`w-[240px] transform-all duration-300 text-center p-1 m-0  ${state == 1 ? `bg-icons ` : "bg-shadows "} text-bll border-none  rounded-md`}>{t("natural_person")}</button>
@@ -193,7 +187,14 @@ export default function CreateClients() {
           <div>
             <ImageUploadForm imgs={imgdata} register={registersecond} setValue={setvaluesecond} name={"file"} />
           </div>
-          <Button className="mt-5" type="submit">{businessmutations.isPending || businessMutation.isPending ? "loading..." : "send" }</Button>
+          <div className='w-[100%] flex justify-center items-center gap-2 '>
+            <Link to={"/clients"}  className='py-[9px] px-6 bg-button text-aside rounded-md' >
+              back
+            </Link>
+            <Button   className=" w-[200px] px-6 py-2 bg-icons text-aside font-semibold rounded-lg shadow-md
+             hover:bg-aside  hover:text-black transition-all duration-200
+             active:bg-blue-800 active:shadow-sm border-none" type="submit">{businessmutations.isPending || businessMutation.isPending ? "loading..." : "send"}</Button>
+          </div>
         </form>
         }
       </div>}

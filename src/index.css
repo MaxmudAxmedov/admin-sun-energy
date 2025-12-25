@@ -17,11 +17,12 @@
   --black: #010409;
   /* red color  */
   --red: red;
-  --red-hover:#e91919;
+  --red-hover: #e91919;
   --box-shadow: #f0f0f1;
   --shadow: rgb(191, 187, 172);
-  --bl:#000;
-  --person:#000;
+  --bl: #000;
+  
+
 }
 
 .dark {
@@ -57,17 +58,19 @@
   --red: #ff0000;
   /* Tailwind red-500 — dark modeda yaxshi ko‘rinadi */
   --box-shadow: #000000;
-   --shadow: rgba(60, 82, 63, 0.156);
-   --bl:#fff;
+  --shadow: rgba(60, 82, 63, 0.156);
+  --bl: #fff;
 }
 
-body{
+body {
   overflow: scroll;
   overflow-x: hidden;
 }
-ul{
+
+ul {
   list-style: none;
 }
-a{
+
+a {
   text-decoration: none;
 }

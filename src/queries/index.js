@@ -1,5 +1,5 @@
 import { deleteEmployes, editEmployesMutation, employeeIDGet, employeePost, employeesGet, empPositionsGet } from "@/services/employees";
-import { postproductmutation, productGet } from "../services/product";
+import { deleteMut, editMutate, postproductmutation, productGet, productid } from "../services/product";
 import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet, clientsCustomersIDGet, deketebussinmutation, deletecustumersMutation, editBussinesmutations, postbusinesMutation, postcostumerMutations, putcustumersmutation, tradesssquery } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
 import { reportsGet, tradesReportsGet } from "@/services/reports";
@@ -27,12 +27,26 @@ export function getProductsQuery(params) {
     queryFn: async () => productGet(params),
   };
 }
-export function postProductsMutation(data) {
-  return {
-    queryKey: ["products-post", data],
-    queryFn: async () => postproductmutation(data),
-  }
+export function postProductsMutation(params) {
+  return  postproductmutation(params)
 }
+
+//id
+ export function getproductsidQuery(id){
+  return {
+    queryKey:["products-edit", id],
+    queryFn: async ()=> productid(id),
+  enabled:!!id,
+  }
+ }
+ //edit 
+ export const editProductDAtaMutation = async ({ formData, productId })=>{
+  return editMutate({ formData, productId })
+ } 
+ //delete
+ export const deletePoductsMutations = (id)=>{
+  return deleteMut(id)
+ }
 
 
 
@@ -98,7 +112,7 @@ export function getClentBusinessTRADESQuery(params) {
   }
 }
 // bussines delete 
-export async function   deletebussinessMutation (id) {
+export async function deletebussinessMutation(id) {
   return deketebussinmutation(id);
 }
 
@@ -163,14 +177,14 @@ export const postemployeeMutation = async (params) => {
 }
 
 //employe edit 
-export const editempMutation = async (params) =>{
+export const editempMutation = async (params) => {
   return editEmployesMutation(params)
 }
 
 // employerss delete
-  export const deleteEmployess = async (id) =>{
-    return deleteEmployes(id)
-  }
+export const deleteEmployess = async (id) => {
+  return deleteEmployes(id)
+}
 
 
 // positions 

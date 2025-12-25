@@ -72,87 +72,98 @@ export default function EmployeesCrud() {
 
 
   return (
-    <div className='pl-[35px]'>
-      <div className='flex justify-between items-center py-5 px-7'>
-        {t("employees_crud_page")}
-        <Link to={"/employees"} className=' py-[7px] px-5 bg-button text-aside rounded-md'>
-          back
-        </Link>
-      </div>
-      <form onSubmit={handleSubmit(Submit)} defaultValue={DD}>
-        <div className="flex px-5 py-4 max-w-[800px] justify-between items-center gap-4 flex-wrap">
-          <label className="text-active" htmlFor="name">
-            {t("name")}
-            <Input {...register("first_name")} placeholder={t("name")} />
-          </label>
-          <label className="text-active" htmlFor="name">
-            {t("secondy_name")}
-            <Input {...register("last_name")} placeholder={t("secondy_name")} />
-          </label>
-          <label className="text-active" htmlFor="name">
-            {t("patronymic")}
-            <Input {...register("patronymic")} placeholder={t("patronymic")} />
-          </label>
-
-          <label className="text-active" htmlFor="name">
-            {t("phone")}
-            <Input {...register("phone")}
-              placeholder={t("phone")} />
-          </label>
-
-          <label className="text-active" htmlFor="name">
-            {t("passport_series")}
-            <Input {...register("passport_series")} placeholder={t("passport_series") + " AA1234567"} />
-          </label>
-          <div className="w-[200px] mt-4">
-            <label htmlFor="">
-              {t("position_id")}
-              <Controller
-                name="position_id"
-                defaultValue=""
-                control={control}
-                render={({ field }) => (
-                  <Select
-                    value={field.value}
-                    onValueChange={field.onChange}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder={t("position_id")} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {data?.data?.Data?.positions?.map((item) => (
-                        <SelectItem key={item.id} value={item.id}>
-                          {item.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-            </label>
+        <div className='pl-[35px]'>
+          <div className='flex  py-2 px-7'>
+          <h2> {t("employees_crud_page")}</h2>
           </div>
-          <label className="text-active" htmlFor="name">
-            {t("region")}
-            <Input {...register("region")} placeholder={t("region")} />
-          </label>
-          <label className="text-active" htmlFor="name">
-            {t("district")}
-            <Input {...register("district")} placeholder={t("district")} />
-          </label>
-          <label className="text-active" htmlFor="name">
-            {t("quarter")}
-            <Input {...register("quarter")} placeholder={t("quarter")} />
-          </label>
-          <label className="text-active" htmlFor="name">
-            {t("street")}
-            <Input {...register("street")} placeholder={t("street")} />
-          </label>
+          <form onSubmit={handleSubmit(Submit)} defaultValue={DD}>
+            <div className="flex px-5 py-4 max-w-[800px] justify-between items-center gap-4 flex-wrap">
+              <label className="text-active" htmlFor="name">
+                {t("name")}
+                <Input {...register("first_name")} placeholder={t("name")} />
+              </label>
+              <label className="text-active" htmlFor="name">
+                {t("secondy_name")}
+                <Input {...register("last_name")} placeholder={t("secondy_name")} />
+              </label>
+              <label className="text-active" htmlFor="name">
+                {t("patronymic")}
+                <Input {...register("patronymic")} placeholder={t("patronymic")} />
+              </label>
+
+              <label className="text-active" htmlFor="name">
+                {t("phone")}
+                <Input {...register("phone")}
+                  placeholder={t("phone")} />
+              </label>
+
+              <label className="text-active" htmlFor="name">
+                {t("passport_series")}
+                <Input {...register("passport_series")} placeholder={t("passport_series") + " AA1234567"} />
+              </label>
+              <div className="w-[200px] mt-4">
+                <label htmlFor="">
+                  {t("position_id")}
+                  <Controller
+                    name="position_id"
+                    defaultValue=""
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder={t("position_id")} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {data?.data?.Data?.positions?.map((item) => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </label>
+              </div>
+              <label className="text-active" htmlFor="name">
+                {t("region")}
+                <Input {...register("region")} placeholder={t("region")} />
+              </label>
+              <label className="text-active" htmlFor="name">
+                {t("district")}
+                <Input {...register("district")} placeholder={t("district")} />
+              </label>
+              <label className="text-active" htmlFor="name">
+                {t("quarter")}
+                <Input {...register("quarter")} placeholder={t("quarter")} />
+              </label>
+              <label className="text-active" htmlFor="name">
+                {t("street")}
+                <Input {...register("street")} placeholder={t("street")} />
+              </label>
+            </div>
+            <div className="ml-5">
+              <ImageUploadForm imgs={imgs} register={register} setValue={setValue} name={"photo"} />
+            </div>
+            
+            <div className='w-[100%] flex justify-center items-center gap-2  '>
+                <Link to={"/employees"} className='py-[9px] px-6 bg-button text-aside rounded-md'>
+              back
+            </Link>
+            <Button
+      type="submit"
+      className=" w-[200px] px-6 py-2 bg-icons text-aside font-semibold rounded-lg shadow-md
+                hover:bg-aside  hover:text-black transition-all duration-200
+                active:bg-blue-800 active:shadow-sm border-none"
+    >
+      Send
+    </Button>
+            </div>
+
+          </form>
         </div>
-        <div className="ml-5">
-          <ImageUploadForm imgs={imgs} register={register} setValue={setValue} name={"photo"} />
-        </div>
-        <Button type="submit"> send</Button>
-      </form>
-    </div>
   )
 }

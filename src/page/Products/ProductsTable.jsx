@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getProductsQuery } from "@/queries";
+import { deletePoductsMutations, getProductsQuery } from "@/queries";
 import DataTable from "@/components/Table/DataTable";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -27,14 +27,16 @@ export default function ProductsTable() {
   const { data } = useQuery(getProductsQuery(params));
   const products = data?.data?.Data?.products || [];
   const [wiewProduct, setViewProduct] = useState({});
-  const [OpenPopoverId, setOpenPopoverId] = useState(null);
-  const [editid, seteditid] = useState(null)  
+  const [productid, setproductid] = useState("");
+  const [editid, seteditid] = useState(null)
 
+  
   const handleView = (row) => {
     console.log("View clicked:", row);
     setViewProduct(row);
     onOpen();
     seteditid(row.id)
+    setproductid(row.id)
   };
 
   const handleDelete = (id) => {
@@ -75,64 +77,36 @@ export default function ProductsTable() {
           >
             {t("view")}
           </Button>
-          <Popover
-            className="transition-all duration-300"
-            open={OpenPopoverId == row.id}
-            onOpenChange={(isOpen) => setOpenPopoverId(isOpen ? row.id : null)}
-          >
-            <PopoverTrigger asChild>
-              <Button className="bg-red text-[#fff] border-none hover:bg-redHover  text-[10px] m-0 p-[18px]"  
-              size="sm"
-               >
-                {t("delete")}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-30 bg-[#fff]">
-              <p className="text-[red]">{t("deletes")}</p>
-              <div className="flex justify-end gap-2 mt-3">
-                <Button
-                  className="transition-all duration-300 hover:bg-blue-800 border-none hover:rounded-[10px] text-[#fff] bg-blue-600"
-                  onClick={() => setOpenPopoverId(false)}
-                >
-                  clean
-                </Button>
-                <Button
-                  className="transition-all duration-300 w-[20px] bg-red text-[#fff] border-none hover:bg-redHover hover:rounded-[10px] px-10 py-5"size="sm"
-                  onClick={handleDelete}
-                >
-                  {t("delete")}
-                </Button>
-              </div>
-            </PopoverContent>
-          </Popover>
         </div>
       ),
     },
   ];
-const nav = useNavigate()
+  const nav = useNavigate()
   const websiteProducts = products.filter((p) => p.show_on_landing === true);
   const adminProducts = products.filter((p) => !p.show_on_landing);
- 
+
   const handleSearch = (value) => {
     setParams((p) => ({ ...p, search: value }));
   };
   return (
     <>
       <div className="flex justify-between items-center py-5 px-7">
-          <Search url={handleSearch} />
-          
-           <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
-            
-        + Create
-           </Link>
-         
+        <Search url={handleSearch} />
+
+        <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
+
+          + Create
+        </Link>
+
       </div>
       <CustomDrawer
+        Delete={productid}
+        mutation={deletePoductsMutations}
+        keys={"products-all"}
         title={t("product")}
-        id={editid}
         open={isOpen}
-        edit={true}
         path={`/products/edit/${editid}`}
+        edit={`/products/edit/${editid}`}
         onOpenChange={(open) => (open ? onOpen() : onClose())}
         onSave={() => {
           onClose();
