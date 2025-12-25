@@ -75,6 +75,8 @@
   "create_product":"Maxsulot Qo'shish",
   "secondy_name":"familiyasi",
   "position_name":"Lavozim nomi",
-  "province":"Viloyat"
-
+  "province":"Viloyat",
+  "employees_crud_page":"Xodimlar CRUD sahifasi",
+  "show":"Bosh sahifada ko‘rsatiladi",
+  "show_not":"Bosh sahifada ko‘rsatilmaydi"
 }

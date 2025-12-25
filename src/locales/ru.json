@@ -75,6 +75,8 @@
    "create_product":"Добавить продукт",
    "secondy_name":"второе имя",
     "position_name":"Название должности",
-    "province":"Провинция"
- 
+    "province":"Провинция",
+    "employees_crud_page":"Страница сотрудников CRUD",
+    "show":"Показывать на главной",
+    "show_not":"Не показывать на главной" 
 }

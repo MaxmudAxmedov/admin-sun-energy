@@ -75,6 +75,9 @@
     "create_product":"Create product",
     "secondy_name":"Secondy name",
     "position_name":"Position Name",
-    "province":"Province"
+    "province":"Province",
+    "employees_crud_page":"Employees CRUD page",
+    "show":"show on landing",
+    "show_not":"not show on landing"
  
 }
