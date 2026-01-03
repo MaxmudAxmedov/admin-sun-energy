@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 
 export default function CategoriyCrud() {
   const queryClient = useQueryClient()
-  const { handleSubmit, reset, register } = useForm()
+  const { handleSubmit, reset, register, formState:{errors} } = useForm()
   const { id } = useParams();
 
   const { data, isLoading } = useQuery(getProductIdQeriy(id))
@@ -79,11 +79,14 @@ export default function CategoriyCrud() {
           <Label htmlFor="id">
             {t("product_category_name")}
             <Input
-
               defaultValue={Defaultvalue}
-              {...register("name")}
+              {...register("name",{
+                required:{value:true, message:t("required")},
+                minLength:{value: 3, message:"min 3 text"}
+              })}
               type="text"
             />
+            {errors.name ? <p className="text-red">{errors.name.message}</p>: ""}
           </Label>
         </div>
         <div className="pt-[20px] flex gap-3 items-center pl-3 ">

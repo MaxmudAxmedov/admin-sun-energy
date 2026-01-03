@@ -74,3 +74,6 @@ ul {
 a {
   text-decoration: none;
 }
+select {
+  -webkit-appearance: none;
+}

@@ -17,17 +17,17 @@ export default function Contracts() {
         limit: "200",
         page: "1",
     });
-    const { data } = useQuery(getContractsQuery(params));
+    const { data, isLoading:load } = useQuery(getContractsQuery(params));
     const contracts = useMemo(
         () => data?.data?.Data?.client_products || [],
         [data]
     );
 
     const [open, setopen] = useState(false)
-  const handleClick = (row) =>{
-   console.log(row.id);
-    setopen(true)
-  }
+    const handleClick = (row) => {
+        console.log(row.id);
+        setopen(true)
+    }
     const columns = useMemo(
         () => [
             {
@@ -42,32 +42,33 @@ export default function Contracts() {
             { key: "total_price", label: t("total_amount") },
             { key: "created_at", label: t("contract_date") },
             {
-                key:"action",
+                key: "action",
                 label: <p className="text-center">{t("actions")}</p>,
-                render:(_,row)=>(
+                render: (_, row) => (
                     <div className="flex justify-evenly gap-2">
-                        <Button onClick={()=>handleClick(row)} className="bg-background border-none text-active hover:bg-shadows  p-3">...</Button>  
+                        <Button onClick={() => handleClick(row)} className="bg-background border-none text-active hover:bg-shadows  p-3">...</Button>
                         <div className="relative">
-                    
-              </div>
-                       
-    </div>
-                    
+
+                        </div>
+
+                    </div>
+
                 )
             }
         ],
         [params.is_company]
     );
-  
+
     return (
         <div>
-                  <div className="flex justify-between items-center py-5 px-7">
-                    <h1 className="my-4 text-active">{t("contracts")}</h1>
-                    <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/contracts"} >
-                              
-                          + Create
-                             </Link>
-                  </div>
+              {load ? "loading..." : <h2>{t("contracts")}</h2>}
+            <div className="flex justify-between items-center py-5 px-7">
+                <h1 className="my-4 text-active">{t("contracts")}</h1>
+                <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/Contracts/create"} >
+
+                    + Create
+                </Link>
+            </div>
             <Tabs defaultValue="jismoniy" className="w-full">
                 <TabsList>
                     <TabsTrigger
@@ -85,7 +86,7 @@ export default function Contracts() {
               bg-white text-icons transition-all
             "
                     >
-                      {t("natural_person")}
+                        {t("natural_person")}
                     </TabsTrigger>
 
                     <TabsTrigger
@@ -100,7 +101,7 @@ export default function Contracts() {
               bg-white text-icons transition-all
             "
                     >
-                      {t("legal_entity")}
+                        {t("legal_entity")}
                     </TabsTrigger>
                 </TabsList>
 
@@ -118,7 +119,7 @@ export default function Contracts() {
                     <DataTable columns={columns} data={contracts} />
                 </TabsContent>
             </Tabs>
-              
+
         </div>
     );
 }

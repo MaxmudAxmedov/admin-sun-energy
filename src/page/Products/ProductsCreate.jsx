@@ -12,19 +12,19 @@ import { toast } from "react-toastify";
 
 export default function ProductsCreate() {
     const nav = useNavigate()
-    const { handleSubmit, register, reset, setValue } = useForm()
+    const { handleSubmit, register, reset, setValue, formState:{errors} } = useForm()
 
     const { id } = useParams()
 
     const [params, setparams] = useState(null)
-    const [boolean, setboolean] = useState(false);
-
     const { data: d } = useQuery(getproductsidQuery(id))
     const productId = d?.data?.id?.length === 36 ? d.data.id : id;
 
     const defaultValues = useMemo(() => d?.data || d);
     const { mutate, isPending } = useMutation({ mutationFn: (params) => postProductsMutation(params) })
-    const { data } = useQuery(getProductQuery(params))
+    const { data, isLoading } = useQuery(getProductQuery(params))
+    console.log(data);
+    
     const categories = useMemo(() => data?.data?.Data?.product_categories || [], [data])
     const mut = useMutation({ mutationFn: (params, productId) => editProductDAtaMutation(params, productId) })
     const queryClient = useQueryClient()
@@ -44,6 +44,8 @@ export default function ProductsCreate() {
     ];
     console.log(id);
 
+
+    const [boolean, setboolean] = useState(true);
 
 
     const Submit = (data) => {
@@ -89,32 +91,47 @@ export default function ProductsCreate() {
     return (
    <div className="py-2 overflow-hidden">
   <div className="flex justify-between items-center pr-10">
-    <h1>{t("create_product")}</h1>
+   {isLoading ? "loading..." :  <h2>{t("create_product")}</h2>}
    
   </div>
 
   <form onSubmit={handleSubmit(Submit)} defaultValue={defaultValues}>
 
     <div className="grid grid-cols-4 gap-4 px-5 py-4 max-w-[1100px]">
-      <Input
+     <div>
+         <Input
         label={t("product_name")}
-        {...register("name")}
+        {...register("name",{
+            required:{value:true, message:t("required")}
+        })}
         placeholder={t("Enter_Product_name")}
       />
+      {errors.name  ? <p className="text-red">{errors.name.message}</p>:""}
+     </div>
 
-      <Input
+     <div>
+         <Input
         label={t("Count_of_product")}
-        {...register("count_of_product")}
+        {...register("count_of_product", {
+            required:{value:true, message:t("required")}
+        })}
         placeholder={t("enter_count_of_product")}
       />
-
-      <Input
+      {errors.count_of_product  ? <p className="text-red">{errors.count_of_product.message}</p>:""}
+     </div>
+  <div>
+        <Input
         label={t("selling_price")}
-        {...register("selling_price")}
+        {...register("selling_price", {
+            required:{value:true, message:t("required")}
+        })}
         placeholder={t("selling_price")}
       />
+      {errors.selling_price  ? <p className="text-red">{errors.selling_price.message}</p>:""}
+  </div>
 
-      <label className="flex flex-col gap-1">
+    <div>
+          <label className="flex flex-col gap-1">
         {t("category_id")}
         <select
           className="p-3 rounded-xl bg-white text-active border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -128,26 +145,43 @@ export default function ProductsCreate() {
         </select>
       </label>
     </div>
+    </div>
 
    
     <div className="grid grid-cols-4 gap-4 px-5 py-4 max-w-[1100px]">
-      <Input
+    <div>
+          <Input
         label={t("watt")}
-        {...register("watt")}
+        {...register("watt",{
+              required:{value:true, message:t("required")}
+        })}
         placeholder={t("watt")}
       />
+        {errors.watt  ? <p className="text-red">{errors.watt.message}</p>:""}
+    </div>
 
-      <Input
+  <div>
+        <Input
         label={t("price")}
-        {...register("price")}
+        {...register("price",{
+             required:{value:true, message:t("required")}
+        })}
         placeholder={t("price")}
       />
+        {errors.price  ? <p className="text-red">{errors.price.message}</p>:""}
 
+  </div>
+
+  <div>
       <Input
         label={t("mark_up")}
-        {...register("mark_up")}
+        {...register("mark_up",{
+             required:{value:true, message:t("required")}
+        })}
         placeholder={t("mark_up")}
       />
+        {errors.mark_up  ? <p className="text-red">{errors.mark_up.message}</p>:""}
+      </div>
 
       <label className="flex flex-col gap-1">
         {t("power_system")}
@@ -157,7 +191,7 @@ export default function ProductsCreate() {
         >
           {powerSystems.map((item) => (
             <option key={item.id} value={item.id}>
-              {item.name}
+                 {item.name}              
             </option>
           ))}
         </select>
@@ -184,7 +218,8 @@ export default function ProductsCreate() {
         />
       </div>
     </div>
-          <div  {...register("show_on_landing")} className="mt-[50px] h-10 inline-flex items-center p-1 rounded-lg gap-1 w-fit bg-shadows dark:bg-gray-800">
+          <div>
+            <div  {...register("show_on_landing")} className="mt-[50px] h-10 inline-flex items-center p-1 rounded-lg gap-1 w-fit bg-shadows dark:bg-gray-800">
   
   <button
     type="button"
@@ -212,6 +247,7 @@ export default function ProductsCreate() {
     {t("show_not")}
   </button>
 </div>
+          </div>
  
 
 
