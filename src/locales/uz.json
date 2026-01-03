@@ -78,5 +78,8 @@
   "province":"Viloyat",
   "employees_crud_page":"Xodimlar CRUD sahifasi",
   "show":"Bosh sahifada ko‘rsatiladi",
-  "show_not":"Bosh sahifada ko‘rsatilmaydi"
+  "show_not":"Bosh sahifada ko‘rsatilmaydi",
+  "required":"Majburiy maydon",
+  "text":"selectni to'ldiring",
+  "acc":"Acc va Ser"
 }
