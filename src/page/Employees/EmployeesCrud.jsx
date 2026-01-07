@@ -50,7 +50,7 @@ export default function EmployeesCrud() {
 
     if (id) {
       Formdata.append("id", id)
-      mut.mutate(Formdata, {
+      mut.mutate(Formdata,{
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["employees-all"] })
           nav("/employees");

@@ -64,11 +64,11 @@ export default function ContaractsCrud() {
         </div>
         <div>
           <div>
-            <div className="w-[500px] flex items-center  gap-4 py-5  ">
-           <div className="min-w-[200px]">
-               <Search />
-           </div>
-              <label> 
+            <div className="w-[500px] flex items-center  gap-10 py-5  ">
+              <div className="min-w-[200px]">
+                <Search />
+              </div>
+              <label>
                 <select
                   // defaultValue={t("text")}
                   {...register("name")}
@@ -87,8 +87,12 @@ export default function ContaractsCrud() {
 
               </label>
               <div className="flex flex-col  items-center ">
-                <h5 className="w-[70px]">{t("acc")}</h5>
+                <h5 className="pl-2 w-[90px]">{t("acc")}</h5>
                 <p>{formator(kvtlist.OllkvtPrise)}</p>
+              </div>
+              <div className="flex flex-col items-center ">
+                <h5 className="w-[50px]">{t("products")}</h5>
+                <p>0</p>
               </div>
             </div>
           </div>

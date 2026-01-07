@@ -26,12 +26,12 @@ export const Header = ({ setopen, open }) => {
         <header className={`py-[13px] flex px-3 justify-end bg-icons`}>
             <div className="flex gap-8 items-center ">
                 <ThemeMode />
-            
+
 
                 <Select
-                className=""
+                    className=""
                     value={localStorage.getItem("lang") || "en"}
-                    onValueChange={(value)=> handlerChange(value)}
+                    onValueChange={(value) => handlerChange(value)}
                 >
                     <SelectTrigger className="w-[80px] border-none bg-icons  text-background">
                         <SelectValue placeholder="Laung" />
@@ -40,8 +40,8 @@ export const Header = ({ setopen, open }) => {
                     <SelectContent>
                         <SelectGroup>
                             <SelectItem value="uz" className="flex items-center justify-center gap-2">
-                        <img src={uzFlag} alt="uz" className="w-5 h-5 rounded-full" />
-                        <span>UZ</span>
+                                <img src={uzFlag} alt="uz" className="w-5 h-5 rounded-full" />
+                                <span>UZ</span>
                             </SelectItem>
                             <SelectItem value="ru" className="flex items-center justify-center gap-2" >
                                 <img src={ruFlag} alt="ru" className="w-5 h-5 rounded-full" />
