@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   deletebussinessMutation,
   deletecustumerMutation,
@@ -26,6 +26,16 @@ export default function ClientsTable() {
     page: "1",
   });
   const [isType, setIsType] = useState(false);
+
+  useEffect(() => {
+    if (isType == false) {
+        localStorage.setItem("client_form_state", 1);
+    }else{
+        localStorage.setItem("client_form_state", 2);
+    }
+  }, [isType]);
+
+
   const { data: business } = useQuery(getClientBusinessQuery(params));
   const { data: customers } = useQuery(getClientCustomersQuery(params));
   const [clientId, setclientId] = useState(null);
