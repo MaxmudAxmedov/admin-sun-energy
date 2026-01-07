@@ -16,6 +16,7 @@ export const empPositionsGet = (params)=>{
 export const deleteEmployes = (id)=>{
     return request ({method:"delete", url:`/employee/${id}`})
 }
+//edit
 export const editEmployesMutation = (params) =>{
-    return request ({method:"patch", url:"employee", data:params})
+    return request ({method:"put", url:`employee`, data:params})
 }
