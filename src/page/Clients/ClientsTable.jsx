@@ -19,7 +19,6 @@ import { formator } from "@/schemas/formator";
 import Search from "@/components/Search/search";
 import { Link } from "react-router-dom";
 export default function ClientsTable() {
-
   const [params, setParams] = useState({
     limit: "200",
     search: "",
@@ -29,12 +28,11 @@ export default function ClientsTable() {
 
   useEffect(() => {
     if (isType == false) {
-        localStorage.setItem("client_form_state", 1);
-    }else{
-        localStorage.setItem("client_form_state", 2);
+      localStorage.setItem("client_form_state", 1);
+    } else {
+      localStorage.setItem("client_form_state", 2);
     }
   }, [isType]);
-
 
   const { data: business } = useQuery(getClientBusinessQuery(params));
   const { data: customers } = useQuery(getClientCustomersQuery(params));
@@ -48,7 +46,8 @@ export default function ClientsTable() {
       is_company: false,
       page: 1,
       limit: 100,
-    }));
+    })
+  );
   const TRADES = useMemo(
     () => trades?.data.Data.client_products || [],
     [trades]
@@ -121,13 +120,12 @@ export default function ClientsTable() {
     ],
     [isType]
   );
-  const [opn, setopn] = useState(null)
+  const [opn, setopn] = useState(null);
 
   const filteredTRADES = useMemo(() => {
     if (!TRADES || !clientId) return [];
     return TRADES.filter((item) => item.client_id == clientId);
   }, [TRADES, clientId]);
-
 
   const handleSearch = (value) => {
     setParams((p) => ({ ...p, search: value }));
@@ -138,10 +136,13 @@ export default function ClientsTable() {
       <div className="flex justify-between items-center py-5 px-2">
         <Search url={handleSearch} />
 
-        <Link  onClick={() => localStorage.setItem("client_form_state", 3)} className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/clients/create"} >
+        <Link
+          onClick={() => localStorage.setItem("client_form_state", 3)}
+          className=" py-[7px] px-5 bg-button text-aside rounded-md "
+          to={"/clients/create"}
+        >
           + Create
         </Link>
-
       </div>
       <Tabs defaultValue="jismoniy" className="w-full">
         <TabsList>
@@ -188,7 +189,9 @@ export default function ClientsTable() {
       <CustomDrawer
         Delete={clientId}
         path={`/clients/edit/${ids}`}
-        mutation={isType == false ? deletecustumerMutation : deletebussinessMutation}
+        mutation={
+          isType == false ? deletecustumerMutation : deletebussinessMutation
+        }
         lorem={setopn}
         keys={isType == false ? "client-customers" : "client-business"}
         title={t("info")}
@@ -197,9 +200,9 @@ export default function ClientsTable() {
         edit={`/clients/edit/${ids}`}
         onOpenChange={(open) => {
           if (open !== isOpen) {
-            open ? onOpen() : onClose()
+            open ? onOpen() : onClose();
           } else if (opn == false) {
-            onClose()
+            onClose();
           }
         }}
         onSave={() => {
