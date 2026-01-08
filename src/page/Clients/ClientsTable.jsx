@@ -138,8 +138,7 @@ export default function ClientsTable() {
       <div className="flex justify-between items-center py-5 px-2">
         <Search url={handleSearch} />
 
-        <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/clients/create"} >
-
+        <Link  onClick={() => localStorage.setItem("client_form_state", 3)} className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/clients/create"} >
           + Create
         </Link>
 
