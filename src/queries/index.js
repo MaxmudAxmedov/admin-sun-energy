@@ -24,8 +24,8 @@ export function getTradesReportsQuery(params) {
 }
 //trades post
 
-export const postTradesMutation = (params)=>{
-  return posttradesmutations(params)
+export const postTradesMutation = (data)=>{
+  return posttradesmutations(data)
 }
 
 

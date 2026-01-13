@@ -6,7 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import DataTable from "@/components/Table/DataTable";
 import Search from "@/components/Search/search";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getProductQuery, getProductsQuery, postTradesMutation } from "@/queries";
+import {
+  getProductQuery,
+  getProductsQuery,
+  postTradesMutation,
+} from "@/queries";
 import { t } from "@/utils/i18n";
 import { formator } from "@/schemas/formator";
 import defaultImg from "@/assets/img/optional-img.jpg";
@@ -18,9 +22,11 @@ import {
   increment,
   kv,
 } from "@/config/store/product-reduser/product-reduser";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ContaractsCrud() {
+  const nav = useNavigate();
   const [countstate, setcountstate] = React.useState(null);
   const dispatch = useDispatch();
   const kvtlist = useSelector((state) => state.Attractor.kvtlist);
@@ -74,7 +80,6 @@ export default function ContaractsCrud() {
     setFilteredProducts(results);
   }, [dataid, product]);
 
-
   const tableData = useMemo(() => {
     return filteredProducts.map((p) => {
       const cartItem = cart.find((c) => c.id === p.id);
@@ -94,38 +99,62 @@ export default function ContaractsCrud() {
     setcountstate(totalCartAmount);
   }, [totalCartAmount]);
 
+  const Mutation = useMutation({
+    mutationFn: (data) => postTradesMutation(data),
+  });
 
-   const Mutation = useMutation((params)=>postTradesMutation(params))
+  const Submit = (data) => {
+    const validCartItems = cart.filter((item) => item.count > 0);
+ if (validCartItems.length === 0) {
+  toast.error("Iltimos, mahsulot tanlang!");
+  return;
+}
 
-     const Submit = (data) => {
-      const formData = new FormData()
-//         const {
-//   accessory_cost,
-//   client_id,
-//   do_calculate,
-//   employee_id,
-//   is_company,
-//   kvat,
-//   order_items [
-//     {
-//       price: 0,
-//       product_id,
-//       quantity,
-//       selling_price,
-//       total_price
-//     }
-//   ],
-//   referred_by,
-//   service_cost,
-//   total_price,
-// },
-    reset();
+if (!data.client) {
+  toast.error("Mijozni tanlang!");
+  return;
+}
+if (!data.employee) {
+  toast.error("Xodimni tanlang!");
+  return;
+}
+if (!data.attractor) {
+  toast.error("Jalb qiluvchini tanlang!");
+  return;
+}
+
+    const order_items = validCartItems.map((item) => ({
+      price: Number(item.price),
+      product_id: String(item.id),
+      quantity: Number(item.count || 0),
+      selling_price: Number(item.selling_price || 0),
+      total_price: Number(item.total_amount || 0),
+    }));
+
+    const payload = {
+      accessory_cost: Number(kvtlist.acc || 0),
+      client_id: String(data.client),
+      do_calculate: false,
+      employee_id: String(data.employee),
+      referred_by: String(data.attractor),
+      is_company: false,
+      kvat: Number(data.kvat || 0),
+      service_cost: Number(kvtlist.cost || 0),
+      total_price: Number(ollSum || 0),
+      order_items,
+    };
+
+    Mutation.mutate(payload, {
+      onSuccess: () => {
+        toast.success("ok create");
+        reset();
+        nav("/Contracts");
+      },
+      onError: (error) => {
+        toast.error(error.message || "Error");
+      },
+    });
   };
-
-
-
-
-
   const columns = [
     {
       key: "index",
@@ -233,7 +262,7 @@ export default function ContaractsCrud() {
       <form onSubmit={handleSubmit(Submit)}>
         <div className="flex  items-center justify-between">
           <h2>
-            {t("clients")} <br />
+            {t("Contracts")} <br />
           </h2>
           <div className="flex gap-4">
             <Link
@@ -244,8 +273,8 @@ export default function ContaractsCrud() {
             </Link>
 
             <button
-              type="button"
-              className="px-6 py-2.5 bg-black border-none text-white font-medium rounded-lg  shadow-sm"
+              type="submit"
+              className="px-6 cursor-pointer py-2.5 bg-black border-none text-white font-medium rounded-lg  shadow-sm"
             >
               Submit
             </button>
@@ -297,25 +326,26 @@ export default function ContaractsCrud() {
               </div>
               <label>
                 <select
+                  defaultValue=""
                   {...register("name", {
                     onChange: (e) => {
                       const res = e.target.value;
                       setdataid(res);
                     },
                   })}
-                  className="w-[250px] h-11 rounded-xl 
-               border border-gray-300 
-               bg-white px-4 text-sm text-black
-               shadow-sm transition-all duration-200
-               focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                  className="w-[250px] h-11 rounded-xl
+    border border-gray-300
+    bg-white px-4 text-sm text-black
+    shadow-sm transition-all duration-200
+    focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                 >
+                  <option value="" disabled hidden>
+                    Tanlang
+                  </option>
+
                   {categories.map((item) => (
-                    <option
-                      className="overflow-hidden"
-                      key={item.id}
-                      value={item.id}
-                    >
-                      {item?.name}
+                    <option key={item.id} value={item.id}>
+                      {item.name}
                     </option>
                   ))}
                 </select>
@@ -327,11 +357,11 @@ export default function ContaractsCrud() {
                 </div>
                 <div className="flex flex-col items-center ">
                   <h5 className="w-[80px]">{t("products")}</h5>
-                  <p>{countstate || 0}</p>
+                  <p>{formator(countstate) || 0}</p> 
                 </div>
                 <div className="flex flex-col items-center ">
                   <h5 className="w-[100px]">{t("total_amount")}</h5>
-                  <p>{ollSum || 0}</p>
+                  <p>{formator(ollSum) || 0}</p>
                 </div>
               </div>
             </div>
