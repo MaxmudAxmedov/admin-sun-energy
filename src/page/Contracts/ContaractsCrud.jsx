@@ -99,26 +99,26 @@ export default function ContaractsCrud() {
 
      const Submit = (data) => {
       const formData = new FormData()
-        const {
-  accessory_cost,
-  client_id,
-  do_calculate,
-  employee_id,
-  is_company,
-  kvat,
-  order_items [
-    {
-      price: 0,
-      product_id,
-      quantity,
-      selling_price,
-      total_price
-    }
-  ],
-  referred_by,
-  service_cost,
-  total_price,
-},
+//         const {
+//   accessory_cost,
+//   client_id,
+//   do_calculate,
+//   employee_id,
+//   is_company,
+//   kvat,
+//   order_items [
+//     {
+//       price: 0,
+//       product_id,
+//       quantity,
+//       selling_price,
+//       total_price
+//     }
+//   ],
+//   referred_by,
+//   service_cost,
+//   total_price,
+// },
     reset();
   };
 
