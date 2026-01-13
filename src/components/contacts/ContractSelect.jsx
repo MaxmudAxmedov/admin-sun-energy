@@ -43,10 +43,8 @@ export default function ContractSelect({ register }) {
 
   return (
     <div>
-      {load ? "loading..." : <h2>{t("contracts")}</h2>}
       <div className='flex  items-center gap-10'>
         <label>
-          {t("clients")} <br />
           <select
             // defaultValue={t("text")}
             {...register("client")}

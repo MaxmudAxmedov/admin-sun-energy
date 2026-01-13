@@ -12,13 +12,13 @@ export default function ImageUploadForm({ register, name, setValue, imgs }) {
       setPreview(imgs);
       // URL ni File ga o'zgartirish
       fetch(imgs)
-        .then(res => res.blob())
-        .then(blob => {
+        .then((res) => res.blob())
+        .then((blob) => {
           const file = new File([blob], "image.jpg", { type: blob.type });
           setValue(name, file);
           setFile(file);
         })
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
     }
   }, [imgs]);
 
@@ -58,7 +58,8 @@ export default function ImageUploadForm({ register, name, setValue, imgs }) {
           </button>
         </div>
       ) : (
-        <label className="flex flex-col items-center justify-center gap-2
+        <label
+          className="flex flex-col items-center justify-center gap-2
           w-full h-[170px] border-2 border-dashed border-gray-500
           rounded-xl cursor-pointer bg-bacground transition text-gray-400"
         >

@@ -61,9 +61,8 @@ export default function Contracts() {
 
     return (
         <div>
-              {load ? "loading..." : <h2>{t("contracts")}</h2>}
             <div className="flex justify-between items-center py-5 px-7">
-                <h1 className="my-4 text-active">{t("contracts")}</h1>
+                <h1 className="my-4 text-active">{load ? "loading..." : t("contracts")}</h1>
                 <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/Contracts/create"} >
 
                     + Create
