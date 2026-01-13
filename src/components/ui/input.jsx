@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 const Input = React.forwardRef(
   (
-    {
+    { 
       className,
       type = "text",
       label,

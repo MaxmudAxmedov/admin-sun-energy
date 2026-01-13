@@ -7,3 +7,8 @@ export const reportsGet = (params) => {
 export const tradesReportsGet = (params) => {
     return request({ method: "get", url: "trades-reports", params });
 };
+
+//post
+export const posttradesmutations = (params) =>{
+    return request({method:"post", url:'trade', params})
+}

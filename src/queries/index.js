@@ -2,7 +2,7 @@ import { deleteEmployes, editEmployesMutation, employeeIDGet, employeePost, empl
 import { deleteMut, editMutate, postproductmutation, productGet, productid } from "../services/product";
 import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet, clientsCustomersIDGet, deketebussinmutation, deletecustumersMutation, editBussinesmutations, postbusinesMutation, postcostumerMutations, putcustumersmutation, tradesssquery } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
-import { reportsGet, tradesReportsGet } from "@/services/reports";
+import { posttradesmutations, reportsGet, tradesReportsGet } from "@/services/reports";
 import { category, categorydelete, categorypost, categoryput } from "@/services/category";
 import { ProductcategoryID } from "@/services/ProductcategoryID";
 
@@ -13,12 +13,23 @@ export function getReportsQuery(params) {
     queryFn: async () => reportsGet(params),
   };
 }
+
+
+//trades get
 export function getTradesReportsQuery(params) {
   return {
     queryKey: ["trades-reports", params],
     queryFn: async () => tradesReportsGet(params),
   };
 }
+//trades post
+
+export const postTradesMutation = (params)=>{
+  return posttradesmutations(params)
+}
+
+
+
 
 // Products page
 export function getProductsQuery(params) {
