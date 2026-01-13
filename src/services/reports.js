@@ -9,6 +9,6 @@ export const tradesReportsGet = (params) => {
 };
 
 //post
-export const posttradesmutations = (params) =>{
-    return request({method:"post", url:'trade', params})
+export const posttradesmutations = (data) =>{
+    return request({method:"post", url:'trade', data})
 }
