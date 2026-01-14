@@ -52,6 +52,7 @@ export const route = [
         path: "additional_expense",
         icon: "",
         element: lazy(() => import("@/page/Additional/AdditionalTable")),
+        create: lazy(() => import("@/page/Additional/AdditionalCreate")),
     },
     {
         title: "settings",
