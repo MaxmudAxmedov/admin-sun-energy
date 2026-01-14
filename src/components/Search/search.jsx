@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "../ui/input";
 
-export default function Search({ url }) {
+export default function Search({ url, width }) {
   const [search, setsearch] = useState("");
   const handleChange = (data) => {
     const value = data.target.value;
@@ -14,6 +14,7 @@ export default function Search({ url }) {
         <label htmlFor="">
 
         <Input
+        className={`w-[${width}]`}
             onChange={handleChange}
           value={search}
           placeholder="Search..."

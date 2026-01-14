@@ -1,19 +1,25 @@
-import { getContractsQuery } from "@/queries";
+import { deletetradesmutation, getContractsQuery } from "@/queries";
 import React, { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import DataTable from "@/components/Table/DataTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { t } from "@/utils/i18n";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-    // import {
-    //   DropdownMenu,
-    //   DropdownMenuTrigger,
-    //   DropdownMenuContent,
-    //   DropdownMenuItem,
-    // } from "@/components/ui/dropdown-menu";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import { formator } from "@/schemas/formator";
+import { toast } from "react-toastify";
 
 export default function Contracts() {
+  const nav = useNavigate();
+
+  const [deleteId, setDeleteId] = useState(null); // Bu yerda ID saqlaymiz
+
   const [params, setParams] = useState({
     client_id: "",
     employee_id: "",
@@ -23,17 +29,31 @@ export default function Contracts() {
     limit: "200",
     page: "1",
   });
+
   const { data, isLoading: load } = useQuery(getContractsQuery(params));
   const contracts = useMemo(
     () => data?.data?.Data?.client_products || [],
     [data]
   );
 
-  const [open, setopen] = useState(false);
-  const handleClick = (row) => {
-    setopen(true);
-    
+  const client = useQueryClient();
+  const mutate = useMutation({
+    mutationFn: (deletes) => deletetradesmutation(deletes),
+  });
+
+  const setdelete = (deletes) => {
+    mutate.mutate(deletes, {
+      onSuccess: () => {
+        client.invalidateQueries(["trades-reports"]);
+        toast.success("Muvaffaqiyatli o'chirildi");
+        setDeleteId(null); // Dialogni yopamiz
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   };
+
   const columns = useMemo(
     () => [
       {
@@ -45,57 +65,88 @@ export default function Contracts() {
         key: "client_name",
         label: params?.is_company ? t("director") : t("name"),
       },
-      { key: "total_price", label: t("total_amount") },
+      {
+        key: "total_price",
+        label: t("total_amount"),
+        render: (_, row) => formator(row.total_price),
+      },
       { key: "created_at", label: t("contract_date") },
       {
         key: "action",
         label: <p className="text-center">{t("actions")}</p>,
         render: (_, row) => (
           <div className="flex justify-evenly gap-2">
-            {/* <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="h-8 w-8 p-0 text-active"
-          >
-            ...
-          </Button>
-        </DropdownMenuTrigger>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="h-8 w-8 p-0 text-[#000] bg-shadow border-none"
+                >
+                  ...
+                </Button>
+              </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem onClick={() => console.log("view", row)}>
-            View
-          </DropdownMenuItem>
+              <DropdownMenuContent align="end" className="w-32">
+                <Link to={row.contract} target="_blank">
+                  <DropdownMenuItem className="text-[17px] hover:bg-shadows">
+                    {t("view")}
+                  </DropdownMenuItem>
+                </Link>
 
-          <DropdownMenuItem onClick={() => console.log("edit", row)}>
-            Edit
-          </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="text-red text-[17px] hover:bg-shadows"
+                  onClick={() => setDeleteId(row.id)}
+                >
+                  {t("delete")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-          <DropdownMenuItem
-            className="text-red-500"
-            onClick={() => console.log("delete", row)}
-          >
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu> */}
-            <div className="relative"></div>
+            {/* Tasdiqlash modal - DropdownMenu tashqarisida */}
+            {deleteId === row.id && (
+              <div
+                className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+                onClick={() => setDeleteId(null)}
+              >
+                <div
+                  className="bg-white p-6 rounded-lg shadow-xl w-96"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <p className="text-red mb-5 text-lg font-semibold">
+                    {t("deletes")} - Rostdan ham o'chirmoqchimisiz?
+                  </p>
+                  <div className="flex justify-end gap-3">
+                    <Button
+                      className="bg-blue-600 text-white border-none hover:bg-blue-800 px-4 py-2"
+                      onClick={() => setDeleteId(null)}
+                    >
+                      {t("cancel") || "Bekor qilish"}
+                    </Button>
+                    <Button
+                      className="bg-red text-white border-none hover:bg-redHover px-4 py-2"
+                      onClick={() => setdelete(row.id)}
+                    >
+                      {t("delete")}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         ),
       },
     ],
-    [params.is_company]
+    [params.is_company, deleteId] // deleteId ni qo'shdik
   );
 
   return (
     <div>
-        
       <div className="flex justify-between items-center py-5 px-7">
         <h1 className="my-4 text-active">
-          {load ? "loading..." : t("contracts")}
+          {load ? "Yuklanmoqda..." : t("contracts")}
         </h1>
         <Link
-          className=" py-[7px] px-5 bg-button text-aside rounded-md "
+          className="py-[7px] px-5 bg-button text-aside rounded-md"
           to={"/Contracts/create"}
         >
           + Create

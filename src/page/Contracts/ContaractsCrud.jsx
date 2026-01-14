@@ -32,6 +32,7 @@ export default function ContaractsCrud() {
   const kvtlist = useSelector((state) => state.Attractor.kvtlist);
   const [ollSum, setollSum] = React.useState();
   const cart = useSelector((state) => state.Attractor.productList);
+  
 
   React.useEffect(() => {
     const sum = kvtlist.OllkvtPrise;
@@ -103,25 +104,27 @@ export default function ContaractsCrud() {
     mutationFn: (data) => postTradesMutation(data),
   });
 
+  const [checked, setcheked] = React.useState(false);
+
   const Submit = (data) => {
     const validCartItems = cart.filter((item) => item.count > 0);
- if (validCartItems.length === 0) {
-  toast.error("Iltimos, mahsulot tanlang!");
-  return;
-}
+    if (validCartItems.length === 0) {
+      toast.error("Iltimos, mahsulot tanlang!");
+      return;
+    }
 
-if (!data.client) {
-  toast.error("Mijozni tanlang!");
-  return;
-}
-if (!data.employee) {
-  toast.error("Xodimni tanlang!");
-  return;
-}
-if (!data.attractor) {
-  toast.error("Jalb qiluvchini tanlang!");
-  return;
-}
+    if (!data.client) {
+      toast.error("Mijozni tanlang!");
+      return;
+    }
+    if (!data.employee) {
+      toast.error("Xodimni tanlang!");
+      return;
+    }
+    if (!data.attractor) {
+      toast.error("Jalb qiluvchini tanlang!");
+      return;
+    }
 
     const order_items = validCartItems.map((item) => ({
       price: Number(item.price),
@@ -134,7 +137,7 @@ if (!data.attractor) {
     const payload = {
       accessory_cost: Number(kvtlist.acc || 0),
       client_id: String(data.client),
-      do_calculate: false,
+      do_calculate: checked,
       employee_id: String(data.employee),
       referred_by: String(data.attractor),
       is_company: false,
@@ -280,7 +283,15 @@ if (!data.attractor) {
             </button>
           </div>
         </div>
-        <ContractSelect register={register} />
+        <div className="flex gap-2">
+          <ContractSelect register={register} />
+          <div className="mt-7">
+            <label className="switch">
+              <input type="checkbox" onClick={() => setcheked((p) => !p)} />
+              <span className="slider"></span>
+            </label>
+          </div>
+        </div>
         <div className="max-w-[800px] flex items-center gap-10 my-5">
           <Input
             type={"number"}
@@ -293,6 +304,7 @@ if (!data.attractor) {
             className="w-[250px]"
             label={"kvt"}
           />
+
           <Input
             type={"number"}
             {...register("accessory_cost", {
@@ -305,6 +317,7 @@ if (!data.attractor) {
             label={"Accessory cost"}
             value={kvtlist.acc}
           />
+
           <Input
             type={"number"}
             {...register("service_cost", {
@@ -357,7 +370,7 @@ if (!data.attractor) {
                 </div>
                 <div className="flex flex-col items-center ">
                   <h5 className="w-[80px]">{t("products")}</h5>
-                  <p>{formator(countstate) || 0}</p> 
+                  <p>{formator(countstate) || 0}</p>
                 </div>
                 <div className="flex flex-col items-center ">
                   <h5 className="w-[100px]">{t("total_amount")}</h5>

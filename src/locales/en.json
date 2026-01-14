@@ -81,5 +81,6 @@
   "show_not": "not show on landing",
   "required": "Required field",
   "text": "fill the select",
-  "acc":"Acc and Ser"
+  "acc":"Acc and Ser",
+  "additional_expense": "Additional Expense"
 }

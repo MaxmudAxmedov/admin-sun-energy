@@ -75,7 +75,7 @@ export default function Employees() {
   return (
     <div>
       <div className="flex justify-between items-center py-5 px-7">
-        <Search url={handleSearch} />
+        <Search url={handleSearch} width={"400px"} />
 
         <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/employees/create"} >
 
