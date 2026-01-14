@@ -28,15 +28,14 @@ export default function ProductsTable() {
   const products = data?.data?.Data?.products || [];
   const [wiewProduct, setViewProduct] = useState({});
   const [productid, setproductid] = useState("");
-  const [editid, seteditid] = useState(null)
+  const [editid, seteditid] = useState(null);
 
-  
   const handleView = (row) => {
     console.log("View clicked:", row);
     setViewProduct(row);
     onOpen();
-    seteditid(row.id)
-    setproductid(row.id)
+    seteditid(row.id);
+    setproductid(row.id);
   };
 
   const handleDelete = (id) => {
@@ -81,7 +80,7 @@ export default function ProductsTable() {
       ),
     },
   ];
-  const nav = useNavigate()
+  const nav = useNavigate();
   const websiteProducts = products.filter((p) => p.show_on_landing === true);
   const adminProducts = products.filter((p) => !p.show_on_landing);
 
@@ -91,13 +90,14 @@ export default function ProductsTable() {
   return (
     <>
       <div className="flex justify-between items-center py-5 px-7">
-        <Search url={handleSearch} />
+        <Search url={handleSearch} width={"400px"} />
 
-        <Link className=" py-[7px] px-5 bg-button text-aside rounded-md " to={"/products/create"} >
-
+        <Link
+          className=" py-[7px] px-5 bg-button text-aside rounded-md "
+          to={"/products/create"}
+        >
           + Create
         </Link>
-
       </div>
       <CustomDrawer
         Delete={productid}
@@ -157,7 +157,7 @@ export default function ProductsTable() {
           style={{ borderLeft: "4px solid grey" }}
           className="text-active p-2 border-l-2"
         >
-          <p className="text-justify" >{wiewProduct.description}</p>
+          <p className="text-justify">{wiewProduct.description}</p>
         </div>
       </CustomDrawer>
       <div className="px-3">

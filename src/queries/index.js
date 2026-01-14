@@ -2,9 +2,10 @@ import { deleteEmployes, editEmployesMutation, employeeIDGet, employeePost, empl
 import { deleteMut, editMutate, postproductmutation, productGet, productid } from "../services/product";
 import { clientsBusinessGet, clientsBusinessIdGet, clientsCustomersGet, clientsCustomersIDGet, deketebussinmutation, deletecustumersMutation, editBussinesmutations, postbusinesMutation, postcostumerMutations, putcustumersmutation, tradesssquery } from "@/services/clients";
 import { contractsGet } from "@/services/contract";
-import { posttradesmutations, reportsGet, tradesReportsGet } from "@/services/reports";
+import { deletemutationtrades, posttradesmutations, reportsGet, tradesReportsGet } from "@/services/reports";
 import { category, categorydelete, categorypost, categoryput } from "@/services/category";
 import { ProductcategoryID } from "@/services/ProductcategoryID";
+import { getexpresQuery } from "@/services/express";
 
 // Reports page
 export function getReportsQuery(params) {
@@ -28,6 +29,11 @@ export const postTradesMutation = (data)=>{
   return posttradesmutations(data)
 }
 
+// trades delete 
+
+export const deletetradesmutation = (deletes) =>{
+  return deletemutationtrades(deletes)
+}
 
 
 
@@ -214,3 +220,10 @@ export function getContractsQuery(params) {
   };
 }
 
+///expres get 
+export const expresgetUseQuery = (params) =>{
+  return {  
+      queryKey:["expenses", params],
+      queryFn:async()=> getexpresQuery(params)
+  }
+}

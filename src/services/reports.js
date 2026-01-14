@@ -12,3 +12,8 @@ export const tradesReportsGet = (params) => {
 export const posttradesmutations = (data) =>{
     return request({method:"post", url:'trade', data})
 }
+
+// delete 
+export const deletemutationtrades = (deletes)=>{
+    return request({method:"delete", url:`trade/${deletes}`})
+}

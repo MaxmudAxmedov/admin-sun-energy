@@ -5,6 +5,7 @@ import {
   getClentBusinessTRADESQuery,
   getClientBusinessQuery,
   getClientCustomersQuery,
+  getContractsQuery,
 } from "@/queries";
 import { useQuery } from "@tanstack/react-query";
 import DataTable from "@/components/Table/DataTable";
@@ -24,6 +25,15 @@ export default function ClientsTable() {
     search: "",
     page: "1",
   });
+   const [p, setP] = useState({
+      client_id: "",
+      employee_id: "",
+      from_date: "",
+      to_date: "",
+      is_company: false,
+      limit: "200",
+      page: "1",
+    });
   const [isType, setIsType] = useState(false);
 
   useEffect(() => {
@@ -33,6 +43,14 @@ export default function ClientsTable() {
       localStorage.setItem("client_form_state", 2);
     }
   }, [isType]);
+  //contacts 
+  const { data:dddd, isLoading: load } = useQuery(getContractsQuery(p));
+    const contracts = useMemo(
+      () => dddd?.data?.Data?.client_products || [],
+      [dddd]
+    );
+    
+   
 
   const { data: business } = useQuery(getClientBusinessQuery(params));
   const { data: customers } = useQuery(getClientCustomersQuery(params));
@@ -134,7 +152,7 @@ export default function ClientsTable() {
   return (
     <div>
       <div className="flex justify-between items-center py-5 px-2">
-        <Search url={handleSearch} />
+        <Search url={handleSearch} width={"400px"} />
 
         <Link
           onClick={() => localStorage.setItem("client_form_state", 3)}
@@ -188,6 +206,7 @@ export default function ClientsTable() {
       </Tabs>
       <CustomDrawer
         Delete={clientId}
+        clientId={clientId}
         path={`/clients/edit/${ids}`}
         mutation={
           isType == false ? deletecustumerMutation : deletebussinessMutation
@@ -196,7 +215,7 @@ export default function ClientsTable() {
         keys={isType == false ? "client-customers" : "client-business"}
         title={t("info")}
         open={isOpen}
-        contacts={true}
+        contacts={contracts}
         edit={`/clients/edit/${ids}`}
         onOpenChange={(open) => {
           if (open !== isOpen) {

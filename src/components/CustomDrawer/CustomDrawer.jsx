@@ -11,11 +11,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { t } from "@/utils/i18n";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-
 
 export default function CustomDrawer({
   title = "Ma’lumot",
@@ -27,13 +26,14 @@ export default function CustomDrawer({
   lorem,
   side = "right",
   size = "md",
-  contacts = false,
+  contacts = [],
+  clientId = "",
   edit = null,
   Delete = "",
   path = "",
   id = "",
   mutation,
-  keys
+  keys,
 }) {
   const sizeClasses = {
     sm: "sm:max-w-[300px]",
@@ -41,7 +41,9 @@ export default function CustomDrawer({
     lg: "sm:max-w-[650px]",
     xl: "sm:max-w-[800px]",
   };
-  const queryClient = useQueryClient()
+  const nav = useNavigate();
+
+  const queryClient = useQueryClient();
   const [openPopoverId, setOpenPopoverId] = useState(null);
 
   const mut = useMutation({
@@ -51,14 +53,14 @@ export default function CustomDrawer({
       toast.success(t("delete success"));
       setOpenPopoverId(null);
       onOpenChange(false);
-      lorem(false)
-    }
-  })
+      lorem(false);
+    },
+  });
 
-  const [edits, setedits] = useState("")
+  const [edits, setedits] = useState("");
   useEffect(() => {
     setedits(edit);
-  }, [edit])
+  }, [edit]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -88,14 +90,13 @@ export default function CustomDrawer({
 
         {showFooter && (
           <DialogFooter className="p-3 border-t border-border flex justify-end gap-2">
-
-
-
             {Delete ? (
               <Popover
                 className="transition-all duration-300"
                 open={openPopoverId == Delete}
-                onOpenChange={(isOpen) => setOpenPopoverId(isOpen ? Delete : null)}
+                onOpenChange={(isOpen) =>
+                  setOpenPopoverId(isOpen ? Delete : null)
+                }
               >
                 <PopoverTrigger asChild>
                   <Button
@@ -120,7 +121,7 @@ export default function CustomDrawer({
                       className="transition-all cursor-pointer duration-300 bg-red text-[#fff] border-none hover:bg-redHover hover:rounded-[10px]"
                       onClick={() => {
                         if (!Delete) {
-                          console.error("DELETE ID topilmadi:", Delete)
+                          console.error("DELETE ID topilmadi:", Delete);
                           return;
                         }
                         mut.mutate(Delete);
@@ -132,17 +133,39 @@ export default function CustomDrawer({
                   </div>
                 </PopoverContent>
               </Popover>
-            ) : ""}
-            {contacts == true ? (<Button
-              variant="outline"
-              className=" border-none w-[50%] text-[#fff]  bg-button shadow-sm hover:shadow-lg transition-shadow duration-300 shadow-button"
-              size="sm"
-            >
-              contacts
-            </Button>) : ""}
-            {edit == edits ? (
+            ) : (
+              ""
+            )}
+            {contacts ? (
+              <div>
+                <button
+                  onClick={() => nav(`/contracts/edit/${clientId}`)}
+                  className="
+    w-[300px]
+    border-none
+    text-white
+    bg-button
+    shadow-button
+    hover:shadow-lg
+    transition-shadow
+    duration-300
+    text-center
+    rounded-md
+    py-2
+  "
+                >
+                  contacts
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
 
-              <Link className=" w-[50%] border-none text-[#fff] shadow-sm bg-icons hover:shadow-lg transition-shadow duration-300 shadow-icons decoration-none text-center rounded-md" to={path} >
+            {edit == edits ? (
+              <Link
+                className=" w-[50%] border-none text-[#fff] shadow-sm bg-icons hover:shadow-lg transition-shadow duration-300 shadow-icons decoration-none text-center rounded-md"
+                to={path}
+              >
                 <Button
                   className=" w-[50%] border-none text-[#fff] shadow-sm bg-icons hover:shadow-lg transition-shadow duration-300 shadow-icons decoration-none "
                   variant="outline"
@@ -151,10 +174,10 @@ export default function CustomDrawer({
                   {t("edid")}
                 </Button>
               </Link>
-            ) : ""}
+            ) : (
+              ""
+            )}
           </DialogFooter>
-
-
         )}
       </DialogContent>
     </Dialog>

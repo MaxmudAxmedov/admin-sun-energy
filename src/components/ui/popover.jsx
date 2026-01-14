@@ -8,11 +8,12 @@ export function Popover({ children, ...props }) {
   return <PopoverPrimitive.Root {...props}>{children}</PopoverPrimitive.Root>
 }
 
-export function PopoverTrigger({ children, ...props }) {
-  return <div>
-<PopoverPrimitive.Trigger {...props}>{children}</PopoverPrimitive.Trigger>
-  </div>
-}
+export const PopoverTrigger = React.forwardRef(({ children, ...props }, ref) => (
+  <PopoverPrimitive.Trigger ref={ref} {...props}>
+    {children}
+  </PopoverPrimitive.Trigger>
+))
+PopoverTrigger.displayName = PopoverPrimitive.Trigger.displayName
 
 export const PopoverContent = React.forwardRef(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
   <PopoverPrimitive.Portal>
