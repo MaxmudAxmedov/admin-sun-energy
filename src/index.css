@@ -66,10 +66,6 @@ body {
   overflow: scroll;
   overflow: hidden;
 }
-html {
-  overflow: hidden;
-}
-
 ul {
   list-style: none;
 }
