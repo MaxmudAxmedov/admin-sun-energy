@@ -36,9 +36,6 @@ export default function DateRangePicker({ value, onChange }) {
       >
         <FiCalendar className="text-xl" />
         <span className="text-sm">
-          {console.log(
-            value.startDate.toLocaleDateString().split("/").join(".")
-          )}
           {value?.startDate.toLocaleDateString().split("/").join(".")} -{" "}
           {value?.endDate.toLocaleDateString().split("/").join(".")}
         </span>
