@@ -32,7 +32,6 @@ export default function ContaractsCrud() {
   const kvtlist = useSelector((state) => state.Attractor.kvtlist);
   const [ollSum, setollSum] = React.useState();
   const cart = useSelector((state) => state.Attractor.productList);
-  
 
   React.useEffect(() => {
     const sum = kvtlist.OllkvtPrise;
@@ -57,7 +56,7 @@ export default function ContaractsCrud() {
   const { data: d } = useQuery(getProductQuery(params)); /// product categoriy
   const categories = useMemo(
     () => d?.data?.Data?.product_categories || [],
-    [d]
+    [d],
   );
 
   //// Products data
@@ -65,7 +64,7 @@ export default function ContaractsCrud() {
   const { data: Products } = useQuery(getProductsQuery(params));
   const product = useMemo(
     () => Products?.data?.Data?.products || [],
-    [Products]
+    [Products],
   );
 
   const [filteredProducts, setFilteredProducts] = React.useState([]);
@@ -158,6 +157,7 @@ export default function ContaractsCrud() {
       },
     });
   };
+  const [prevValue, setPrevValue] = React.useState("row.count");
   const columns = [
     {
       key: "index",
@@ -239,11 +239,24 @@ export default function ContaractsCrud() {
             >
               -
             </Button>
-
-            <div className="w-10 h-10 flex items-center justify-center border rounded-md text-black">
-              {row.count}
-            </div>
-
+            
+            {/* <input className="w-10 h-10 flex items-center justify-center border rounded-md text-black" placeholder={row.count}/>             */}
+            
+            <input 
+  className="w-10 h-10 flex items-center justify-center border rounded-md text-black" 
+  defaultValue={row.count}
+  onChange={(e) => {
+    const newValue = parseInt(e.target.value) || 0;
+    
+    if (newValue > prevValue) {
+      dispatch(increment(row));
+    } else if (newValue < prevValue) {
+      dispatch(decrement(row));
+    }
+    
+    setPrevValue(newValue);
+  }}
+/>
             <Button
               type="button"
               className={`w-10 h-10 bg-black text-white border-none ${
@@ -261,7 +274,7 @@ export default function ContaractsCrud() {
   ];
 
   return (
-    <div className="pl-35 max-w-[1200px] mt-4">
+    <div className="pl-35 max-w-[1400px] mt-4">
       <form onSubmit={handleSubmit(Submit)}>
         <div className="flex  items-center justify-between">
           <h2>
@@ -334,8 +347,8 @@ export default function ContaractsCrud() {
         <div>
           <div className="w-[1200px]">
             <div className="w-full flex items-center  gap-10 py-5  ">
-              <div className="min-w-[200px]">
-                <Search />
+              <div className="min-w-[400px]">
+                <Search width={"400px"} />
               </div>
               <label>
                 <select
@@ -346,7 +359,7 @@ export default function ContaractsCrud() {
                       setdataid(res);
                     },
                   })}
-                  className="w-[250px] h-11 rounded-xl
+                  className="w-[450px] h-11 rounded-xl
     border border-gray-300
     bg-white px-4 text-sm text-black
     shadow-sm transition-all duration-200
