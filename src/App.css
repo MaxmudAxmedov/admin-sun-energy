@@ -1,6 +1,7 @@
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-Medium.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-Medium.woff2") format("woff2"),
     url("Roboto-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
@@ -9,7 +10,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-LightItalic.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-LightItalic.woff2") format("woff2"),
     url("Roboto-LightItalic.woff") format("woff");
   font-weight: 300;
   font-style: italic;
@@ -18,7 +20,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-Italic.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-Italic.woff2") format("woff2"),
     url("Roboto-Italic.woff") format("woff");
   font-weight: normal;
   font-style: italic;
@@ -27,7 +30,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-Light.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-Light.woff2") format("woff2"),
     url("Roboto-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
@@ -36,7 +40,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-MediumItalic.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-MediumItalic.woff2") format("woff2"),
     url("Roboto-MediumItalic.woff") format("woff");
   font-weight: 500;
   font-style: italic;
@@ -45,7 +50,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-Black.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-Black.woff2") format("woff2"),
     url("Roboto-Black.woff") format("woff");
   font-weight: 900;
   font-style: normal;
@@ -54,7 +60,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-BlackItalic.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-BlackItalic.woff2") format("woff2"),
     url("Roboto-BlackItalic.woff") format("woff");
   font-weight: 900;
   font-style: italic;
@@ -63,7 +70,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-Bold.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-Bold.woff2") format("woff2"),
     url("Roboto-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
@@ -72,7 +80,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-BoldItalic.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-BoldItalic.woff2") format("woff2"),
     url("Roboto-BoldItalic.woff") format("woff");
   font-weight: bold;
   font-style: italic;
@@ -81,7 +90,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-Thin.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-Thin.woff2") format("woff2"),
     url("Roboto-Thin.woff") format("woff");
   font-weight: 100;
   font-style: normal;
@@ -90,7 +100,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-ThinItalic.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-ThinItalic.woff2") format("woff2"),
     url("Roboto-ThinItalic.woff") format("woff");
   font-weight: 100;
   font-style: italic;
@@ -99,7 +110,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("./fonts/Roboto-Regular.woff2") format("woff2"),
+  src:
+    url("./fonts/Roboto-Regular.woff2") format("woff2"),
     url("Roboto-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
@@ -123,7 +135,7 @@ body {
   font-family: "Roboto";
 }
 
-/* From Uiverse.io by gharsh11032000 */ 
+/* From Uiverse.io by gharsh11032000 */
 /* The switch - the box around the slider */
 .switch {
   font-size: 17px;
@@ -157,9 +169,9 @@ body {
   width: 1.4em;
   left: 0.2em;
   bottom: 0.2em;
-  background-color: white;
+  background-color: var(--active-text);
   border-radius: inherit;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .switch input:checked + .slider {
