@@ -45,7 +45,7 @@ export const route = [
         icon: "",
         element: lazy(() => import("@/page/Contracts/Contracts")),
         create: lazy(() => import("@/page/Contracts/ContaractsCrud")),
-        edit: lazy(() => import(`@/page/Contracts/ContaractsCrud`)),
+        edit: lazy(() => import("@/page/Contracts/ContaractsCrud")),
     },
     {
         title: "additional_expense",
