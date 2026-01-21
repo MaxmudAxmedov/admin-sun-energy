@@ -82,5 +82,6 @@
   "required": "Required field",
   "text": "fill the select",
   "acc":"Acc and Ser",
-  "additional_expense": "Additional Expense"
+  "additional_expense": "Additional Expense",
+  "add_Additional_expense": "Add Additional Expense"
 }

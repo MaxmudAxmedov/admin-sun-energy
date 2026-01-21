@@ -64,9 +64,8 @@
 
 body {
   overflow: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
 }
-
 ul {
   list-style: none;
 }

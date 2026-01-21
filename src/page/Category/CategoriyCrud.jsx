@@ -30,8 +30,6 @@ export default function CategoriyCrud() {
       mut.mutate({ id, ...data }, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["product-categories", id] });
-          console.log(data);
-
           reset();
           nav("/products_category");
           toast.success("Product category updated successfully")

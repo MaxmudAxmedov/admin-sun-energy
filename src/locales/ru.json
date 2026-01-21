@@ -82,5 +82,6 @@
     "required":"Обязательное поле",
     "text":"заполните выбор",
     "acc":"Acc и Ser",
-    "additional_expense":"Дополнительные расходы"
+    "additional_expense":"Дополнительные расходы",
+    "add_Additional_expense":"Добавить дополнительные расходы"
 }

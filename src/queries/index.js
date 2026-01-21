@@ -5,7 +5,7 @@ import { contractsGet } from "@/services/contract";
 import { deletemutationtrades, posttradesmutations, reportsGet, tradesReportsGet } from "@/services/reports";
 import { category, categorydelete, categorypost, categoryput } from "@/services/category";
 import { ProductcategoryID } from "@/services/ProductcategoryID";
-import { getexpresQuery } from "@/services/express";
+import { DeletetexpresMutation, getexpresQuery, postexpresMutation } from "@/services/express";
 
 // Reports page
 export function getReportsQuery(params) {
@@ -226,4 +226,10 @@ export const expresgetUseQuery = (params) =>{
       queryKey:["expenses", params],
       queryFn:async()=> getexpresQuery(params)
   }
+}
+export const postExpressMutation = async (params) =>{
+  return  postexpresMutation(params)
+}
+export const DeleteExpressMutation = async (params) =>{
+  return  DeletetexpresMutation(params)
 }

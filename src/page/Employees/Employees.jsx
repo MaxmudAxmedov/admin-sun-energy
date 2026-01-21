@@ -92,6 +92,7 @@ export default function Employees() {
         open={isOpen}
         path={`/employees/edit/${dataid}`}
         edit={`/employees/edit/${dataid}`}
+        contacts={null}
         onOpenChange={(open) => (open ? onOpen() : onClose())}
         onSave={() => {
           onClose();

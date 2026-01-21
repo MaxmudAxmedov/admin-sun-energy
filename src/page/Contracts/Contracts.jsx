@@ -14,11 +14,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { formator } from "@/schemas/formator";
 import { toast } from "react-toastify";
+import { LoaderIcon } from "lucide-react";
 
 export default function Contracts() {
   const nav = useNavigate();
 
-  const [deleteId, setDeleteId] = useState(null); // Bu yerda ID saqlaymiz
+  const [deleteId, setDeleteId] = useState(null);
 
   const [params, setParams] = useState({
     client_id: "",
@@ -36,6 +37,8 @@ export default function Contracts() {
     [data]
   );
 
+
+
   const client = useQueryClient();
   const mutate = useMutation({
     mutationFn: (deletes) => deletetradesmutation(deletes),
@@ -46,7 +49,7 @@ export default function Contracts() {
       onSuccess: () => {
         client.invalidateQueries(["trades-reports"]);
         toast.success("Muvaffaqiyatli o'chirildi");
-        setDeleteId(null); // Dialogni yopamiz
+        setDeleteId(null);
       },
       onError: (error) => {
         toast.error(error.message);
@@ -97,12 +100,11 @@ export default function Contracts() {
                   className="text-red text-[17px] hover:bg-shadows"
                   onClick={() => setDeleteId(row.id)}
                 >
-                  {t("delete")}
+                  {mutate.isPending ? "loading..." : t("delete")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Tasdiqlash modal - DropdownMenu tashqarisida */}
             {deleteId === row.id && (
               <div
                 className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
@@ -139,6 +141,11 @@ export default function Contracts() {
     [params.is_company, deleteId] // deleteId ni qo'shdik
   );
 
+    if(load){
+     return <div className="flex justify-center items-center h-screen"> 
+      <LoaderIcon className="animate-spin h-10 w-10 text-gray-500" />
+    </div>
+  }
   return (
     <div>
       <div className="flex justify-between items-center py-5 px-7">
