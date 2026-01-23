@@ -7,9 +7,9 @@ import DataTable from "@/components/Table/DataTable";
 import Search from "@/components/Search/search";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
-  getProductQuery,
-  getProductsQuery,
-  postTradesMutation,
+    getProductQuery,
+    getProductsQuery,
+    postTradesMutation,
 } from "@/queries";
 import { t } from "@/utils/i18n";
 import { formator } from "@/schemas/formator";
@@ -17,384 +17,411 @@ import defaultImg from "@/assets/img/optional-img.jpg";
 import { forceConvertDomain } from "@/lib/forceConvertDomain";
 import { Button } from "@/components/ui/button";
 import {
-  addProduct,
-  decrement,
-  increment,
-  kv,
+    addProduct,
+    decrement,
+    increment,
+    kv,
 } from "@/config/store/product-reduser/product-reduser";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function ContaractsCrud() {
-  const nav = useNavigate();
-  const [countstate, setcountstate] = React.useState(null);
-  const dispatch = useDispatch();
-  const kvtlist = useSelector((state) => state.Attractor.kvtlist);
-  const [ollSum, setollSum] = React.useState();
-  const cart = useSelector((state) => state.Attractor.productList);
+    const nav = useNavigate();
+    const [countstate, setcountstate] = React.useState(null);
+    const dispatch = useDispatch();
+    const kvtlist = useSelector((state) => state.Attractor.kvtlist);
+    const [ollSum, setollSum] = React.useState();
+    const cart = useSelector((state) => state.Attractor.productList);
 
-  React.useEffect(() => {
-    const sum = kvtlist.OllkvtPrise;
-    const res = countstate;
-    const result = sum + res;
-    setollSum(result);
-  }, [kvtlist, countstate]);
+    React.useEffect(() => {
+        const sum = kvtlist.OllkvtPrise;
+        const res = countstate;
+        const result = sum + res;
+        setollSum(result);
+    }, [kvtlist, countstate]);
 
-  const [dataid, setdataid] = React.useState("");
-  const {
-    handleSubmit,
-    register,
-    reset,
-    formState: { errors },
-  } = useForm();
+    const [dataid, setdataid] = React.useState("");
+    const {
+        handleSubmit,
+        register,
+        reset,
+        formState: { errors },
+    } = useForm();
 
-  const [params, setParams] = React.useState({
-    limit: "200",
-    page: "1",
-    search: "",
-  });
-  const { data: d } = useQuery(getProductQuery(params)); /// product categoriy
-  const categories = useMemo(
-    () => d?.data?.Data?.product_categories || [],
-    [d],
-  );
-
-  //// Products data
-
-  const { data: Products } = useQuery(getProductsQuery(params));
-  const product = useMemo(
-    () => Products?.data?.Data?.products || [],
-    [Products],
-  );
-
-  const [filteredProducts, setFilteredProducts] = React.useState([]);
-
-  React.useEffect(() => {
-    if (!dataid) {
-      setFilteredProducts([]);
-      return;
-    }
-
-    const results =
-      product?.filter((item) => item.category_id === dataid) || [];
-    setFilteredProducts(results);
-  }, [dataid, product]);
-
-  const tableData = useMemo(() => {
-    return filteredProducts.map((p) => {
-      const cartItem = cart.find((c) => c.id === p.id);
-      return {
-        ...p,
-        count: cartItem?.count || 0,
-        total_amount: cartItem?.total_amount || 0,
-      };
+    const [params, setParams] = React.useState({
+        limit: "200",
+        page: "1",
+        search: "",
     });
-  }, [filteredProducts, cart]);
+    const { data: d } = useQuery(getProductQuery(params)); /// product categoriy
+    const categories = useMemo(
+        () => d?.data?.Data?.product_categories || [],
+        [d]
+    );
 
-  const totalCartAmount = useMemo(() => {
-    return cart.reduce((sum, item) => sum + (item.total_amount || 0), 0);
-  }, [cart]);
+    //// Products data
 
-  React.useEffect(() => {
-    setcountstate(totalCartAmount);
-  }, [totalCartAmount]);
+    const { data: Products } = useQuery(getProductsQuery(params));
+    const product = useMemo(
+        () => Products?.data?.Data?.products || [],
+        [Products]
+    );
 
-  const Mutation = useMutation({
-    mutationFn: (data) => postTradesMutation(data),
-  });
+    const [filteredProducts, setFilteredProducts] = React.useState([]);
 
-  const [checked, setcheked] = React.useState(false);
-
-  const Submit = (data) => {
-    const validCartItems = cart.filter((item) => item.count > 0);
-    if (validCartItems.length === 0) {
-      toast.error("Iltimos, mahsulot tanlang!");
-      return;
-    }
-
-    if (!data.client) {
-      toast.error("Mijozni tanlang!");
-      return;
-    }
-    if (!data.employee) {
-      toast.error("Xodimni tanlang!");
-      return;
-    }
-    if (!data.attractor) {
-      toast.error("Jalb qiluvchini tanlang!");
-      return;
-    }
-
-    const order_items = validCartItems.map((item) => ({
-      price: Number(item.price),
-      product_id: String(item.id),
-      quantity: Number(item.count || 0),
-      selling_price: Number(item.selling_price || 0),
-      total_price: Number(item.total_amount || 0),
-    }));
-
-    const payload = {
-      accessory_cost: Number(kvtlist.acc || 0),
-      client_id: String(data.client),
-      do_calculate: checked,
-      employee_id: String(data.employee),
-      referred_by: String(data.attractor),
-      is_company: false,
-      kvat: Number(data.kvat || 0),
-      service_cost: Number(kvtlist.cost || 0),
-      total_price: Number(ollSum || 0),
-      order_items,
-    };
-
-    Mutation.mutate(payload, {
-      onSuccess: () => {
-        toast.success("ok create");
-        reset();
-        nav("/Contracts");
-      },
-      onError: (error) => {
-        toast.error(error.message || "Error");
-      },
-    });
-  };
-  const [prevValue, setPrevValue] = React.useState("row.count");
-  const columns = [
-    {
-      key: "index",
-      label: "№",
-      render: (_, __, index) => index + 1,
-    },
-    {
-      key: "photo",
-      label: "Photo",
-      render: (value) => (
-        <img
-          src={forceConvertDomain(value) || defaultImg || "/no-image.png"}
-          alt="product"
-          className="w-16 h-16 object-cover rounded"
-        />
-      ),
-    },
-    { key: "name", label: t("product_name") },
-    {
-      key: "description",
-      label: t("description"),
-      render: (value) => {
-        return <div className="w-[200px] line-clamp-3">{value}</div>;
-      },
-    },
-    {
-      key: "count_of_product",
-      label: t("Count_of_product"),
-      render: (_value, row) => {
-        const available = row.count_of_product ?? 0;
-        return (
-          <div className="flex items-center gap-2">
-            <span className="font-medium">{row.count}</span>
-            <span className="text-sm text-gray-500">/{available}</span>
-          </div>
-        );
-      },
-    },
-    {
-      key: "selling_price",
-      label: t("selling_price"),
-    },
-    {
-      key: "total_amount",
-      label: t("total_amount"),
-      render: (_value, row) => {
-        return row.total_amount || "-";
-      },
-    },
-
-    {
-      key: "action",
-      label: t("Qo‘shish"),
-      render: (_value, row) => {
-        const available = row.count_of_product ?? 0;
-        const isOut = available <= 0;
-        const reachedMax = row.count >= available;
-
-        if (!row.total_amount || row.total_amount === 0) {
-          return (
-            <Button
-              type="button"
-              className={`w-[140px] h-10 rounded-xl ${
-                isOut ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              onClick={() => dispatch(addProduct(row))}
-              disabled={isOut}
-            >
-              {isOut ? t("out_of_stock") || "Out" : "Add"}
-            </Button>
-          );
+    React.useEffect(() => {
+        if (!dataid) {
+            setFilteredProducts([]);
+            return;
         }
-        return (
-          <div className="flex items-center gap-3">
-            <Button
-              type="button"
-              className="w-10 h-10 bg-red text-[#fff] border-none"
-              onClick={() => dispatch(decrement(row))}
-            >
-              -
-            </Button>
-                       
-            {/* <input className="w-10 h-10 flex items-center justify-center border rounded-md text-black" placeholder={row.count}/>             */}
-            
-            <input 
-  className="w-10 h-10 flex items-center justify-center border rounded-md text-black" 
-  defaultValue={row.count}
-  onChange={(e) => {
-    const newValue = parseInt(e.target.value) || 0;
-    
-    if (newValue > prevValue) {
-      dispatch(increment(row));
-    } else if (newValue < prevValue) {
-      dispatch(decrement(row));
-    }
-    
-    setPrevValue(newValue);
-  }}
-/>
-            <Button
-              type="button"
-              className={`w-10 h-10 bg-black text-white border-none ${
-                reachedMax ? "opacity-50 cursor-not-allowed bg-gray-400" : ""
-              }`}
-              onClick={() => dispatch(increment(row))}
-              disabled={reachedMax}
-            >
-              +
-            </Button>
-          </div>
-        );
-      },
-    },
-  ];
 
-  return (
-    <div className="pl-35 max-w-[1400px] mt-4">
-      <form onSubmit={handleSubmit(Submit)}>
-        <div className="flex  items-center justify-between">
-          <h2>
-            {t("Contracts")} <br />
-          </h2>
-          <div className="flex gap-4">
-            <Link
-              to="/Contracts"
-              className="px-6 py-2.5 text-[#fff] font-medium border border-red rounded-lg  bg-red"
-            >
-              Back
-            </Link>
+        const results =
+            product?.filter((item) => item.category_id === dataid) || [];
+        setFilteredProducts(results);
+    }, [dataid, product]);
 
-            <button
-              type="submit"
-              className="px-6 cursor-pointer py-2.5 bg-black border-none text-white font-medium rounded-lg  shadow-sm"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <ContractSelect register={register} />
-          <div className="mt-7">
-            <label className="switch">
-              <input type="checkbox" onClick={() => setcheked((p) => !p)} />
-              <span className="slider"></span>
-            </label>
-          </div>
-        </div>
-        <div className="max-w-[800px] flex items-center gap-10 my-5">
-          <Input
-            type={"number"}
-            {...register("kvat", {
-              onChange: (e) => {
-                const val = e.target.value;
-                dispatch(kv({ kvt: val }));
-              },
-            })}
-            className="w-[250px]"
-            label={"kvt"}
-          />
+    const tableData = useMemo(() => {
+        return filteredProducts.map((p) => {
+            const cartItem = cart.find((c) => c.id === p.id);
+            return {
+                ...p,
+                count: cartItem?.count || 0,
+                total_amount: cartItem?.total_amount || 0,
+            };
+        });
+    }, [filteredProducts, cart]);
 
-          <Input
-            type={"number"}
-            {...register("accessory_cost", {
-              onChange: (e) => {
-                const val = e.target.value;
-                dispatch(kv({ acc: val }));
-              },
-            })}
-            className="w-[250px]"
-            label={"Accessory cost"}
-            value={kvtlist.acc}
-          />
+    const totalCartAmount = useMemo(() => {
+        return cart.reduce((sum, item) => sum + (item.total_amount || 0), 0);
+    }, [cart]);
 
-          <Input
-            type={"number"}
-            {...register("service_cost", {
-              onChange: (e) => {
-                const val = e.target.value;
-                dispatch(kv({ cost: val }));
-              },
-            })}
-            className="w-[250px]"
-            label={"Service cost"}
-            value={kvtlist.cost}
-          />
-        </div>
-        <div>
-          <div className="w-[1200px]">
-            <div className="w-full flex items-center  gap-10 py-5  ">
-              <div className="min-w-[400px]">
-                <Search width={"400px"} />
-              </div>
-              <label>
-                <select
-                  defaultValue=""
-                  {...register("name", {
-                    onChange: (e) => {
-                      const res = e.target.value;
-                      setdataid(res);
-                    },
-                  })}
-                  className="w-[450px] h-11 rounded-xl
+    React.useEffect(() => {
+        setcountstate(totalCartAmount);
+    }, [totalCartAmount]);
+
+    const Mutation = useMutation({
+        mutationFn: (data) => postTradesMutation(data),
+    });
+
+    const [checked, setcheked] = React.useState(false);
+
+    const Submit = (data) => {
+        const validCartItems = cart.filter((item) => item.count > 0);
+        if (validCartItems.length === 0) {
+            toast.error("Iltimos, mahsulot tanlang!");
+            return;
+        }
+
+        if (!data.client) {
+            toast.error("Mijozni tanlang!");
+            return;
+        }
+        if (!data.employee) {
+            toast.error("Xodimni tanlang!");
+            return;
+        }
+        if (!data.attractor) {
+            toast.error("Jalb qiluvchini tanlang!");
+            return;
+        }
+
+        const order_items = validCartItems.map((item) => ({
+            price: Number(item.price),
+            product_id: String(item.id),
+            quantity: Number(item.count || 0),
+            selling_price: Number(item.selling_price || 0),
+            total_price: Number(item.total_amount || 0),
+        }));
+
+        const payload = {
+            accessory_cost: Number(kvtlist.acc || 0),
+            client_id: String(data.client),
+            do_calculate: checked,
+            employee_id: String(data.employee),
+            referred_by: String(data.attractor),
+            is_company: false,
+            kvat: Number(data.kvat || 0),
+            service_cost: Number(kvtlist.cost || 0),
+            total_price: Number(ollSum || 0),
+            order_items,
+        };
+
+        Mutation.mutate(payload, {
+            onSuccess: () => {
+                toast.success("ok create");
+                reset();
+                nav("/Contracts");
+            },
+            onError: (error) => {
+                toast.error(error.message || "Error");
+            },
+        });
+    };
+    const [prevValue, setPrevValue] = React.useState("row.count");
+    const columns = [
+        {
+            key: "index",
+            label: "№",
+            render: (_, __, index) => index + 1,
+        },
+        {
+            key: "photo",
+            label: "Photo",
+            render: (value) => (
+                <img
+                    src={
+                        forceConvertDomain(value) ||
+                        defaultImg ||
+                        "/no-image.png"
+                    }
+                    alt="product"
+                    className="w-16 h-16 object-cover rounded"
+                />
+            ),
+        },
+        { key: "name", label: t("product_name") },
+        {
+            key: "description",
+            label: t("description"),
+            render: (value) => {
+                return <div className="w-[200px] line-clamp-3">{value}</div>;
+            },
+        },
+        {
+            key: "count_of_product",
+            label: t("Count_of_product"),
+            render: (_value, row) => {
+                const available = row.count_of_product ?? 0;
+                return (
+                    <div className="flex items-center gap-2">
+                        <span className="font-medium">{row.count}</span>
+                        <span className="text-sm text-gray-500">
+                            /{available}
+                        </span>
+                    </div>
+                );
+            },
+        },
+        {
+            key: "selling_price",
+            label: t("selling_price"),
+        },
+        {
+            key: "total_amount",
+            label: t("total_amount"),
+            render: (_value, row) => {
+                return row.total_amount || "-";
+            },
+        },
+
+        {
+            key: "action",
+            label: t("Qo‘shish"),
+            render: (_value, row) => {
+                const available = row.count_of_product ?? 0;
+                const isOut = available <= 0;
+                const reachedMax = row.count >= available;
+
+                if (!row.total_amount || row.total_amount === 0) {
+                    return (
+                        <Button
+                            type="button"
+                            className={`w-[140px] h-10 rounded-xl ${
+                                isOut ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
+                            onClick={() => dispatch(addProduct(row))}
+                            disabled={isOut}
+                        >
+                            {isOut ? t("out_of_stock") || "Out" : "Add"}
+                        </Button>
+                    );
+                }
+                return (
+                    <div className="flex items-center gap-3">
+                        <Button
+                            type="button"
+                            className="w-10 h-10 bg-red text-[#fff] border-none"
+                            onClick={() => dispatch(decrement(row))}
+                        >
+                            -
+                        </Button>
+
+                        <input
+                            type="number"
+                            min="1"
+                            className="w-16 h-10 text-center border-2 border-gray-300 rounded-lg text-black font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 hover:border-gray-400"
+                            value={row.count}
+                            onChange={(e) => {
+                                const value = e.target.value;
+
+                                if (value === "" || parseInt(value) <= 0) {
+                                    dispatch(decrement(row));
+                                    return;
+                                }
+
+                                const newValue = parseInt(value);
+                                const diff = newValue - row.count;
+
+                                if (diff > 0) {
+                                    for (let i = 0; i < diff; i++) {
+                                        dispatch(increment(row));
+                                    }
+                                } else if (diff < 0) {
+                                    for (let i = 0; i < Math.abs(diff); i++) {
+                                        dispatch(decrement(row));
+                                    }
+                                }
+                            }}
+                        />
+                        <Button
+                            type="button"
+                            className={`w-10 h-10 bg-black text-white border-none ${
+                                reachedMax
+                                    ? "opacity-50 cursor-not-allowed bg-gray-400"
+                                    : ""
+                            }`}
+                            onClick={() => dispatch(increment(row))}
+                            disabled={reachedMax}
+                        >
+                            +
+                        </Button>
+                    </div>
+                );
+            },
+        },
+    ];
+
+    return (
+        <div className="pl-35 max-w-[1400px] mt-4">
+            <form onSubmit={handleSubmit(Submit)}>
+                <div className="flex  items-center justify-between">
+                    <h2>
+                        {t("Contracts")} <br />
+                    </h2>
+                    <div className="flex gap-4">
+                        <Link
+                            to="/Contracts"
+                            className="px-6 py-2.5 text-[#fff] font-medium border border-red rounded-lg  bg-red"
+                        >
+                            Back
+                        </Link>
+
+                        <button
+                            type="submit"
+                            className="px-6 cursor-pointer py-2.5 bg-black border-none text-white font-medium rounded-lg  shadow-sm"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </div>
+                <div className="flex gap-2">
+                    <ContractSelect register={register} />
+                    <div className="mt-7">
+                        <label className="switch">
+                            <input
+                                type="checkbox"
+                                onClick={() => setcheked((p) => !p)}
+                            />
+                            <span className="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div className="max-w-[800px] flex items-center gap-10 my-5">
+                    <Input
+                        type={"number"}
+                        {...register("kvat", {
+                            onChange: (e) => {
+                                const val = e.target.value;
+                                dispatch(kv({ kvt: val }));
+                            },
+                        })}
+                        className="w-[250px]"
+                        label={"kvt"}
+                    />
+
+                    <Input
+                        type={"number"}
+                        {...register("accessory_cost", {
+                            onChange: (e) => {
+                                const val = e.target.value;
+                                dispatch(kv({ acc: val }));
+                            },
+                        })}
+                        className="w-[250px]"
+                        label={"Accessory cost"}
+                        value={kvtlist.acc}
+                    />
+
+                    <Input
+                        type={"number"}
+                        {...register("service_cost", {
+                            onChange: (e) => {
+                                const val = e.target.value;
+                                dispatch(kv({ cost: val }));
+                            },
+                        })}
+                        className="w-[250px]"
+                        label={"Service cost"}
+                        value={kvtlist.cost}
+                    />
+                </div>
+                <div>
+                    <div className="w-[1200px]">
+                        <div className="w-full flex items-center  gap-10 py-5  ">
+                            <div className="min-w-[400px]">
+                                <Search width={"400px"} />
+                            </div>
+                            <label>
+                                <select
+                                    defaultValue=""
+                                    {...register("name", {
+                                        onChange: (e) => {
+                                            const res = e.target.value;
+                                            setdataid(res);
+                                        },
+                                    })}
+                                    className="w-[450px] h-11 rounded-xl
     border border-gray-300
     bg-white px-4 text-sm text-black
     shadow-sm transition-all duration-200
     focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                >
-                  <option value="" disabled hidden>
-                    Tanlang
-                  </option>
+                                >
+                                    <option value="" disabled hidden>
+                                        Tanlang
+                                    </option>
 
-                  {categories.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <div className="felx flex items-center gap-[30px] ">
-                <div className="flex flex-col  items-center ">
-                  <h5 className="pl-2 w-[80px]">{t("acc")}</h5>
-                  <p>{formator(kvtlist.OllkvtPrise)}</p>
+                                    {categories.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {item.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </label>
+                            <div className="felx flex items-center gap-[30px] ">
+                                <div className="flex flex-col  items-center ">
+                                    <h5 className="pl-2 w-[80px]">
+                                        {t("acc")}
+                                    </h5>
+                                    <p>{formator(kvtlist.OllkvtPrise)}</p>
+                                </div>
+                                <div className="flex flex-col items-center ">
+                                    <h5 className="w-[80px]">
+                                        {t("products")}
+                                    </h5>
+                                    <p>{formator(countstate) || 0}</p>
+                                </div>
+                                <div className="flex flex-col items-center ">
+                                    <h5 className="w-[100px]">
+                                        {t("total_amount")}
+                                    </h5>
+                                    <p>{formator(ollSum) || 0}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <DataTable columns={columns} data={tableData} />
                 </div>
-                <div className="flex flex-col items-center ">
-                  <h5 className="w-[80px]">{t("products")}</h5>
-                  <p>{formator(countstate) || 0}</p>
-                </div>
-                <div className="flex flex-col items-center ">
-                  <h5 className="w-[100px]">{t("total_amount")}</h5>
-                  <p>{formator(ollSum) || 0}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <DataTable columns={columns} data={tableData} />
+            </form>
         </div>
-      </form>
-    </div>
-  );
+    );
 }
