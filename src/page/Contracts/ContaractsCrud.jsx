@@ -239,24 +239,33 @@ export default function ContaractsCrud() {
             >
               -
             </Button>
-                       
-            {/* <input className="w-10 h-10 flex items-center justify-center border rounded-md text-black" placeholder={row.count}/>             */}
-            
-            <input 
-  className="w-10 h-10 flex items-center justify-center border rounded-md text-black" 
-  defaultValue={row.count}
-  onChange={(e) => {
-    const newValue = parseInt(e.target.value) || 0;
-    
-    if (newValue > prevValue) {
-      dispatch(increment(row));
-    } else if (newValue < prevValue) {
-      dispatch(decrement(row));
-    }
-    
-    setPrevValue(newValue);
-  }}
-/>
+            <input
+              type="number"
+              min="1"
+              className="w-16 h-10 text-center border-2 border-gray-300 rounded-lg text-black font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 hover:border-gray-400"
+              value={row.count}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                if (value === "" || parseInt(value) <= 0) {
+                  dispatch(decrement(row));
+                  return;
+                }
+
+                const newValue = parseInt(value);
+                const diff = newValue - row.count;
+
+                if (diff > 0) {
+                  for (let i = 0; i < diff; i++) {
+                    dispatch(increment(row));
+                  }
+                } else if (diff < 0) {
+                  for (let i = 0; i < Math.abs(diff); i++) {
+                    dispatch(decrement(row));
+                  }
+                }
+              }}
+            />
             <Button
               type="button"
               className={`w-10 h-10 bg-black text-white border-none ${
